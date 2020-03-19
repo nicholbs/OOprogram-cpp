@@ -5,4 +5,4 @@ Medlemmer: Nicholas Bodvin Sellevåg,  Oddbjørn S. Borge-Jensen og Odd Bliksås
 
 Navn: Nicholas
 navn: Odd Hald bliksås tlf: 45247790    e-post: oddhb@stud.ntnu.no  e-post: odd.hald.bliksas@outlook.com
-navn: OddBjørn
+navn: Oddbjørn Borge-Jensen - 48067227 - oddbjorn.sb@stud.ntnu.no - oddbjorn.sb@gmail.com
