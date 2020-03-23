@@ -1,3 +1,5 @@
+#ifndef Kunde_H
+#define Kunde_H
 #pragma once
 
 #include <vector>
@@ -14,4 +16,6 @@ class Kunde
 	boligtype boligType;
 	vector<int> soner;
 };
+
+#endif
 

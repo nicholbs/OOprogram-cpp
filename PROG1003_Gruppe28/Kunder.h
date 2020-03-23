@@ -1,3 +1,6 @@
+#ifndef Kunder_H
+#define Kunder_H
+
 #pragma once
 
 #include <list>
@@ -11,3 +14,4 @@ class Kunder
 	list<Kunde*> kunder;
 };
 
+#endif
