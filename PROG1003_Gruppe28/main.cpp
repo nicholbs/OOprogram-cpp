@@ -76,11 +76,12 @@ void menyKunde() {
 
 void menySone() {
 	char kommando2;
+	int snr;
+	
 	cin >> kommando2;
-
 	switch (toupper(kommando2)) {
 	case 'N':
-		int snr; cin >> snr;
+		cin >> snr;
 		gSoner.nySone(snr);
 		break;
 	case '1':
