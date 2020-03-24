@@ -10,8 +10,13 @@ class Kunde;
 
 class Kunder
 {
-	int sisteNr;
-	list<Kunde*> kunder;
+    private:
+        int sisteNr;
+        list<Kunde*> kunder;
+    public:
+        Kunder();
+        void nyKunde();
+        void kundeSkrivData();
 };
 
 #endif
