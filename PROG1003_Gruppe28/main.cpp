@@ -99,15 +99,17 @@ void menySone() {
 
 void menyOppdrag() {
 	char kommando2;
+	int nr;
 	cin >> kommando2;
 
 	switch (toupper(kommando2)) {
 	case 'N':
-		int snr; cin >> snr;
-		gSoner.nyttOppdrag(snr);
+		cin >> nr;
+		gSoner.nyttOppdrag(nr);
 		break;
 	case '1':
-		//Alt om oppdrager skrives ut
+		cin >> nr;
+		gSoner.skrivOppdrag(nr);
 		break;
 	case 'S':
 		//Slett oppdrag

@@ -27,6 +27,6 @@ Bolig* Sone::finnOppdrag(int onr) {
 	for (int i = 0; i < boligerTilSalgs.size(); i++) {
 		if (boligerTilSalgs[i]->getID() == onr)
 			return boligerTilSalgs[i];
-		return nullptr;
 	}
+	return nullptr;
 }

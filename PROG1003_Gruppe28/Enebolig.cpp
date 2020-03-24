@@ -12,6 +12,8 @@ Enebolig::Enebolig(int id) : Enebolig::Bolig(id) {
 		festetomt = true;
 	else
 		festetomt = false;
+
+	boligType = boligtype::Enebolig;
 }
 Enebolig::~Enebolig() {
 	cout << "Enebolig destruert" << endl;
