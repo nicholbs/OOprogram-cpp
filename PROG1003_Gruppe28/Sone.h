@@ -1,9 +1,9 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "Bolig.h"
 using namespace std;
 
-class Bolig;
 class Sone
 {
 	int ID;

@@ -5,18 +5,17 @@ using namespace std;
 
 class Bolig
 {
-	//int ID, dato, byggeaar, bruttoareal, antallSoverom, pris;
-	int ID;
-	//string navnSaksbehandler, navnEier, gateadresse, postadresse, beskrivelse;
-	string navnEier;
+protected:
 	boligtype boligType;
 
+private:
+	int ID, dato, byggeaar, bruttoareal, antallSoverom, pris;
+	string navnSaksbehandler, navnEier, gateadresse, postadresse, beskrivelse;
+	
 public:
 	Bolig(int id);
-	Bolig(int id, boligtype bt);
 	~Bolig();
 	int getID();
-	void lesData();
 	void skrivData();
 };
 
