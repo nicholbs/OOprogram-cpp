@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <locale> //IS blank
 using namespace std;
 
 extern Soner gSoner; //Legger til Gsonr for å kunne utføre sjekk og mappinger
@@ -20,6 +21,7 @@ Kunde::Kunde(int nr) {
     char kommando;
     int soneInnlest; //Bruker for a lese inn en sone.
     //Leser inn data fra bruker
+
     cout <<"\nNavn: ";
     getline(cin,navn);
     cout <<"\nGate: ";
@@ -55,6 +57,20 @@ Kunde::Kunde(int nr) {
 
     //Sorterer intreserte soner i stigende rekkefolge
     sort(kundeSoner.begin(),kundeSoner.end());
+
+}
+/**
+*Denne funksjonen endrer pa en kundes onsket sone data
+*
+*@see Kunde::kundeSkrivData(..)
+**/
+void Kunde::endreData(){
+    char kommando;
+        //Skriver ut melding til bruker
+        cout <<"\nTast L for a legge til soner"
+             <<"\nTast F for a fjerne soner"
+             <<"\nTast Q for a avbryte";
+    //IMPLEMENTER
 
 }
 

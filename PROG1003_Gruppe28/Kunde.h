@@ -22,6 +22,7 @@ class Kunde
 	public:
 		Kunde(int nr);
 		int kundeIdRetur();
+		void endreData();
 		void skrivData();
 };
 
