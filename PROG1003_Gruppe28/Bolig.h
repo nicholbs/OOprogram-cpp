@@ -6,7 +6,7 @@ enum boligtype{Leilighet, Enebolig};
 
 class Bolig
 {
-	int ID, dato, byggeår, bruttoareal, antallSoverom, pris;
+	int ID, dato, byggeaar, bruttoareal, antallSoverom, pris;
 	string navnSaksbehandler, navnEier, gateadresse, postadresse, beskrivelse;
 	boligtype boligType;
 };
