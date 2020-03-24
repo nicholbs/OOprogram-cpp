@@ -1,8 +1,7 @@
 #pragma once
 #include <string>
+#include "boligtype.h"
 using namespace std;
-
-enum class boligtype{Leilighet, Enebolig};
 
 class Bolig
 {
