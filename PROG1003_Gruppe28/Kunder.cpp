@@ -31,7 +31,9 @@ void Kunder::nyKunde() {
 *@see Kunde::skrivData(..)
 **/
 void Kunder::kundeSAlleSkrivData(){
-
+    for(const auto & liste :kundeListe) {
+        liste -> skrivData();
+    }
 }
 
 /**
