@@ -11,6 +11,7 @@ class Kunde;
 class Kunder
 {
     private:
+        const int MAXPERSONER = 10 ;
         int sisteNr;
         list<Kunde*> kundeListe;
     public:

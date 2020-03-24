@@ -31,8 +31,9 @@ void Kunder::nyKunde() {
 *@see Kunde::skrivData(..)
 **/
 void Kunder::kundeSAlleSkrivData(){
+    //Skriver ut alle kunder ifra listen
     for(const auto & liste :kundeListe) {
-        liste -> skrivData();
+        liste -> skrivData(); //Kaller pa kunde lesdata
     }
 }
 

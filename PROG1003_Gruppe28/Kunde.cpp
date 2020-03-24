@@ -12,6 +12,8 @@ using namespace std;
 
 Kunde::Kunde(int nr) {
     ID = nr; //Setter medsent nr til ID
+    char kommando;
+    int soneInnlest; //Bruker for a lese inn en sone.
     //Leser inn data fra bruker
     cout <<"\nNavn: ";
     getline(cin,navn);
@@ -24,6 +26,15 @@ Kunde::Kunde(int nr) {
     //Sikrer innlesning av tlfnr
     telefon = lesInt("\nTelefonnummer:",0,99999999);
     //IMPLEMENTERES ENUM OG VECTORINNLESNING
+    cout <<"\nRegistrer sone J trykk Q for avslutt";
+    kommando = lesChar("");
+    while(kommando !='Q') {
+        cout <<"\nSkriv inn sonenr: ";
+        cin >> soneInnlest;
+        kommando = lesChar("\nRegistrer sone J trykk Q for avslutt");
+
+    }
+
 
 }
 
