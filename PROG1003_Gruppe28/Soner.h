@@ -15,5 +15,5 @@ public:
 	void nySone(int snr);
 	void nyttOppdrag(int snr);
 	bool finnesSone(int snr);
-	const Bolig& finnOppdrag(int onr);
+	const Bolig* finnOppdrag(int onr);
 };

@@ -10,8 +10,7 @@ Sone::Sone(int id) {
 	ID = id;
 }
 
-void Sone::nyttOppdrag(int onr)
-{
+void Sone::nyttOppdrag(int onr){
 	cout << "Leilighet/enebolig [L/E]: ";
 	char valg; cin >> valg;
 
@@ -22,4 +21,12 @@ void Sone::nyttOppdrag(int onr)
 		p = new Enebolig(onr);
 
 	boligerTilSalgs.push_back(p);
+}
+
+Bolig* Sone::finnOppdrag(int onr) {
+	for (int i = 0; i < boligerTilSalgs.size(); i++) {
+		if (boligerTilSalgs[i]->getID() == onr)
+			return boligerTilSalgs[i];
+		return nullptr;
+	}
 }

@@ -20,6 +20,13 @@ bool Soner::finnesSone(int snr) {
 	return (soneMap.find(snr) != soneMap.end());
 }
 
-const Bolig& Soner::finnOppdrag(int onr) {
-	//TODO
+const Bolig* Soner::finnOppdrag(int onr) {
+	Bolig* bp = nullptr;
+	for (const auto& tPair : soneMap) {
+		bp = tPair.second->finnOppdrag(onr);
+		if (bp != nullptr)
+			return bp;
+	}
+	cout << "Fant ikke oppdraget.\n\n";
+	return bp;
 }

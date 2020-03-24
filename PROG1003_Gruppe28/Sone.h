@@ -13,5 +13,6 @@ class Sone
 public:
 	Sone(int id);
 	void nyttOppdrag(int onr);
+	Bolig* finnOppdrag(int onr);
 };
 
