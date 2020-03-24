@@ -5,6 +5,7 @@
 #include "Soner.h"
 #include "Kunder.h"
 #include <iomanip>
+#include "LesData3.h"
 
 using namespace std;
 
@@ -68,7 +69,7 @@ void kundeMeny() {
 	cout << setw(5) << "(A)" << setw(30) << "Skriv info om alle kunder" << endl;
 	cout << setw(5) << "(E)" << setw(30) << "Endre info om kunde" << endl;
 	cout << setw(5) << "(S)" << setw(30) << "Slett kunde" << endl;
-	cout << setw(5) << "(O)" << setw(30) << "Skriv all bolig data" << endl;
+	cout << setw(5) << "(O)" << setw(30) << "Skriver all bolig data" << endl;
 	cout << endl;
 
 }
@@ -109,9 +110,19 @@ void menyKunde() {
 		break;
 	
 	case 'O':
+		{
+		int kundeNr;
+		cin >> kundeNr;	//denne går til helvette om bruker taster bokstav og ikke tall
+		
+
 		//Skriv all data om alle boliger i alle kundens interessesoner til FIL
 		//Filnavn: K[kundenr].DTA
-		cout << setw(35) << "Skriv all bolig data" << endl;
+		Kunder * kunderPeker = new Kunder;
+		/////////NB NB! Trenger funksjon for å sjekke at det finnes kunde med kundeNr
+
+		
+		cout << setw(35) << "Skriver all bolig data" << endl;
+		}
 		break;
 	
 	default:
