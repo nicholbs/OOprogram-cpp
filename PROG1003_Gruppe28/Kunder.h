@@ -12,7 +12,7 @@ class Kunder
 {
     private:
         int sisteNr;
-        list<Kunde*> kunder;
+        list<Kunde*> kundeListe;
     public:
         Kunder();
         void nyKunde();
