@@ -104,7 +104,7 @@ void menyOppdrag() {
 	switch (toupper(kommando2)) {
 	case 'N':
 		int snr; cin >> snr;
-		gSoner.nyBolig(snr);
+		gSoner.nyttOppdrag(snr);
 		break;
 	case '1':
 		//Alt om oppdrager skrives ut

@@ -16,6 +16,8 @@ public:
 	Bolig(int id);
 	Bolig(int id, boligtype bt);
 	~Bolig();
+	int getID();
 	void lesData();
+	void skrivData();
 };
 

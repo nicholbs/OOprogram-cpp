@@ -12,6 +12,6 @@ class Sone
 
 public:
 	Sone(int id);
-	void nyBolig(int onr);
+	void nyttOppdrag(int onr);
 };
 

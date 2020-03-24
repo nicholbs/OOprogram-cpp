@@ -8,8 +8,7 @@ Bolig::Bolig(int id) {
 	lesData();
 }
 
-Bolig::Bolig(int id, boligtype bt)
-{
+Bolig::Bolig(int id, boligtype bt){
 	ID = id;
 	boligType = bt;
 	lesData();
@@ -17,6 +16,10 @@ Bolig::Bolig(int id, boligtype bt)
 
 Bolig::~Bolig() {
 	cout << "Bolig destruert" << endl;
+}
+
+int Bolig::getID() {
+	return ID;
 }
 
 void Bolig::lesData()
@@ -42,4 +45,8 @@ void Bolig::lesData()
 	getline(cin, navnEier);
 	cout << "Kort beskrivelse: ";
 	getline(cin, navnEier);*/
+}
+
+void Bolig::skrivData() {
+	
 }

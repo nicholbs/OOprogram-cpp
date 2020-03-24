@@ -10,7 +10,7 @@ Sone::Sone(int id) {
 	ID = id;
 }
 
-void Sone::nyBolig(int onr)
+void Sone::nyttOppdrag(int onr)
 {
 	cout << "Leilighet/enebolig [L/E]: ";
 	char valg; cin >> valg;
