@@ -7,7 +7,6 @@ class Bolig;
 class Soner
 {
 private:
-	const int MAX_SONER = 100;
 	int sisteNr;
 	map <int, Sone*> soneMap;
 
