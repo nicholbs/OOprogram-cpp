@@ -16,3 +16,8 @@ void Soner::nyBolig(int snr)
 	sisteNr++;
 	cout << "Opprettet ny Bolig " << sisteNr << "!\n\n";
 }
+
+bool Soner::finnesSone(int snr)
+{
+	return (soneMap.find(snr) != soneMap.end());
+}

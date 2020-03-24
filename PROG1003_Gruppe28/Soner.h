@@ -11,5 +11,6 @@ public:
 
 	void nySone(int snr);
 	void nyBolig(int snr);
+	bool finnesSone(int snr);
 };
 
