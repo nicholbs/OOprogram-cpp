@@ -26,6 +26,15 @@ void Kunder::nyKunde() {
 }
 
 /**
+*Denne funksjonen finner og skriver ut data for alle kunder
+*
+*@see Kunde::skrivData(..)
+**/
+void Kunder::kundeSAlleSkrivData(){
+
+}
+
+/**
 *Denne Funksjonen finner og skriver ut data til en spesifikk kunde
 *
 *@see Kunde::kundeIdRetur()

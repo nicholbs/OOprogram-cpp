@@ -16,6 +16,7 @@ class Kunder
     public:
         Kunder();
         void nyKunde();
+        void kundeSAlleSkrivData();
         void kundeSkrivData();
 };
 
