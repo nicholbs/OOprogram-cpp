@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include "boligtype.h"
+#include "Soner.h"
 
 
 using namespace std;
