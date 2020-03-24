@@ -4,6 +4,8 @@
 #include "LesData3.h"
 #include <iostream>
 #include <string>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 extern Soner gSoner; //Legger til Gsonr for å kunne utføre sjekk og mappinger
@@ -36,14 +38,23 @@ Kunde::Kunde(int nr) {
        soneInnlest = lesInt("\nSonenr:",1,MAX_SONER);
        //Sa lenge sonen finnes registrer den
        if(gSoner.finnesSone(soneInnlest)){
-        kundeSoner.push_back(soneInnlest);
+        //Sjekker om sonen allerede er registrert (om bruker gjentar seg
+        //og for a unga duplikat)
+        auto it = find(kundeSoner.begin(),kundeSoner.end(),soneInnlest);
+        //Hvis ikke allerede registrert pa kunde, gor dette
+        if(it ==kundeSoner.end()){
+            kundeSoner.push_back(soneInnlest);
+            cout <<"\nSonen: " <<soneInnlest <<"er registrert";
+        }
+        else cout <<"\nSonenr: " <<soneInnlest <<" allerede registrert";
        }
        else cout <<"\nFinner ikke sonenr: " <<soneInnlest;
-
-        kommando = lesChar("\nRegistrer sone J trykk Q for avslutt");
+      kommando = lesChar("\nRegistrer sone J trykk Q for avslutt");
 
     }
 
+    //Sorterer intreserte soner i stigende rekkefolge
+    sort(kundeSoner.begin(),kundeSoner.end());
 
 }
 
@@ -66,4 +77,13 @@ void Kunde::skrivData() {
               <<"\nMailaddresse: " <<mail
               <<"\nTelefon: " <<telefon;
     //IMPLEMENTER ENUM OG VECTORLESNING
+   cout <<"\nInteressesoner: ";
+    //Sjekker at det er soner registrert og skriver de isafall ut
+    if(!kundeSoner.empty()){
+        for(auto const & val:kundeSoner){
+            cout <<val<<", ";
+        }
+    }
+    //Hvis ingen sone gir tilbakemelding
+    else cout <<"\nIngen soner er registrert!";
 }

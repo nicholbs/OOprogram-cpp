@@ -50,7 +50,7 @@ void Kunder::kundeSkrivData(){
     auto it = find_if(kundeListe.begin(),kundeListe.end(),
                       [nr](auto val){return(val -> kundeIdRetur() ==nr);});
 
-    //Sa lenge treff pa kunden
+    //Sa lenge treff pa kunden sa skriver jeg ut data
     if (it != kundeListe.end()){
     (*it)-> skrivData();
     }
