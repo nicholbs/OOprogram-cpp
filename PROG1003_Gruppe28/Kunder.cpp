@@ -22,7 +22,7 @@ void Kunder::nyKunde() {
     sisteNr ++; //teller opp sistenr med en
     cout <<("\nNummer er: ") <<sisteNr;
     //Oppretter ny kunde og flytter den bakerst i listen
-    kunder.push_back(new Kunde(sisteNr));
+    kundeListe.push_back(new Kunde(sisteNr));
 }
 
 /**
@@ -44,11 +44,11 @@ void Kunder::kundeSkrivData(){
     int nr; //Hvilken kunde skal fa data skrevet ut
     nr = lesInt("\nKundenr: ",1,sisteNr); //hvilken kunde ?
     //Leter etter kunden
-    auto it = find_if(kunder.begin(),kunder.end(),
+    auto it = find_if(kundeListe.begin(),kundeListe.end(),
                       [nr](auto val){return(val -> kundeIdRetur() ==nr);});
 
     //Sa lenge treff pa kunden
-    if (it != kunder.end()){
+    if (it != kundeListe.end()){
     (*it)-> skrivData();
     }
     else cout <<("\NFinner ikke kunde med id") <<nr;
