@@ -4,11 +4,12 @@
 
 #include <vector>
 #include <string>
+#include "boligtype.h"
 
 
 using namespace std;
 
-enum boligtype {Leilighet, Bolig};
+//enum boligtype {Leilighet, Bolig};
 
 class Kunde
 {
