@@ -7,7 +7,6 @@ class Bolig;
 class Soner
 {
 private:
-	const int MAX_SONER = 100;
 	int sisteNr;
 	map <int, Sone*> soneMap;
 
@@ -15,5 +14,5 @@ public:
 	void nySone(int snr);
 	void nyttOppdrag(int snr);
 	bool finnesSone(int snr);
-	const Bolig& finnOppdrag(int onr);
+	const Bolig* finnOppdrag(int onr);
 };
