@@ -1,4 +1,6 @@
+#include "Const.h"
 #include "Kunde.h"
+#include "Soner.h"
 #include "LesData3.h"
 #include <iostream>
 #include <string>
@@ -29,8 +31,13 @@ Kunde::Kunde(int nr) {
     cout <<"\nRegistrer sone J trykk Q for avslutt";
     kommando = lesChar("");
     while(kommando !='Q') {
-        cout <<"\nSkriv inn sonenr: ";
-        cin >> soneInnlest;
+        soneInnlest = lesInt("\nSonenr:",1,10);
+            /**
+            if(Soner.finnesSone(soneInnlest)){
+                kundeSone.push_back(soneInnlest);
+            }
+            else cout <<"\nFinner ikke sone med nr: " <<soneInnlest;
+        **/
         kommando = lesChar("\nRegistrer sone J trykk Q for avslutt");
 
     }

@@ -16,7 +16,7 @@ class Kunde
 		int ID, telefon;
 		string navn, gateAddresse, postAdresse, mail;
 		boligtype boligType;
-		vector<int> soner;
+		vector<int> kundeSoner;
 	public:
 		Kunde(int nr);
 		int kundeIdRetur();
