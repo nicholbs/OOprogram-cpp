@@ -112,3 +112,10 @@ void Kunde::skrivData() {
 void Kunde::kundeSonerRetur() {
    // return kundeSoner;
 }
+
+/**
+*Test destructor
+**/
+Kunde::~Kunde() {
+cout <<"\nKunde med navn: "<<navn <<" og id "<<ID <<"Slettes";
+}

@@ -12,6 +12,22 @@ using namespace std;
 Kunder::Kunder() {
 sisteNr = 0;
 }
+/**
+*Denne funksjonen finner en kunde i listen og returnerer denne
+*
+*@return    Kunde*  Returnerer en peker til en kunde, hvis ingen treff nullptr
+**/
+Kunde* Kunder::finnKunde(){
+/*
+    int nr;
+    //Leter igjennom listen
+    iterator it = find_if(kundeListe.begin(),kundeListe.end(),
+                      [nr](auto val){return(val -> kundeIdRetur() ==nr);});
+
+
+**/
+
+}
 
 /**
 *Denne Funksjonen oppretter lager en ny kundepeker i liste
@@ -40,6 +56,7 @@ void Kunder::kundeSAlleSkrivData(){
             cin.ignore(); //Far bruker a taste enter
         }
         liste -> skrivData(); //Kaller pa kunde lesdata
+        cout <<"\n";
     }
 }
 
@@ -61,6 +78,29 @@ void Kunder::kundeSkrivData(){
     (*it)-> skrivData();
     }
     else cout << '\n' <<("Finner ikke kunde med id") <<nr;
+}
+
+/**
+*Denne klassefunksjonen finner og sletter en spesifikk kunde
+*
+*@see Kunde::kundeIdReturn()
+**/
+void Kunder::slettKunde() {
+     int nr;
+     cout <<"\nHvilken kunde vil du slette? ";
+     cin >> nr;
+     //leter etter kunden
+     auto it = find_if(kundeListe.begin(),kundeListe.end(),
+                      [nr](auto val){return(val -> kundeIdRetur() ==nr);});
+
+   //Sa lenge den finnes
+    if(it !=kundeListe.end()){
+        delete (*it);
+        kundeListe.remove((*it));
+        cout <<"\nBruker er slettet";
+    }
+    else cout <<"\nFATAL finner ikke bruker, slett ikke mulig";
+
 }
 
 

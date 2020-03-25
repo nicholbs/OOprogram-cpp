@@ -25,6 +25,7 @@ class Kunde
 		void endreData();
 		void skrivData();
 		void kundeSonerRetur();
+		~Kunde(); //Brukes til midlertidig test
 };
 
 #endif
