@@ -61,10 +61,7 @@ void menyKunde() {
 
 	switch (toupper(kommando2)) {
 	case 'N':
-		cout << setw(35) << "Du har Laget ny Kunde" << endl;
-		//Lage ny Kunde
-		
-		cout << "Ny kunde" << endl;
+		gKunder.nyKunde();
 		break;
 	
 	case '1':
