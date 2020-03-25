@@ -60,7 +60,7 @@ void Kunder::kundeSkrivData(){
     if (it != kundeListe.end()){
     (*it)-> skrivData();
     }
-    else cout <<("\NFinner ikke kunde med id") <<nr;
+    else cout << '\n' <<("Finner ikke kunde med id") <<nr;
 }
 
 

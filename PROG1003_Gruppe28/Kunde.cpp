@@ -103,3 +103,12 @@ void Kunde::skrivData() {
     //Hvis ingen sone gir tilbakemelding
     else cout <<"\nIngen soner er registrert!";
 }
+
+/**
+*Denne funksjonen returnerer sonene med boliger kunden er interessert i.
+*
+*@return kundeSoner -   returnerer kundeSoner vector til en person/kunde
+**/
+void Kunde::kundeSonerRetur() {
+   // return kundeSoner;
+}

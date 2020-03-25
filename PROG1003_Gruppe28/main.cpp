@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include "Soner.h"
 #include "Kunder.h"
+#include "Kunde.h"		//nicholas la til for testing i K O <knr>
 #include <iomanip>
 #include "LesData3.h"
 
@@ -53,27 +54,6 @@ int main()
 	}
 }
 
-void hovedMeny() {
-	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
-	cout << setw(5) << "(K)" << setw(30) << "for Kunde funksjoner" << endl;
-	cout << setw(5) << "(S)" << setw(30) << "for Sone funksjoner" << endl;
-	cout << setw(5) << "(O)" << setw(30) << "for Oppdrag/Bolig funksjoner" << endl;
-	cout << endl;
-
-}
-
-void kundeMeny() {
-	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
-	cout << setw(5) << "(N)" << setw(30) << "Lage ny Kunde" << endl;
-	cout << setw(5) << "(1)" << setw(30) << "Skriv info om en kunde" << endl;
-	cout << setw(5) << "(A)" << setw(30) << "Skriv info om alle kunder" << endl;
-	cout << setw(5) << "(E)" << setw(30) << "Endre info om kunde" << endl;
-	cout << setw(5) << "(S)" << setw(30) << "Slett kunde" << endl;
-	cout << setw(5) << "(O)" << setw(30) << "Skriver all bolig data" << endl;
-	cout << endl;
-
-}
-
 void menyKunde() {
 	kundeMeny();
 
@@ -111,16 +91,24 @@ void menyKunde() {
 	
 	case 'O':
 		{
-		int kundeNr;
-		cin >> kundeNr;	//denne går til helvette om bruker taster bokstav og ikke tall
+		int kundeNr;	//Variabel for å holde medsent int i kommando "K O <knr>"
+		cin >> kundeNr;	//Innskriving av <knr> går til helvette om bruker taster bokstav og ikke tall
+	
+		Kunde * kundePeker = new Kunde(10);			//NB NB skal ikke lage noen nye kunder og pekere her, men bruker for å teste. Hvordan kan jeg hente/sjekke kunder???
+	
+		int sjekkKundeNr;
+		 sjekkKundeNr = kundePeker->kundeIdRetur();
 		
+
+
+
+
+
 
 		//Skriv all data om alle boliger i alle kundens interessesoner til FIL
 		//Filnavn: K[kundenr].DTA
-		Kunder * kunderPeker = new Kunder;
 		/////////NB NB! Trenger funksjon for å sjekke at det finnes kunde med kundeNr
-
-		
+		//kundePeker->
 		cout << setw(35) << "Skriver all bolig data" << endl;
 		}
 		break;
@@ -128,15 +116,6 @@ void menyKunde() {
 	default:
 		cout << setw(35) << "Kunde Default" << endl;
 	}
-}
-
-void soneMeny() {
-	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
-	cout << setw(5) << "(N)" << setw(30) << "Lage ny Sone" << endl;
-	cout << setw(5) << "(1)" << setw(30) << "Skriv ut alt om alle oppdrag" << endl;
-	cout << setw(5) << "(A)" << setw(30) << "Hoveddata om alle soner" << endl;
-	cout << endl;
-
 }
 
 void menySone() {
@@ -163,14 +142,6 @@ void menySone() {
 	}
 }
 
-void oppdragMeny() {
-	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
-	cout << setw(5) << "(N)" << setw(30) << "Lage ny Oppdrag" << endl;
-	cout << setw(5) << "(1)" << setw(30) << "Skriv ut alt om alle oppdrag?? eller bare om et oppdrag" << endl;			///////////////Skal det skrives ut om en eller alle oppdrag??????????
-	cout << setw(5) << "(S)" << setw(30) << "Slett oppdrag" << endl;
-	cout << endl;
-
-}
 
 void menyOppdrag() {
 
@@ -195,4 +166,55 @@ void menyOppdrag() {
 	default:
 		cout << "Oppdrag Default" << endl;
 	}
+}
+
+/**
+* Utskrift av meny for hoved meny, med andre ord switch i main funksjonen
+**/
+void hovedMeny() {
+	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
+	cout << setw(5) << "(K)" << setw(30) << "for Kunde funksjoner" << endl;
+	cout << setw(5) << "(S)" << setw(30) << "for Sone funksjoner" << endl;
+	cout << setw(5) << "(O)" << setw(30) << "for Oppdrag/Bolig funksjoner" << endl;
+	cout << endl;
+
+}
+
+/**
+* Utskrift av meny for kunde funksjoner, kommer etter input "K" fra hovedMeny 
+**/
+void kundeMeny() {
+	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
+	cout << setw(5) << "(N)" << setw(30) << "Lage ny Kunde" << endl;
+	cout << setw(5) << "(1)" << setw(30) << "Skriv info om en kunde" << endl;
+	cout << setw(5) << "(A)" << setw(30) << "Skriv info om alle kunder" << endl;
+	cout << setw(5) << "(E)" << setw(30) << "Endre info om kunde" << endl;
+	cout << setw(5) << "(S)" << setw(30) << "Slett kunde" << endl;
+	cout << setw(5) << "(O)" << setw(30) << "Skriver all bolig data" << endl;
+	cout << endl;
+
+}
+
+/**
+* Utskrift av meny for Sone funksjoner, kommer etter input "S" fra hovedMeny
+**/
+void soneMeny() {
+	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
+	cout << setw(5) << "(N)" << setw(30) << "Lage ny Sone" << endl;
+	cout << setw(5) << "(1)" << setw(30) << "Skriv ut alt om alle oppdrag" << endl;
+	cout << setw(5) << "(A)" << setw(30) << "Hoveddata om alle soner" << endl;
+	cout << endl;
+
+}
+
+/**
+* Utskrift av meny for Oppdrag/Bolig funksjoner, kommer etter input "O" fra hovedMeny
+**/
+void oppdragMeny() {
+	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
+	cout << setw(5) << "(N)" << setw(30) << "Lage ny Oppdrag" << endl;
+	cout << setw(5) << "(1)" << setw(30) << "Skriv ut alt om alle oppdrag?? eller bare om et oppdrag" << endl;			///////////////Skal det skrives ut om en eller alle oppdrag??????????
+	cout << setw(5) << "(S)" << setw(30) << "Slett oppdrag" << endl;
+	cout << endl;
+
 }

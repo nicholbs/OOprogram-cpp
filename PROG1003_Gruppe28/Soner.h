@@ -7,7 +7,7 @@ using namespace std;
 class Soner
 {
 private:
-	int sisteNr;
+	int sisteNr=0;
 	map <int, Sone*> soneMap;
 
 public:	
