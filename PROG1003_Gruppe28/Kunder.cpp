@@ -95,8 +95,8 @@ void Kunder::slettKunde() {
 
    //Sa lenge den finnes
     if(it !=kundeListe.end()){
-        delete (*it);
-        kundeListe.remove((*it));
+        delete (*it); //Sletter brukerobjektet
+        kundeListe.remove((*it)); //Fjerner peker fra listen
         cout <<"\nBruker er slettet";
     }
     else cout <<"\nFATAL finner ikke bruker, slett ikke mulig";

@@ -21,7 +21,7 @@ Kunde::Kunde(int nr) {
     char kommando;
     int soneInnlest; //Bruker for a lese inn en sone.
     //Leser inn data fra bruker
-
+    cin.ignore();
     cout <<"\nNavn: ";
     getline(cin,navn);
     cout <<"\nGate: ";
