@@ -24,7 +24,10 @@ class Kunde
 		int kundeIdRetur();
 		void endreData();
 		void skrivData();
+
 		int kundeSonerRetur(int i);
+		~Kunde(); //Brukes til midlertidig test
+
 };
 
 #endif

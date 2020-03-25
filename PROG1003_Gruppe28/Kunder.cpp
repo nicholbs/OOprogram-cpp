@@ -14,6 +14,7 @@ Kunder::Kunder() {
 sisteNr = 0;
 }
 
+
 /**
 *Denne Funksjonen oppretter lager en ny kundepeker i liste
 *
@@ -41,6 +42,7 @@ void Kunder::kundeSAlleSkrivData(){
             cin.ignore(); //Far bruker a taste enter
         }
         liste -> skrivData(); //Kaller pa kunde lesdata
+        cout <<"\n";
     }
 }
 
@@ -83,3 +85,28 @@ void Kunder::finnKunde(int knrParam) {
             }
     }
 }
+
+
+/**Denne klassefunksjonen finner og sletter en spesifikk kunde
+*
+*@see Kunde::kundeIdReturn()
+**/
+void Kunder::slettKunde() {
+     int nr;
+     cout <<"\nHvilken kunde vil du slette? ";
+     cin >> nr;
+     //leter etter kunden
+     auto it = find_if(kundeListe.begin(),kundeListe.end(),
+                      [nr](auto val){return(val -> kundeIdRetur() ==nr);});
+
+   //Sa lenge den finnes
+    if(it !=kundeListe.end()){
+        delete (*it); //Sletter brukerobjektet
+        kundeListe.remove((*it)); //Fjerner peker fra listen
+        cout <<"\nBruker er slettet";
+    }
+    else cout <<"\nFATAL finner ikke bruker, slett ikke mulig";
+
+}
+
+

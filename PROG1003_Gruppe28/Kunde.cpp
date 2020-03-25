@@ -24,6 +24,8 @@ Kunde::Kunde(int nr) {
     //Leser inn data fra bruker
 
 
+
+    cin.ignore();
     cout <<"\nNavn: ";
     getline(cin,navn);
     cout <<"\nGate: ";
@@ -112,6 +114,7 @@ void Kunde::skrivData() {
 * @param int i - variabel for å holde int, brukt i Kunder::finnKunde() sin <knr> fra kommando K O <knr>
 * @return kundeSoner -   returnerer kundeSoner sin skuff 'i' til en person/kunde
 **/
+
 int Kunde::kundeSonerRetur(int i) {
     int test = i;      
     test = kundeSoner[i];
@@ -119,3 +122,11 @@ int Kunde::kundeSonerRetur(int i) {
     cout << setw(35) << "her kommer kundeSoner[i] " << test << endl;
     return test;
 }
+
+/**
+*Test destructor
+**/
+Kunde::~Kunde() {
+cout <<"\nKunde med navn: "<<navn <<" og id "<<ID <<"Slettes";
+}
+
