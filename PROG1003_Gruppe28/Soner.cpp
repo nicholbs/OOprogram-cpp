@@ -50,3 +50,18 @@ void Soner::skrivOppdrag(int onr)
 	if(bp != nullptr)
 		bp->skrivData();
 }
+
+void Soner::skrivAlleOppdrag()
+{
+	for (const auto& sonePar : soneMap)
+		sonePar.second->skrivAlleOppdrag();
+}
+
+void Soner::slettOppdrag(int onr)
+{
+	for (const auto& sonePar : soneMap)
+	{
+		if (sonePar.second->finnesOppdrag(onr))
+			sonePar.second->slettOppdrag(onr);
+	}
+}

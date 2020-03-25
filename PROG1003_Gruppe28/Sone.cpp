@@ -10,7 +10,8 @@ Sone::Sone(int id) {
 	ID = id;
 }
 
-void Sone::nyttOppdrag(int onr){
+void Sone::nyttOppdrag(int onr)
+{
 	cout << "Leilighet/enebolig [L/E]: ";
 	char valg; cin >> valg;
 
@@ -23,10 +24,42 @@ void Sone::nyttOppdrag(int onr){
 	boligerTilSalgs.push_back(p);
 }
 
-Bolig* Sone::finnOppdrag(int onr) {
-	for (int i = 0; i < boligerTilSalgs.size(); i++) {
+Bolig* Sone::finnOppdrag(int onr) 
+{
+	for (unsigned int i = 0; i < boligerTilSalgs.size(); i++) 
+	{
 		if (boligerTilSalgs[i]->getID() == onr)
 			return boligerTilSalgs[i];
 	}
 	return nullptr;
+}
+
+void Sone::slettOppdrag(int onr)
+{
+	for (unsigned int i = 0; i < boligerTilSalgs.size(); i++)
+	{
+		if (boligerTilSalgs[i]->getID() == onr)
+		{
+			delete boligerTilSalgs[i];
+			boligerTilSalgs.erase(boligerTilSalgs.begin() + i);
+		}
+	}
+}
+
+bool Sone::finnesOppdrag(int onr)
+{
+	for (unsigned int i = 0; i < boligerTilSalgs.size(); i++)
+	{
+		if (boligerTilSalgs[i]->getID() == onr)
+			return true;
+	}
+	return false;
+}
+
+void Sone::skrivAlleOppdrag()
+{
+	cout << "\nSone " << ID;
+	for (unsigned int i = 0; i < boligerTilSalgs.size(); i++)
+		cout << "\nBolig " << boligerTilSalgs[i]->getID();
+	cout << '\n';
 }

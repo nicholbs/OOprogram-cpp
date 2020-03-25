@@ -7,7 +7,7 @@ using namespace std;
 class Soner
 {
 private:
-	int sisteNr=0;
+	int sisteNr = 0;
 	map <int, Sone*> soneMap;
 
 public:	
@@ -16,4 +16,6 @@ public:
 	bool finnesSone(int snr);
 	Bolig* finnOppdrag(int onr);
 	void skrivOppdrag(int onr);
+	void skrivAlleOppdrag();	//TESTFUNKSJON
+	void slettOppdrag(int onr);
 };

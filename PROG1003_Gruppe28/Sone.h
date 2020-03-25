@@ -14,5 +14,8 @@ public:
 	Sone(int id);
 	void nyttOppdrag(int onr);
 	Bolig* finnOppdrag(int onr);
+	void slettOppdrag(int onr);
+	bool finnesOppdrag(int onr);
+	void skrivAlleOppdrag(); //TESTFUNKSJON
 };
 

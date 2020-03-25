@@ -7,7 +7,7 @@
 Bolig::Bolig(int id) {
 	ID = id;
 
-	cin.ignore(MAXCHAR, '\n');
+	cin.ignore();
 	dato = lesInt("Dato [YYYYMMDD]: ", 0, 99999999);
 	byggeaar = lesInt("Byggeaar: ", 0, 2020);
 	bruttoareal = lesInt("Bruttoareal: ", 0, 10000);
@@ -29,7 +29,12 @@ Bolig::Bolig(int id) {
 }
 
 Bolig::~Bolig() {
-	cout << "Bolig destruert\n" << endl;
+	cout << "\nSlettet ";
+	if (boligType == boligtype::Leilighet)
+		cout << "leilighet";
+	else
+		cout << "enebolig";
+	cout << " med ID " << ID << ".\n";
 }
 
 int Bolig::getID() {

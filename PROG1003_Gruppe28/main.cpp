@@ -31,24 +31,23 @@ int main()
 
 	while (1) {
 		switch (toupper(kommando1)) {
-		
 		case 'K':
 			cout << setw(35) << "Du har valgt Kunde funksjoner" << endl;
 			menyKunde();
 			break;
-		
 		case 'S':
 			cout << setw(35) << "Du har valgt Sone funksjoner" << endl;
 			menySone();
 			break;
-		
 		case 'O':
 			cout << setw(35) << "Du har valgt Oppdrag/bolig funksjoner" << endl;
 			menyOppdrag();
 			break;
-		
-		default:
+		case 'Q':
 			exit(1);
+			break;
+		default:
+			cout << "\nMain default\n";
 		}
 		cin >> kommando1;
 	}
@@ -159,9 +158,12 @@ void menyOppdrag() {
 		cin >> nr;
 		gSoner.skrivOppdrag(nr);
 		break;
+	case 'A':		//TESTCASE - SKAL FJERNES
+		gSoner.skrivAlleOppdrag();
+		break;
 	case 'S':
-		//Slett oppdrag
-		//Bruker skal BEKREFTE at de vil slette før det gjøres
+		cin >> nr;
+		gSoner.slettOppdrag(nr);
 		break;
 	default:
 		cout << "Oppdrag Default" << endl;
