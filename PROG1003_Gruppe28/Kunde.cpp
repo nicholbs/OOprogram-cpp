@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <iomanip>      //nicholas include pga setw i kunde::kundeSonerRetur()
 #include <locale> //IS blank
 using namespace std;
 
@@ -21,6 +22,7 @@ Kunde::Kunde(int nr) {
     char kommando;
     int soneInnlest; //Bruker for a lese inn en sone.
     //Leser inn data fra bruker
+
 
     cout <<"\nNavn: ";
     getline(cin,navn);
@@ -107,8 +109,13 @@ void Kunde::skrivData() {
 /**
 *Denne funksjonen returnerer sonene med boliger kunden er interessert i.
 *
-*@return kundeSoner -   returnerer kundeSoner vector til en person/kunde
+* @param int i - variabel for å holde int, brukt i Kunder::finnKunde() sin <knr> fra kommando K O <knr>
+* @return kundeSoner -   returnerer kundeSoner sin skuff 'i' til en person/kunde
 **/
-void Kunde::kundeSonerRetur() {
-   // return kundeSoner;
+int Kunde::kundeSonerRetur(int i) {
+    int test = i;      
+    test = kundeSoner[i];
+
+    cout << setw(35) << "her kommer kundeSoner[i] " << test << endl;
+    return test;
 }

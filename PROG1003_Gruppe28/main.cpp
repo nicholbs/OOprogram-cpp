@@ -64,6 +64,7 @@ void menyKunde() {
 	case 'N':
 		cout << setw(35) << "Du har Laget ny Kunde" << endl;
 		//Lage ny Kunde
+		
 		cout << "Ny kunde" << endl;
 		break;
 	
@@ -91,15 +92,14 @@ void menyKunde() {
 	
 	case 'O':
 		{
+		gKunder.nyKunde();
+
 		int kundeNr;	//Variabel for å holde medsent int i kommando "K O <knr>"
 		cin >> kundeNr;	//Innskriving av <knr> går til helvette om bruker taster bokstav og ikke tall
 	
-		Kunde * kundePeker = new Kunde(10);			//NB NB skal ikke lage noen nye kunder og pekere her, men bruker for å teste. Hvordan kan jeg hente/sjekke kunder???
 	
-		int sjekkKundeNr;
-		 sjekkKundeNr = kundePeker->kundeIdRetur();
+		 gKunder.finnKunde(kundeNr);
 		
-
 
 
 

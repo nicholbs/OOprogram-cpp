@@ -24,7 +24,7 @@ class Kunde
 		int kundeIdRetur();
 		void endreData();
 		void skrivData();
-		void kundeSonerRetur();
+		int kundeSonerRetur(int i);
 };
 
 #endif

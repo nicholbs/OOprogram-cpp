@@ -4,6 +4,7 @@
 #include <iostream>
 #include <list>
 #include <algorithm>
+#include <iomanip>      //nicholas include pga setw kunder::finnKunder
 
 using namespace std;
 /**
@@ -63,4 +64,22 @@ void Kunder::kundeSkrivData(){
     else cout << '\n' <<("Finner ikke kunde med id") <<nr;
 }
 
-
+/**
+*Funksjon for å finne kunde basert på kundenummer parameter
+*
+* @param int knrParam - variabel for å holde <knr> fra kommando K O <knr>
+**/
+void Kunder::finnKunde(int knrParam) {
+    for (auto it = kundeListe.begin(); it != kundeListe.end(); it++) //Fra list start til List slutt
+    {
+        int i=knrParam;
+        if ((*it)->kundeIdRetur()==knrParam)
+                {
+                (*it)->kundeSonerRetur(i);
+                }
+        else
+            {
+            cout << setw(35) << "Det er ingen kunder med knrParam= " << knrParam << endl;
+            }
+    }
+}

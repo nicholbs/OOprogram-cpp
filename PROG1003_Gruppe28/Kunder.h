@@ -18,6 +18,7 @@ class Kunder
         void nyKunde();
         void kundeSAlleSkrivData();
         void kundeSkrivData();
+        void finnKunde(int knrParam);
 };
 
 #endif
