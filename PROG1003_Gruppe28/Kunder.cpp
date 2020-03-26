@@ -14,6 +14,29 @@ Kunder::Kunder() {
 sisteNr = 0;
 }
 
+/**
+*Denne funksjonen finner en kunde samt endrer
+*
+*@see Kunde::endreData(..)
+**/
+void Kunder::kundeEndreData(){
+    cin.ignore();
+    int nr; //Hvilken kunde skal fa data endrett
+    //Kjores kun hvis det finnes kunder
+    if(sisteNr !=0){
+        nr = lesInt("\nKundenr: ",1,sisteNr); //hvilken kunde ?
+        //Leter etter kunden
+        auto it = find_if(kundeListe.begin(),kundeListe.end(),
+                      [nr](auto val){return(val -> kundeIdRetur() ==nr);});
+
+        //Sa lenge treff, endre kunden.
+        if (it != kundeListe.end()){
+        (*it)-> endreData();
+        }
+        else cout << "\n" <<("Finner ikke kunde med id") <<nr;
+    }
+    else cout <<"\nFATAL Finner ingen kunder";
+}
 
 /**
 *Denne Funksjonen oppretter lager en ny kundepeker i liste
