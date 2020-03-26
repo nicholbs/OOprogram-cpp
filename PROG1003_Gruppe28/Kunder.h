@@ -16,8 +16,9 @@ class Kunder
         list<Kunde*> kundeListe;
     public:
         Kunder();
-        
+
         void nyKunde();
+        void kundeEndreData();
         void kundeSAlleSkrivData();
         void kundeSkrivData();
 

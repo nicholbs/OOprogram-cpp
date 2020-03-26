@@ -50,31 +50,46 @@ Kunde::Kunde(int nr) {
 *@see Kunde::kundeSkrivData(..)
 **/
 void Kunde::endreData(){
-    /**
-    char kommando;
+    char kommando; //Menyvalg
+    int soneInnlest; //Sone valgt
+
+    this->skrivData(); //Skriver ut kundens data
 
     //Skriver ut melding til bruker
     cout <<"\nTast L for a legge til soner"
          <<"\nTast F for a fjerne soner"
          <<"\nTast Q for a avbryte";
 
-    kommando=lesChar("\nMenyvalg: ")
-    switch(kommando){
-    case 'L':
+       // this ->registrerSoner(); //Registrerer soner
+    kommando=lesChar("\nMenyvalg: "); //Leser inn fra bruker
 
-
+    while (kommando !='Q') {
+        switch(kommando){
+            case 'L':
+                this ->registrerSoner(); //Registrerer soner
+                break;
+            case 'F':
+                if(!kundeSoner.empty()){
+                soneInnlest = lesInt("\nSonenr:",1,MAX_SONER);
+                //Sjekker om innlest sone finnes registrert hos bruker
+                auto it = find(kundeSoner.begin(),kundeSoner.end(),soneInnlest);
+                //Hvis den finnes sa sletter jeg den og sorterer vectoren
+                if(it !=kundeSoner.end()){
+                    remove(kundeSoner.begin(),kundeSoner.end(),soneInnlest);
+                    sort(kundeSoner.begin(),kundeSoner.end());
+                    cout <<"\nSonenr: " <<soneInnlest <<" slettet fra bruker";
+                }
+                else cout <<"\Finner ikke Sone hos bruker " <<soneInnlest;
+             }
+             else cout <<"\nIngen soner er registrert pa bruker ";
+            default:
+                cout <<"\nTast L for a legge til soner"
+                <<"\nTast F for a fjerne soner"
+                <<"\nTast Q for a avbryte";
+                break;
+        }
+    kommando=lesChar("\nMenyvalg");
     }
-
-    //Sorterer intreserte soner i stigende rekkefolge
-    sort(kundeSoner.begin(),kundeSoner.end());
-
-    }
-
-
-    //IMPLEMENTER
-
-    **/
-
 }
 
 void Kunde::registrerSoner(){
@@ -98,6 +113,7 @@ void Kunde::registrerSoner(){
        }
        else cout <<"\nFinner ikke sonenr: " <<soneInnlest;
       kommando = lesChar("\nRegistrer sone J trykk Q for avslutt");
+
 
     }
 
