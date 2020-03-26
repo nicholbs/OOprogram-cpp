@@ -81,6 +81,7 @@ void menyKunde() {
 		//Skriv ut info om Kunde
 		//Bruker kan legge til/slette soner fra kunden | NB SORTER VECTOR
 		cout << setw(35) << "Endre info om kunde" << endl;
+		gKunder.kundeEndreData();
 		break;
 
 	case 'S':

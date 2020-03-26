@@ -68,6 +68,20 @@ void Kunde::endreData(){
             case 'L':
                 this ->registrerSoner(); //Registrerer soner
                 break;
+            case 'F':
+                if(!kundeSoner.empty()){
+                soneInnlest = lesInt("\nSonenr:",1,MAX_SONER);
+                //Sjekker om innlest sone finnes registrert hos bruker
+                auto it = find(kundeSoner.begin(),kundeSoner.end(),soneInnlest);
+                //Hvis den finnes sa sletter jeg den og sorterer vectoren
+                if(it !=kundeSoner.end()){
+                    remove(kundeSoner.begin(),kundeSoner.end(),soneInnlest);
+                    sort(kundeSoner.begin(),kundeSoner.end());
+                    cout <<"\nSonenr: " <<soneInnlest <<" slettet fra bruker";
+                }
+                else cout <<"\Finner ikke Sone hos bruker " <<soneInnlest;
+             }
+             else cout <<"\nIngen soner er registrert pa bruker ";
             default:
                 cout <<"\nTast L for a legge til soner"
                 <<"\nTast F for a fjerne soner"
