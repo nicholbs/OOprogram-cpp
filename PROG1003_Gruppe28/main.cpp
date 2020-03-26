@@ -63,39 +63,41 @@ void menyKunde() {
 	case 'N':
 		gKunder.nyKunde();
 		break;
-	
+
 	case '1':
 		//Skriv ut info om enkelt Kunde
 		//Stans utskrift hver 10. sone
 		cout << setw(35) << "Skriv info om en kunde" << endl;
+        gKunder.kundeSkrivData();
 		break;
-	
+
 	case 'A':
 		//Skriv ut ALLE Kunder
 		cout << setw(35) << "Skriv info om alle kunder" << endl;
+		gKunder.kundeSAlleSkrivData();
 		break;
-	
+
 	case 'E':
 		//Skriv ut info om Kunde
 		//Bruker kan legge til/slette soner fra kunden | NB SORTER VECTOR
 		cout << setw(35) << "Endre info om kunde" << endl;
 		break;
-	
+
 	case 'S':
 		//Slett kunde | HUSK PEKER
 		cout << setw(35) << "Slett kunde" << endl;
 		break;
-	
+
 	case 'O':
 		{
 		gKunder.nyKunde();
 
 		int kundeNr;	//Variabel for å holde medsent int i kommando "K O <knr>"
 		cin >> kundeNr;	//Innskriving av <knr> går til helvette om bruker taster bokstav og ikke tall
-	
-	
+
+
 		 gKunder.finnKunde(kundeNr);
-		
+
 
 
 
@@ -108,7 +110,7 @@ void menyKunde() {
 		cout << setw(35) << "Skriver all bolig data" << endl;
 		}
 		break;
-	
+
 	default:
 		cout << setw(35) << "Kunde Default" << endl;
 	}
@@ -118,7 +120,7 @@ void menySone() {
 	soneMeny();
 	char kommando2;
 	int snr;
-	
+
 	cin >> kommando2;
 	switch (toupper(kommando2)) {
 	case 'N':
@@ -180,7 +182,7 @@ void hovedMeny() {
 }
 
 /**
-* Utskrift av meny for kunde funksjoner, kommer etter input "K" fra hovedMeny 
+* Utskrift av meny for kunde funksjoner, kommer etter input "K" fra hovedMeny
 **/
 void kundeMeny() {
 	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
