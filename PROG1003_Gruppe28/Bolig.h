@@ -18,6 +18,6 @@ public:
 	~Bolig();
 	int getID();
 	void skrivData();
-	void skrivTilFil(ofstream & ut);
+	void skrivTilFil(ofstream& ut);
 };
 

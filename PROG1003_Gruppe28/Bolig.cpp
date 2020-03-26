@@ -3,6 +3,7 @@
 #include <iostream>
 #include <istream>
 #include <iomanip>
+#include <fstream>		//kanskje denne ikke trengs
 
 Bolig::Bolig(int id) {
 	ID = id;

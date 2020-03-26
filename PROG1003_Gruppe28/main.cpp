@@ -105,14 +105,15 @@ void menyKunde() {
 
 		kundeSoneInteresse = gKunder.finnKunde(kundeNr);
 
-		ofstream utfilA("Kxxxxx.TXT");
+
+		ofstream utfilA("testTest.txt");
 	/*	auto it = boligerTilSalgs.begin();
 		(*it)->skrivTilFil(utfilA);*/
 
-	  for (int i = 0; i < kundeSoneInteresse.size(); i++)        //Utskrift av vector sin data
+		for (int i = 0; i < kundeSoneInteresse.size(); i++)        //Utskrift av vector sin data
 		{
-		  boligPeker[i] = gSoner.finnOppdrag(kundeSoneInteresse.at(i));
-		/*  boligPeker[i]->skrivData();*/
+		boligPeker.push_back(gSoner.finnOppdrag(kundeSoneInteresse.at(i)));
+		boligPeker[i]->skrivTilFil(utfilA);
 		  
 		}
 		
