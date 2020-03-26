@@ -4,6 +4,7 @@
 #pragma once
 
 #include <list>
+#include <vector>
 using namespace std;
 
 class Kunde;
@@ -20,7 +21,8 @@ class Kunder
         void kundeSAlleSkrivData();
         void kundeSkrivData();
 
-        void finnKunde(int knrParam);
+        vector <int> finnKunde(int knrParam);
+       
 
         void slettKunde();
 

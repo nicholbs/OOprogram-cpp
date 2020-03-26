@@ -138,18 +138,13 @@ void Kunde::skrivData() {
 }
 
 /**
-*Denne funksjonen returnerer sonene med boliger kunden er interessert i.
+* Funksjonen returnerer sonene med boliger kunden er interessert i.
 *
-* @param int i - variabel for å holde int, brukt i Kunder::finnKunde() sin <knr> fra kommando K O <knr>
-* @return kundeSoner -   returnerer kundeSoner sin skuff 'i' til en person/kunde
+* @return kundeSoner -   returnerer kunde objektet sin vector av typen int med navn kundeSoner
 **/
+vector <int> Kunde::kundeSonerRetur() {
 
-int Kunde::kundeSonerRetur(int i) {
-    int test = i;
-    test = kundeSoner[i];
-
-    cout << setw(35) << "her kommer kundeSoner[i] " << test << endl;
-    return test;
+    return kundeSoner;
 }
 
 /**

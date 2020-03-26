@@ -3,6 +3,7 @@
 #include "Enebolig.h"
 #include <iostream>
 #include <ctype.h>
+#include <fstream>			//nicholas lagt til for skrivTilFil
 
 using namespace std;
 
@@ -63,3 +64,9 @@ void Sone::skrivAlleOppdrag()
 		cout << "\nBolig " << boligerTilSalgs[i]->getID();
 	cout << '\n';
 }
+
+//void Sone::skrivTilFil() {
+//	ofstream utfilA("Kxxxxx.TXT");
+//	auto it = boligerTilSalgs.begin();
+//	(*it)->skrivTilFil(utfilA);
+//}

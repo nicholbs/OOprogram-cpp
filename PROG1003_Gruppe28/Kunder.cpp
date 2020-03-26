@@ -5,6 +5,7 @@
 #include <list>
 #include <algorithm>
 #include <iomanip>      //nicholas include pga setw kunder::finnKunder
+#include <vector>       //nicholas include pga kunder::finnKunder
 
 using namespace std;
 /**
@@ -71,18 +72,26 @@ void Kunder::kundeSkrivData(){
 *
 * @param int knrParam - variabel for å holde <knr> fra kommando K O <knr>
 **/
-void Kunder::finnKunde(int knrParam) {
+vector <int>  Kunder::finnKunde(int knrParam) {
     for (auto it = kundeListe.begin(); it != kundeListe.end(); it++) //Fra list start til List slutt
     {
-        int i=knrParam;
+    
         if ((*it)->kundeIdRetur()==knrParam)
                 {
-                (*it)->kundeSonerRetur(i);
+                vector <int> interesseSone;                 //lager vector for å holde interesse soner til kunden
+                interesseSone = (*it)->kundeSonerRetur();   //interesseSone er lik kunden sin KundeSoner
+            /*    for (int i = 0; i < interesseSone.size(); i++)        //Utskrift av vector sin data
+                {
+                    cout << interesseSone.at(i) << endl;
+                }*/
+                
+                return interesseSone;
                 }
         else
             {
             cout << setw(35) << "Det er ingen kunder med knrParam= " << knrParam << endl;
             }
+
     }
 }
 

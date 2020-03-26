@@ -50,3 +50,14 @@ void Bolig::skrivData() {
 		<< "Bygd i " << byggeaar << ".\n" << '\"' << beskrivelse << "\"\n\n"
 		<< "  " << pris << " NOK\n\n";
 }
+
+void Bolig::skrivTilFil(ofstream& ut) {
+	/*ut << "\nBolignummer " << ID << ", annonse lagt inn " << dato << '\n'
+		<< gateadresse << ", " << postadresse << "\n\n"
+		<< setw(15) << "Eier: " << navnEier << '\n'
+		<< setw(15) << "Saksbehandler: " << navnSaksbehandler << "\n\n"
+		<< "Bruttoareal " << bruttoareal << " kvm med " << antallSoverom << " soverom."
+		<< "Bygd i " << byggeaar << ".\n" << '\"' << beskrivelse << "\"\n\n"
+		<< "  " << pris << " NOK\n\n";*/
+	ut << ID;
+}

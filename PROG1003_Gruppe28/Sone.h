@@ -17,5 +17,7 @@ public:
 	void slettOppdrag(int onr);
 	bool finnesOppdrag(int onr);
 	void skrivAlleOppdrag(); //TESTFUNKSJON
+	//void skrivTilFil();
+
 };
 

@@ -26,7 +26,7 @@ class Kunde
 		void registrerSoner();
 		void skrivData();
 
-		int kundeSonerRetur(int i);
+		vector <int> kundeSonerRetur();
 		~Kunde(); //Brukes til midlertidig test
 
 };

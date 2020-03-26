@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "boligtype.h"
+#include <fstream>			//nicholas lagt til for skrivTilFil
 using namespace std;
 
 class Bolig
@@ -17,5 +18,6 @@ public:
 	~Bolig();
 	int getID();
 	void skrivData();
+	void skrivTilFil(ofstream & ut);
 };
 

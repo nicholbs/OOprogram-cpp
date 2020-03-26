@@ -5,8 +5,10 @@
 #include "Soner.h"
 #include "Kunder.h"
 #include "Kunde.h"		//nicholas la til for testing i K O <knr>
+#include "Bolig.h"		//K O <knr>
 #include <iomanip>
 #include "LesData3.h"
+#include <fstream>		//K O <knr>
 
 using namespace std;
 
@@ -90,14 +92,29 @@ void menyKunde() {
 
 	case 'O':
 		{
-		gKunder.nyKunde();
+		/*gKunder.nyKunde();*/
 
 		int kundeNr;	//Variabel for å holde medsent int i kommando "K O <knr>"
 		cin >> kundeNr;	//Innskriving av <knr> går til helvette om bruker taster bokstav og ikke tall
+		cout << setw(35) << "kundeNr sendt med til gKunder.finnKunde(" << kundeNr << ')' << endl;
 
+		vector <int> kundeSoneInteresse;
+	
+		vector <Bolig*> boligPeker;
 
-		 gKunder.finnKunde(kundeNr);
+		kundeSoneInteresse = gKunder.finnKunde(kundeNr);
 
+		ofstream utfilA("Kxxxxx.TXT");
+	/*	auto it = boligerTilSalgs.begin();
+		(*it)->skrivTilFil(utfilA);*/
+
+	  for (int i = 0; i < kundeSoneInteresse.size(); i++)        //Utskrift av vector sin data
+		{
+		  boligPeker[i] = gSoner.finnOppdrag(kundeSoneInteresse.at(i));
+		/*  boligPeker[i]->skrivData();*/
+		  
+		}
+		
 
 
 
