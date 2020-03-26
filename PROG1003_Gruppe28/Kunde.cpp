@@ -40,7 +40,7 @@ Kunde::Kunde(int nr) {
     //IMPLEMENTERES ENUM OG VECTORINNLESNING
     //Registrerer soner
 
-    registrerSoner(); //Registrerer soner til kunde.
+    Kunde::registrerSoner(); //Registrerer soner til kunde.
 
 
 }
