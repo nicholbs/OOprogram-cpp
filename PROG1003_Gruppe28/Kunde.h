@@ -23,6 +23,7 @@ class Kunde
 		Kunde(int nr);
 		int kundeIdRetur();
 		void endreData();
+		void registrerSoner();
 		void skrivData();
 
 		int kundeSonerRetur(int i);

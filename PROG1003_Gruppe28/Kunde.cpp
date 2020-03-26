@@ -15,6 +15,7 @@ extern Soner gSoner; //Legger til Gsonr for å kunne utføre sjekk og mappinger
  * Dette er parameterfylt konstruktor, far medsendt id og ber bruker lese inn
  *
  * @param   nr  -   unik id
+ *@see Kunde::registrerSoner()
  * */
 
 Kunde::Kunde(int nr) {
@@ -38,6 +39,47 @@ Kunde::Kunde(int nr) {
     telefon = lesInt("\nTelefonnummer:",0,99999999);
     //IMPLEMENTERES ENUM OG VECTORINNLESNING
     //Registrerer soner
+
+    registrerSoner(); //Registrerer soner til kunde.
+
+
+}
+/**
+*Denne funksjonen endrer pa en kundes onsket sone data
+*
+*@see Kunde::kundeSkrivData(..)
+**/
+void Kunde::endreData(){
+    /**
+    char kommando;
+
+    //Skriver ut melding til bruker
+    cout <<"\nTast L for a legge til soner"
+         <<"\nTast F for a fjerne soner"
+         <<"\nTast Q for a avbryte";
+
+    kommando=lesChar("\nMenyvalg: ")
+    switch(kommando){
+    case 'L':
+
+
+    }
+
+    //Sorterer intreserte soner i stigende rekkefolge
+    sort(kundeSoner.begin(),kundeSoner.end());
+
+    }
+
+
+    //IMPLEMENTER
+
+    **/
+
+}
+
+void Kunde::registrerSoner(){
+    int soneInnlest; //Bruker for a lese inn en sone.
+    char kommando;
     cout <<"\nRegistrer sone J trykk Q for avslutt";
     kommando = lesChar("");
     while(kommando !='Q') {
@@ -63,20 +105,7 @@ Kunde::Kunde(int nr) {
     sort(kundeSoner.begin(),kundeSoner.end());
 
 }
-/**
-*Denne funksjonen endrer pa en kundes onsket sone data
-*
-*@see Kunde::kundeSkrivData(..)
-**/
-void Kunde::endreData(){
-    char kommando;
-        //Skriver ut melding til bruker
-        cout <<"\nTast L for a legge til soner"
-             <<"\nTast F for a fjerne soner"
-             <<"\nTast Q for a avbryte";
-    //IMPLEMENTER
 
-}
 
 /**
 *Denne funksjonen returnerer den unike ID til en kunde
@@ -116,7 +145,7 @@ void Kunde::skrivData() {
 **/
 
 int Kunde::kundeSonerRetur(int i) {
-    int test = i;      
+    int test = i;
     test = kundeSoner[i];
 
     cout << setw(35) << "her kommer kundeSoner[i] " << test << endl;
