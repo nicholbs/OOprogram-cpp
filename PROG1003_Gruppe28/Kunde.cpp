@@ -1,3 +1,4 @@
+#include "boligtype.h"
 #include "Const.h"
 #include "Kunde.h"
 #include "Soner.h"
@@ -28,14 +29,25 @@ Kunde::Kunde(int nr) {
     cin.ignore();
     skrivNavn(navn); //Registrerer navn
     lesGateAdr(gateAddresse); //Registrerer gateaddresse
+    //lesPostAdr(postAdresse);//nye postaddresse fungerer fint men er litt streng, leser inn pa gammel mate
     cout <<"\nPoststed og nr: ";
     getline(cin,postAdresse);
-    cout <<"\nE-post: ";
-    getline(cin,mail);
+    lesEpostAdr(mail); //Leser mail fra bruker
     //Sikrer innlesning av tlfnr
     telefon = lesInt("\nTelefonnummer:",11111111,99999999);
-    //IMPLEMENTERES ENUM OG VECTORINNLESNING
-    //Registrerer soner
+    //Registrerer interresenn for leilighet eller bolig
+
+    while(kommando !='L' && kommando !='N'){
+        kommando =lesChar("\nLeilighet/enebolig[L/N]");
+        if(kommando =='L'){
+            boligtype::Enebolig;
+        }
+        else if (kommando =='N'){
+           boligtype::Leilighet;
+        }
+        else cout <<"\nFATAL feil";
+    }
+
 
     Kunde::registrerSoner(); //Registrerer soner til kunde.
 
@@ -138,8 +150,7 @@ void Kunde::skrivData() {
               <<"\nPoststed og nr: " <<postAdresse
               <<"\nMailaddresse: " <<mail
               <<"\nTelefon: " <<telefon;
-    //IMPLEMENTER ENUM OG VECTORLESNING
-   cout <<"\nInteressesoner: ";
+    cout <<"\nInteressesoner: ";
     //Sjekker at det er soner registrert og skriver de isafall ut
     if(!kundeSoner.empty()){
         for(auto const & val:kundeSoner){

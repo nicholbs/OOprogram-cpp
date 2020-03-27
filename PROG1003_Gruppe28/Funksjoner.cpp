@@ -5,11 +5,47 @@
 
 using namespace std;
 
+/**
+*Denne funksjonen validerer og registrerer en e-postaddr
+*
+*@param -   epost   medsent variabel som skal fa data oppdatert
+**/
+void lesEpostAdr(std::string & epost){
+    int i;
+    bool valider;
+
+
+    do{
+        valider =true;
+        cout <<"\nE-post addresse: ";
+        cin >>epost;
+        cin.ignore();
+
+        //Sjekker om epostaddessen inneholder @
+        if (epost.find("@") !=string::npos){
+            valider = true;
+        }
+        else valider = false;
+        for(i= 0; i<epost.size(); i++){
+            if(valider == true && (isalpha(epost[i]) ||isdigit(epost[i]) || epost[i] =='-' || epost[i]=='@' || epost[i]=='.')) {
+                valider = true;
+            }
+            else {
+                    valider = false;
+            }
+        }
+        if(!valider){
+            cout <<"\nIkke gyldig e-post addresse, Ma inneholde @ og kan kun inneholde: "
+                 <<"Bokstaver, tall, @ - . ";
+        }
+    }while(valider == false);
+}
 
 /**
 *Denne funksjonen validerer og registrerer et gateaddresse
 *
 **/
+//Gateaddresse inneholder forst en bokstav derretter ' ' ; - og tall
 void lesGateAdr(std::string & gta){
    int i; //Lokketeller
     bool valider =true; //Brukes til a sjekke innlest navn
@@ -22,7 +58,7 @@ void lesGateAdr(std::string & gta){
             if (isalpha(gta[0])){
                 for (i = 1; i < gta.size();i++){
                     //Sa lenge string inneholder bokstaver, mellomrom, tall og -
-                    if(valider == true && (isalpha(gta[i]) || gta[i]==' ' || isdigit(gta[i]))||gta[i]=='-'){
+                    if(valider == true && (isalpha(gta[i]) || gta[i]==' ' || isdigit(gta[i])||gta[i]=='-')){
                         valider =true;
                     }
                     else {
@@ -33,7 +69,46 @@ void lesGateAdr(std::string & gta){
     }while(valider ==false);
 }
 
+/**
+*Denne funksjonen validerer og registrerer en post addresse
+*
+**/
+//forutsettning 3 eller 4 første er tall, etterfulgt med et mellomrom og deretter tekst med . ' ' - eller bokstaver
+void lesPostAdr(std::string & pad){
+    int i; //Lokketeller
+    bool valider = true; //Brukes til sjekk av tekst
 
+    do{
+        valider = true;
+        cout <<"\nSkriv inn postnr poststed: ";
+        getline(cin,pad);
+        //Kontrolerer at de 3 forste er takk
+        for (i=0;i<=2;i++){
+            if(isdigit(pad[i])){
+                valider = true;
+            } else valider=false;
+        }
+        //Sjekker deretter at 4 tegn er tall eller mellomrom
+        if(valider == true && (isdigit(pad[3]) || pad[3]==' ')){
+            valider = true;
+        } else valider = false;
+
+        //Hvis det ikke er et mellomrom fra 4 tall og tekst sa skal det forkastes
+        if(valider == true && (isdigit(pad[3]) && pad[4] !=' ')) {
+            valider = false;
+        }
+        //Sjekker resten av tekstem kan inneholde ' ' - .
+        for(i=5; i <pad.size(); i++) {
+            if(valider == true && (isalpha(pad[i])|| pad[i]==' ' || pad[i]== '.' || pad[i]=='-')) {
+                valider = true;
+            } else valider = false;
+        }
+        if(!valider){
+            cout <<"\nUgyldig sammensettning av postnr og poststed";
+        }
+    }while(valider == false);
+
+}
 /**
 *Denne funksjonen validerer og registrerer et navn
 *
@@ -56,6 +131,9 @@ void skrivNavn(string & nvn){
             else {
                 valider = false;
             }
+        }
+        if(!valider){
+            cout <<"\nUgyldig navnformat, Kan kun besta av bokstaver og mellomrom!";
         }
 
     }while(valider ==false);
