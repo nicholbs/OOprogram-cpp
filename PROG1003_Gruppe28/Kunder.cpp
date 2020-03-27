@@ -95,28 +95,29 @@ void Kunder::kundeSkrivData(){
 *
 * @param int knrParam - variabel for å holde <knr> fra kommando K O <knr>
 **/
-vector <int>  Kunder::finnKunde(int knrParam) {
+vector <int>  Kunder::finnKundeSone(int knrParam) {
+    vector <int> interesseSone;                 //lager vector for å holde interesse soner til kunden
     for (auto it = kundeListe.begin(); it != kundeListe.end(); it++) //Fra list start til List slutt
-    {
-    
-        if ((*it)->kundeIdRetur()==knrParam)
+        {
+
+            if ((*it)->kundeIdRetur()==knrParam)
                 {
-                vector <int> interesseSone;                 //lager vector for å holde interesse soner til kunden
-                interesseSone = (*it)->kundeSonerRetur();   //interesseSone er lik kunden sin KundeSoner
-            /*    for (int i = 0; i < interesseSone.size(); i++)        //Utskrift av vector sin data
-                {
-                    cout << interesseSone.at(i) << endl;
-                }*/
-                
+                interesseSone = (*it)->kundeSonerRetur();   //interesseSone er lik kunden sin KundeSoner        
                 return interesseSone;
                 }
-        else
-            {
-            cout << setw(35) << "Det er ingen kunder med knrParam= " << knrParam << endl;
-            }
-
-    }
+        }
+    cout << setw(35) << "Det er ingen kunder med kunde nr:" << ' ' << knrParam << endl;
+    interesseSone.clear();
+    return interesseSone;
 }
+
+bool Kunder::kundeListeTomSjekk() {
+    if (kundeListe.empty() == true)
+        return true;
+      else if (kundeListe.empty() == false)
+          return false;
+}
+
 
 
 /**Denne klassefunksjonen finner og sletter en spesifikk kunde
@@ -140,5 +141,4 @@ void Kunder::slettKunde() {
     else cout <<"\nFATAL finner ikke bruker, slett ikke mulig";
 
 }
-
 

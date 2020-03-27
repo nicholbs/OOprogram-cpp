@@ -52,13 +52,33 @@ void Bolig::skrivData() {
 		<< "  " << pris << " NOK\n\n";
 }
 
-void Bolig::skrivTilFil(ofstream& ut) {
-	/*ut << "\nBolignummer " << ID << ", annonse lagt inn " << dato << '\n'
-		<< gateadresse << ", " << postadresse << "\n\n"
-		<< setw(15) << "Eier: " << navnEier << '\n'
-		<< setw(15) << "Saksbehandler: " << navnSaksbehandler << "\n\n"
-		<< "Bruttoareal " << bruttoareal << " kvm med " << antallSoverom << " soverom."
-		<< "Bygd i " << byggeaar << ".\n" << '\"' << beskrivelse << "\"\n\n"
-		<< "  " << pris << " NOK\n\n";*/
-	ut << ID;
+
+void Bolig::skrivTilFil(ofstream& ut, vector <int> interesseSone) {
+	ut << ID << ' ' << navnSaksbehandler << endl;
+	ut << dato << ' ' << navnEier << endl;
+	ut << byggeaar << ' ' << gateadresse << endl;
+	ut << bruttoareal << ' ' << postadresse << endl;
+	ut << antallSoverom << ' ' << beskrivelse << endl;
+	ut << pris << ' ';
+
+	if (boligType == boligtype::Leilighet)
+		{
+		ut << "Leilighet" << endl;
+		}
+	else
+		{
+		ut << "Enebolig" << endl;
+		}
+	
+	for (int i = 0; i < interesseSone.size(); i++)
+	{
+		ut << interesseSone[i];
+	}
+	ut << endl;
+}
+
+
+void lesFraFil(ifstream& inn) {
+
+
 }

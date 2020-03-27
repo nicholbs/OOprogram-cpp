@@ -2,6 +2,7 @@
 #include <string>
 #include "boligtype.h"
 #include <fstream>			//nicholas lagt til for skrivTilFil
+#include <vector>
 using namespace std;
 
 class Bolig
@@ -18,6 +19,7 @@ public:
 	~Bolig();
 	int getID();
 	void skrivData();
-	void skrivTilFil(ofstream& ut);
+	void skrivTilFil(ofstream& ut, vector <int> interesseSone);
+	void lesFraFil(ifstream& inn);
 };
 
