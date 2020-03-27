@@ -1,6 +1,7 @@
 #include "Const.h"
 #include "Kunde.h"
 #include "Soner.h"
+#include "Funksjoner.h"
 #include "LesData3.h"
 #include <iostream>
 #include <string>
@@ -24,13 +25,9 @@ Kunde::Kunde(int nr) {
     int soneInnlest; //Bruker for a lese inn en sone.
     //Leser inn data fra bruker
 
-
-
     cin.ignore();
-    cout <<"\nNavn: ";
-    getline(cin,navn);
-    cout <<"\nGate: ";
-    getline(cin,gateAddresse);
+    skrivNavn(navn); //Registrerer navn
+    lesGateAdr(gateAddresse); //Registrerer gateaddresse
     cout <<"\nPoststed og nr: ";
     getline(cin,postAdresse);
     cout <<"\nE-post: ";
