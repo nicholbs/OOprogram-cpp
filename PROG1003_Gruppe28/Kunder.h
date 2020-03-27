@@ -21,8 +21,9 @@ class Kunder
         void kundeEndreData();
         void kundeSAlleSkrivData();
         void kundeSkrivData();
+        bool kundeListeTomSjekk();
 
-        vector <int> finnKunde(int knrParam);
+        vector <int> finnKundeSone(int knrParam);
        
 
         void slettKunde();
