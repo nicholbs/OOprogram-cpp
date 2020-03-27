@@ -36,7 +36,7 @@ Kunde::Kunde(int nr) {
     cout <<"\nE-post: ";
     getline(cin,mail);
     //Sikrer innlesning av tlfnr
-    telefon = lesInt("\nTelefonnummer:",0,99999999);
+    telefon = lesInt("\nTelefonnummer:",11111111,99999999);
     //IMPLEMENTERES ENUM OG VECTORINNLESNING
     //Registrerer soner
 
@@ -79,7 +79,7 @@ void Kunde::endreData(){
                     sort(kundeSoner.begin(),kundeSoner.end());
                     cout <<"\nSonenr: " <<soneInnlest <<" slettet fra bruker";
                 }
-                else cout <<"\Finner ikke Sone hos bruker " <<soneInnlest;
+                else cout <<"\nFinner ikke Sone hos bruker " <<soneInnlest;
              }
              else cout <<"\nIngen soner er registrert pa bruker ";
             default:
