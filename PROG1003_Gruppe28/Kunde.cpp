@@ -23,7 +23,7 @@ extern Soner gSoner; //Legger til Gsonr for å kunne utføre sjekk og mappinger
 
 Kunde::Kunde(int nr) {
     ID = nr; //Setter medsent nr til ID
-    char kommando;
+    char kommando = ' ';
     int soneInnlest; //Bruker for a lese inn en sone.
     //Leser inn data fra bruker
 
@@ -38,8 +38,9 @@ Kunde::Kunde(int nr) {
     telefon = lesInt("\nTelefonnummer:",11111111,99999999);
     //Registrerer interresenn for leilighet eller bolig
 
-    kommando = lesChar("Leilighet/enebolig[L/N]");
+    
     while(kommando !='L' && kommando !='N'){
+        kommando = lesChar("Leilighet/enebolig[L/N]");
         if(kommando =='L'){
             boligtype::Enebolig;
         }
