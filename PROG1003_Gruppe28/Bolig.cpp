@@ -126,7 +126,7 @@ void Bolig::lesFraFil(ifstream& inn) {
 	inn >> pris;	inn.ignore();	getline(inn, boligTypeSjekk);
 	
 	string kundeSoneInteresse;
-	int hentKundeSoneInteresse;
+	int hentKundeSoneInteresse=NULL;
 	inn >> kundeSoneInteresse;
 	kundeSoneInteresse = to_string(hentKundeSoneInteresse);
 	
