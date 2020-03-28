@@ -38,8 +38,8 @@ Kunde::Kunde(int nr) {
     telefon = lesInt("\nTelefonnummer:",11111111,99999999);
     //Registrerer interresenn for leilighet eller bolig
 
+    kommando = lesChar("Leilighet/enebolig[L/N]");
     while(kommando !='L' && kommando !='N'){
-        kommando =lesChar("\nLeilighet/enebolig[L/N]");
         if(kommando =='L'){
             boligtype::Enebolig;
         }
@@ -49,9 +49,7 @@ Kunde::Kunde(int nr) {
         else cout <<"\nFATAL feil";
     }
 
-
     Kunde::registrerSoner(); //Registrerer soner til kunde.
-
 
 }
 /**
