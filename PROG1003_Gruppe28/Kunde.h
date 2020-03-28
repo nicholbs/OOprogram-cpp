@@ -21,6 +21,7 @@ class Kunde
 		vector<int> kundeSoner;
 	public:
 		Kunde(int nr);
+		Kunde(std::ifstream & inn, int kId);
 		int kundeIdRetur();
 		void endreData();
 		void registrerSoner();
