@@ -23,8 +23,9 @@ public:
 	~Bolig();
 	int getID();
 	void skrivData();
-	void skrivTilFil(ofstream& ut);
+	void skrivTilFil(ofstream& ut);		//Er denne nødvendig??
 	void skrivTilFil(ofstream& ut, vector <int> interesseSone);
+	void lesFraFil(ifstream& inn);
 	bool erEnebolig();
 };
 

@@ -4,6 +4,7 @@
 #include <istream>
 #include <iomanip>
 #include <fstream>		//kanskje denne ikke trengs
+#include <string>		//lesFraFil
 
 Bolig::Bolig(int id) {
 	ID = id;
@@ -112,6 +113,23 @@ void Bolig::skrivTilFil(ofstream& ut, vector <int> interesseSone) {
 		ut << interesseSone[i];
 	}
 	ut << endl;
+}
+
+void Bolig::lesFraFil(ifstream& inn) {
+	inn >> ID;		inn.ignore();	getline(inn, navnSaksbehandler);
+	inn >> dato;	inn.ignore();	getline(inn, navnEier);
+	inn >> byggeaar;inn.ignore();	getline(inn, gateadresse);
+	inn >> bruttoareal;	inn.ignore();	getline(inn, postadresse);
+	inn >> antallSoverom;	inn.ignore();	getline(inn, beskrivelse);
+	
+	string boligTypeSjekk;
+	inn >> pris;	inn.ignore();	getline(inn, boligTypeSjekk);
+	
+	string kundeSoneInteresse;
+	int hentKundeSoneInteresse;
+	inn >> kundeSoneInteresse;
+	kundeSoneInteresse = to_string(hentKundeSoneInteresse);
+	
 }
 
 bool Bolig::erEnebolig()

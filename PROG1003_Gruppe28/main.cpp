@@ -105,11 +105,13 @@ void menyKunde() {
 			{
 			vector <int> kundeSoneInteresse;
 			kundeSoneInteresse = gKunder.finnKundeSone(kundeNr);
-
 			if (kundeSoneInteresse.empty() == false)
 				{
-
-				ofstream utfilA("testTest.txt");
+				string navnPaFil = "K";
+				string kunde = to_string(kundeNr);
+				kunde.append(".DTA");
+				string skrivTilFil = navnPaFil + kunde;
+				ofstream utfilA(skrivTilFil);
 				Bolig* boligPeker;
 
 				for (int i = 0; i < kundeSoneInteresse.size(); i++)        //Utskrift av vector sin data
@@ -121,6 +123,7 @@ void menyKunde() {
 							}
 						else
 							{
+							cout << setw(35) << "Skriver Bolig:" << ' ' << kundeSoneInteresse.at(i) << endl;
 							boligPeker->skrivTilFil(utfilA, kundeSoneInteresse);
 							}
 					}
