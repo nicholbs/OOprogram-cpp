@@ -1,13 +1,16 @@
+#include "boligtype.h"
 #include "Const.h"
 #include "Kunde.h"
 #include "Soner.h"
+#include "Funksjoner.h"
 #include "LesData3.h"
 #include <iostream>
 #include <string>
-#include <vector>
-#include <algorithm>
+#include <vector> //Brukes blant annet til int vektoren sone
+#include <algorithm> //Brukes til remove og find algoritmer
 #include <iomanip>      //nicholas include pga setw i kunde::kundeSonerRetur()
 #include <locale> //IS blank
+#include <fstream> //Brukes til filhandtering
 using namespace std;
 
 extern Soner gSoner; //Legger til Gsonr for å kunne utføre sjekk og mappinger
@@ -24,21 +27,28 @@ Kunde::Kunde(int nr) {
     int soneInnlest; //Bruker for a lese inn en sone.
     //Leser inn data fra bruker
 
-
-
     cin.ignore();
-    cout <<"\nNavn: ";
-    getline(cin,navn);
-    cout <<"\nGate: ";
-    getline(cin,gateAddresse);
+    skrivNavn(navn); //Registrerer navn
+    lesGateAdr(gateAddresse); //Registrerer gateaddresse
+    //lesPostAdr(postAdresse);//nye postaddresse fungerer fint men er litt streng, leser inn pa gammel mate
     cout <<"\nPoststed og nr: ";
     getline(cin,postAdresse);
-    cout <<"\nE-post: ";
-    getline(cin,mail);
+    lesEpostAdr(mail); //Leser mail fra bruker
     //Sikrer innlesning av tlfnr
     telefon = lesInt("\nTelefonnummer:",11111111,99999999);
-    //IMPLEMENTERES ENUM OG VECTORINNLESNING
-    //Registrerer soner
+    //Registrerer interresenn for leilighet eller bolig
+
+    while(kommando !='L' && kommando !='N'){
+        kommando =lesChar("\nLeilighet/enebolig[L/N]");
+        if(kommando =='L'){
+            boligtype::Enebolig;
+        }
+        else if (kommando =='N'){
+           boligtype::Leilighet;
+        }
+        else cout <<"\nFATAL feil";
+    }
+
 
     Kunde::registrerSoner(); //Registrerer soner til kunde.
 
@@ -141,8 +151,7 @@ void Kunde::skrivData() {
               <<"\nPoststed og nr: " <<postAdresse
               <<"\nMailaddresse: " <<mail
               <<"\nTelefon: " <<telefon;
-    //IMPLEMENTER ENUM OG VECTORLESNING
-   cout <<"\nInteressesoner: ";
+    cout <<"\nInteressesoner: ";
     //Sjekker at det er soner registrert og skriver de isafall ut
     if(!kundeSoner.empty()){
         for(auto const & val:kundeSoner){
@@ -151,6 +160,23 @@ void Kunde::skrivData() {
     }
     //Hvis ingen sone gir tilbakemelding
     else cout <<"\nIngen soner er registrert!";
+}
+void Kunde::skrivTilFil(ofstream & ut) {
+    int antIntSoner; //Antall interessesoner for en kunde.
+    ut <<ID <<" " <<navn <<"\n";
+    ut << telefon <<" " <<mail <<"\n";
+    ut << gateAddresse <<"\n";
+    ut << postAdresse <<"\n";
+    //Her ma det komme en boligtyp
+    //Skriver forst antall interessesoner
+    antIntSoner = kundeSoner.size();
+    ut <<antIntSoner <<" ";
+    //Skriver sa ut alle sonenr til fil
+    for(const auto & kundesone : kundeSoner) {
+        ut <<kundesone <<" ";
+    }
+    ut <<"\n"; //Legger en enter til neste kunde
+
 }
 
 /**

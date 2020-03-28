@@ -4,7 +4,7 @@
 #include <iterator>
 #include <algorithm>
 #include <fstream>
-#include <sstream>
+#include <iomanip>
 
 void Soner::nySone(int snr) 
 {
@@ -42,7 +42,7 @@ Bolig* Soner::finnOppdrag(int onr)
 		if (bp != nullptr)
 			return bp;
 	}
-	cout << "Fant ikke oppdraget.\n\n";
+	cout << setw(35) << "Fant ikke oppdraget.\n\n";
 	return bp;
 }
 

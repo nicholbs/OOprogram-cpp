@@ -3,9 +3,10 @@
 #include "LesData3.h"
 #include <iostream>
 #include <list>
-#include <algorithm>
+#include <algorithm> //Brukes til en del find funkjoner
 #include <iomanip>      //nicholas include pga setw kunder::finnKunder
 #include <vector>       //nicholas include pga kunder::finnKunder
+#include <fstream> //For innlesning og utlesing til fil
 
 using namespace std;
 /**
@@ -69,6 +70,23 @@ void Kunder::kundeSAlleSkrivData(){
         cout <<"\n";
     }
 }
+/**
+*Denne klassefunkjsonen skriver alle kunder til fil
+*
+**/
+void Kunder::kunderSkrivAlleTilFil(){
+    ofstream utfil("KUNDER.DTA");
+    //Sa lenge det finnes registrerte kunder:
+    if(!kundeListe.empty()){
+        utfil << sisteNr <<"\n"; //Legger kunder sistenr pa fil
+        for(const auto &val : kundeListe){
+            val->skrivTilFil(utfil);
+        }
+    }else cout <<"\nIngen kunder funnet, Ingenting skrives til fil";
+
+
+
+}
 
 /**
 *Denne Funksjonen finner og skriver ut data til en spesifikk kunde
@@ -95,28 +113,29 @@ void Kunder::kundeSkrivData(){
 *
 * @param int knrParam - variabel for å holde <knr> fra kommando K O <knr>
 **/
-vector <int>  Kunder::finnKunde(int knrParam) {
+vector <int>  Kunder::finnKundeSone(int knrParam) {
+    vector <int> interesseSone;                 //lager vector for å holde interesse soner til kunden
     for (auto it = kundeListe.begin(); it != kundeListe.end(); it++) //Fra list start til List slutt
-    {
-    
-        if ((*it)->kundeIdRetur()==knrParam)
+        {
+
+            if ((*it)->kundeIdRetur()==knrParam)
                 {
-                vector <int> interesseSone;                 //lager vector for å holde interesse soner til kunden
                 interesseSone = (*it)->kundeSonerRetur();   //interesseSone er lik kunden sin KundeSoner
-            /*    for (int i = 0; i < interesseSone.size(); i++)        //Utskrift av vector sin data
-                {
-                    cout << interesseSone.at(i) << endl;
-                }*/
-                
                 return interesseSone;
                 }
-        else
-            {
-            cout << setw(35) << "Det er ingen kunder med knrParam= " << knrParam << endl;
-            }
-
-    }
+        }
+    cout << setw(35) << "Det er ingen kunder med kunde nr:" << ' ' << knrParam << endl;
+    interesseSone.clear();
+    return interesseSone;
 }
+
+bool Kunder::kundeListeTomSjekk() {
+    if (kundeListe.empty() == true)
+        return true;
+      else if (kundeListe.empty() == false)
+          return false;
+}
+
 
 
 /**Denne klassefunksjonen finner og sletter en spesifikk kunde
@@ -140,5 +159,4 @@ void Kunder::slettKunde() {
     else cout <<"\nFATAL finner ikke bruker, slett ikke mulig";
 
 }
-
 

@@ -2,6 +2,9 @@
 #include <string>
 #include <fstream>			
 #include "boligtype.h"
+#include <fstream>			
+#include <vector>
+
 using namespace std;
 
 class Bolig
@@ -21,6 +24,7 @@ public:
 	int getID();
 	void skrivData();
 	void skrivTilFil(ofstream& ut);
+	void skrivTilFil(ofstream& ut, vector <int> interesseSone);
 	bool erEnebolig();
 };
 

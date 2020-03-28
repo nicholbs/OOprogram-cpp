@@ -91,47 +91,56 @@ void menyKunde() {
 	case 'S':
 		//Slett kunde | HUSK PEKER
 		cout << setw(35) << "Slett kunde" << endl;
+		gKunder.slettKunde();
 		break;
 
-	case 'O':
+	case 'O':			//K -kunde, O - Skriv ut all data om kundens interesseSone, <knr> -valgt kunde
 		{
-		/*gKunder.nyKunde();*/
-
 		int kundeNr;	//Variabel for å holde medsent int i kommando "K O <knr>"
 		cin >> kundeNr;	//Innskriving av <knr> går til helvette om bruker taster bokstav og ikke tall
-		cout << setw(35) << "kundeNr sendt med til gKunder.finnKunde(" << kundeNr << ')' << endl;
-
-		vector <int> kundeSoneInteresse;
-	
-		vector <Bolig*> boligPeker;
-
-		kundeSoneInteresse = gKunder.finnKunde(kundeNr);
+		cout << setw(35) << "Leter etter kunde med nr:" << ' ' << kundeNr << endl;
 
 
-		ofstream utfilA("testTest.txt");
-	/*	auto it = boligerTilSalgs.begin();
-		(*it)->skrivTilFil(utfilA);*/
+		if (gKunder.kundeListeTomSjekk() == false)
+			{
+			vector <int> kundeSoneInteresse;
+			kundeSoneInteresse = gKunder.finnKundeSone(kundeNr);
 
-		for (int i = 0; i < kundeSoneInteresse.size(); i++)        //Utskrift av vector sin data
-		{
-		boligPeker.push_back(gSoner.finnOppdrag(kundeSoneInteresse.at(i)));
-		boligPeker[i]->skrivTilFil(utfilA);
-		  
-		}
-		
+			if (kundeSoneInteresse.empty() == false)
+				{
 
+				ofstream utfilA("testTest.txt");
+				Bolig* boligPeker;
 
-
-
-
-		//Skriv all data om alle boliger i alle kundens interessesoner til FIL
-		//Filnavn: K[kundenr].DTA
-		/////////NB NB! Trenger funksjon for å sjekke at det finnes kunde med kundeNr
-		//kundePeker->
-		cout << setw(35) << "Skriver all bolig data" << endl;
+				for (int i = 0; i < kundeSoneInteresse.size(); i++)        //Utskrift av vector sin data
+					{
+						boligPeker = (gSoner.finnOppdrag(kundeSoneInteresse.at(i)));
+						if (boligPeker == nullptr)
+							{
+							cout << setw(35) << "Det er ikke blitt skrevet til fil" << endl;
+							}
+						else
+							{
+							boligPeker->skrivTilFil(utfilA, kundeSoneInteresse);
+							}
+					}
+				}
+			else
+				{
+				cout << setw(35) << "Kunden fantes, men han har ikke registrert noen soner:" << endl;
+				}
+			}
+		else
+			{
+			cout << setw(35) << "Det finnes ingen kunder i hele tatt" << endl;
+			}
 		}
 		break;
-
+    case 'D':
+        cout <<"\nTest skriv ut alle kunder til fil";
+        gKunder.kunderSkrivAlleTilFil();
+        cout <<"\nAlle skrevet til fil";
+        break;
 	default:
 		cout << setw(35) << "Kunde Default" << endl;
 	}
