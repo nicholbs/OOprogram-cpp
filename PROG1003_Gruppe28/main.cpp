@@ -89,6 +89,7 @@ void menyKunde() {
 	case 'S':
 		//Slett kunde | HUSK PEKER
 		cout << setw(35) << "Slett kunde" << endl;
+		gKunder.slettKunde();
 		break;
 
 	case 'O':			//K -kunde, O - Skriv ut all data om kundens interesseSone, <knr> -valgt kunde
@@ -97,7 +98,7 @@ void menyKunde() {
 		cin >> kundeNr;	//Innskriving av <knr> går til helvette om bruker taster bokstav og ikke tall
 		cout << setw(35) << "Leter etter kunde med nr:" << ' ' << kundeNr << endl;
 
-		
+
 		if (gKunder.kundeListeTomSjekk() == false)
 			{
 			vector <int> kundeSoneInteresse;
@@ -105,10 +106,10 @@ void menyKunde() {
 
 			if (kundeSoneInteresse.empty() == false)
 				{
-			
+
 				ofstream utfilA("testTest.txt");
 				Bolig* boligPeker;
-					
+
 				for (int i = 0; i < kundeSoneInteresse.size(); i++)        //Utskrift av vector sin data
 					{
 						boligPeker = (gSoner.finnOppdrag(kundeSoneInteresse.at(i)));
@@ -116,13 +117,13 @@ void menyKunde() {
 							{
 							cout << setw(35) << "Det er ikke blitt skrevet til fil" << endl;
 							}
-						else 
+						else
 							{
 							boligPeker->skrivTilFil(utfilA, kundeSoneInteresse);
 							}
 					}
 				}
-			else 
+			else
 				{
 				cout << setw(35) << "Kunden fantes, men han har ikke registrert noen soner:" << endl;
 				}
@@ -133,7 +134,11 @@ void menyKunde() {
 			}
 		}
 		break;
-
+    case 'D':
+        cout <<"\nTest skriv ut alle kunder til fil";
+        gKunder.kunderSkrivAlleTilFil();
+        cout <<"\nAlle skrevet til fil";
+        break;
 	default:
 		cout << setw(35) << "Kunde Default" << endl;
 	}

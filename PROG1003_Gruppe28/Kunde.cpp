@@ -6,10 +6,11 @@
 #include "LesData3.h"
 #include <iostream>
 #include <string>
-#include <vector>
-#include <algorithm>
+#include <vector> //Brukes blant annet til int vektoren sone
+#include <algorithm> //Brukes til remove og find algoritmer
 #include <iomanip>      //nicholas include pga setw i kunde::kundeSonerRetur()
 #include <locale> //IS blank
+#include <fstream> //Brukes til filhandtering
 using namespace std;
 
 extern Soner gSoner; //Legger til Gsonr for å kunne utføre sjekk og mappinger
@@ -159,6 +160,23 @@ void Kunde::skrivData() {
     }
     //Hvis ingen sone gir tilbakemelding
     else cout <<"\nIngen soner er registrert!";
+}
+void Kunde::skrivTilFil(ofstream & ut) {
+    int antIntSoner; //Antall interessesoner for en kunde.
+    ut <<ID <<" " <<navn <<"\n";
+    ut << telefon <<" " <<mail <<"\n";
+    ut << gateAddresse <<"\n";
+    ut << postAdresse <<"\n";
+    //Her ma det komme en boligtyp
+    //Skriver forst antall interessesoner
+    antIntSoner = kundeSoner.size();
+    ut <<antIntSoner <<" ";
+    //Skriver sa ut alle sonenr til fil
+    for(const auto & kundesone : kundeSoner) {
+        ut <<kundesone <<" ";
+    }
+    ut <<"\n"; //Legger en enter til neste kunde
+
 }
 
 /**

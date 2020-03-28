@@ -25,6 +25,7 @@ class Kunde
 		void endreData();
 		void registrerSoner();
 		void skrivData();
+		void skrivTilFil(std::ofstream & ut);
 
 		vector <int> kundeSonerRetur();
 		~Kunde(); //Brukes til midlertidig test

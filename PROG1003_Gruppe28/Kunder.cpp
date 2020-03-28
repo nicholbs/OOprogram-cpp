@@ -3,9 +3,10 @@
 #include "LesData3.h"
 #include <iostream>
 #include <list>
-#include <algorithm>
+#include <algorithm> //Brukes til en del find funkjoner
 #include <iomanip>      //nicholas include pga setw kunder::finnKunder
 #include <vector>       //nicholas include pga kunder::finnKunder
+#include <fstream> //For innlesning og utlesing til fil
 
 using namespace std;
 /**
@@ -69,6 +70,23 @@ void Kunder::kundeSAlleSkrivData(){
         cout <<"\n";
     }
 }
+/**
+*Denne klassefunkjsonen skriver alle kunder til fil
+*
+**/
+void Kunder::kunderSkrivAlleTilFil(){
+    ofstream utfil("KUNDER.DTA");
+    //Sa lenge det finnes registrerte kunder:
+    if(!kundeListe.empty()){
+        utfil << sisteNr <<"\n"; //Legger kunder sistenr pa fil
+        for(const auto &val : kundeListe){
+            val->skrivTilFil(utfil);
+        }
+    }else cout <<"\nIngen kunder funnet, Ingenting skrives til fil";
+
+
+
+}
 
 /**
 *Denne Funksjonen finner og skriver ut data til en spesifikk kunde
@@ -102,7 +120,7 @@ vector <int>  Kunder::finnKundeSone(int knrParam) {
 
             if ((*it)->kundeIdRetur()==knrParam)
                 {
-                interesseSone = (*it)->kundeSonerRetur();   //interesseSone er lik kunden sin KundeSoner        
+                interesseSone = (*it)->kundeSonerRetur();   //interesseSone er lik kunden sin KundeSoner
                 return interesseSone;
                 }
         }
