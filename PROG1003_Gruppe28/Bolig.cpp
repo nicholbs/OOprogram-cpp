@@ -7,6 +7,7 @@
 
 Bolig::Bolig(int id) {
 	ID = id;
+	boligType = boligtype::Leilighet;
 
 	cin.ignore();
 	dato = lesInt("Dato [YYYYMMDD]: ", 0, 99999999);
@@ -25,8 +26,23 @@ Bolig::Bolig(int id) {
 	getline(cin, postadresse);
 	cout << "Kort beskrivelse: ";
 	getline(cin, beskrivelse);
+}
 
+Bolig::Bolig(ifstream& inn)
+{
 	boligType = boligtype::Leilighet;
+
+	inn >> ID;
+	inn.ignore();
+	getline(inn, gateadresse);
+	getline(inn, postadresse);
+	getline(inn, navnEier);
+	getline(inn, navnSaksbehandler);
+	inn >> dato >> bruttoareal >> antallSoverom >> byggeaar;
+	inn.ignore();
+	getline(inn, beskrivelse);
+	inn >> pris;
+	inn.ignore();
 }
 
 Bolig::~Bolig() {
@@ -43,22 +59,38 @@ int Bolig::getID() {
 }
 
 void Bolig::skrivData() {
-	cout << "\nBolignummer " << ID << ", annonse lagt inn " << dato << '\n'
-		<< gateadresse << ", " << postadresse << "\n\n"
-		<< setw(15) << "Eier: " << navnEier << '\n'
-		<< setw(15) << "Saksbehandler: " << navnSaksbehandler << "\n\n"
+	if (boligType == boligtype::Leilighet)
+		cout << "\nLeilighet ";
+	else
+		cout << "\nEnebolig ";
+	
+	cout << "nr " << ID << ", annonse lagt inn " << dato << '\n'
+		<< "Adresse: " << gateadresse << ", " << postadresse << "\n\n"
+		<< setw(15) << left << "Eier: " << navnEier << '\n'
+		<< setw(15) << left << "Saksbehandler: " << navnSaksbehandler << "\n\n"
 		<< "Bruttoareal " << bruttoareal << " kvm med " << antallSoverom << " soverom."
-		<< "Bygd i " << byggeaar << ".\n" << '\"' << beskrivelse << "\"\n\n"
-		<< "  " << pris << " NOK\n\n";
+		<< " Bygd " << byggeaar << ".\n" << '\"' << beskrivelse << "\"\n";
+
+	if(boligType == boligtype::Leilighet)
+		cout << "Pris: " << pris << " NOK\n\n";
 }
 
 void Bolig::skrivTilFil(ofstream& ut) {
-	/*ut << "\nBolignummer " << ID << ", annonse lagt inn " << dato << '\n'
-		<< gateadresse << ", " << postadresse << "\n\n"
-		<< setw(15) << "Eier: " << navnEier << '\n'
-		<< setw(15) << "Saksbehandler: " << navnSaksbehandler << "\n\n"
-		<< "Bruttoareal " << bruttoareal << " kvm med " << antallSoverom << " soverom."
-		<< "Bygd i " << byggeaar << ".\n" << '\"' << beskrivelse << "\"\n\n"
-		<< "  " << pris << " NOK\n\n";*/
-	ut << ID;
+	ut << "O-";
+	if (boligType == boligtype::Leilighet)
+		ut << "L ";
+	else
+		ut << "E ";
+	ut << ID << '\n';
+
+	ut	<< gateadresse << '-' << postadresse << '\n'
+		<< navnEier << '\n' << navnSaksbehandler << '\n'
+		<< dato << ' ' << bruttoareal << ' '
+		<< antallSoverom << ' ' << byggeaar << '\n'
+		<< beskrivelse << '\n' << pris << '\n';
+}
+
+bool Bolig::erEnebolig()
+{
+	return (boligType == boligtype::Enebolig);
 }

@@ -7,6 +7,9 @@ class Enebolig : public Bolig
 
 public:
 	Enebolig(int id);
+	Enebolig(ifstream& inn);
 	~Enebolig();
+	void skrivData();
+	void skrivTilFil(ofstream& ut);
 };
 

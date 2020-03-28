@@ -1,7 +1,7 @@
 #pragma once
 #include <map>
 #include "Sone.h"
-#include "Bolig.h"
+#include "Enebolig.h"
 using namespace std;
 
 class Soner
@@ -18,4 +18,6 @@ public:
 	void skrivOppdrag(int onr);
 	void skrivAlleOppdrag();	//TESTFUNKSJON
 	void slettOppdrag(int onr);
+	void skrivTilFil();
+	void lesFraFil();
 };

@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <fstream>
 #include "Bolig.h"
 using namespace std;
 
@@ -13,11 +14,12 @@ class Sone
 public:
 	Sone(int id);
 	void nyttOppdrag(int onr);
+	void nyttOppdrag(ifstream& inn);
 	Bolig* finnOppdrag(int onr);
 	void slettOppdrag(int onr);
 	bool finnesOppdrag(int onr);
 	void skrivAlleOppdrag(); //TESTFUNKSJON
-	//void skrivTilFil();
+	void skrivTilFil(ofstream& ut);
 
 };
 

@@ -3,6 +3,8 @@
 #include <iostream>
 #include <iterator>
 #include <algorithm>
+#include <fstream>
+#include <sstream>
 
 void Soner::nySone(int snr) 
 {
@@ -47,8 +49,13 @@ Bolig* Soner::finnOppdrag(int onr)
 void Soner::skrivOppdrag(int onr) 
 {
 	Bolig* bp = finnOppdrag(onr);
-	if(bp != nullptr)
-		bp->skrivData();
+	if (bp != nullptr)
+	{
+		if (bp->erEnebolig())
+			static_cast<Enebolig*>(bp)->skrivData();
+		else
+			bp->skrivData();
+	}
 }
 
 void Soner::skrivAlleOppdrag()
@@ -62,6 +69,48 @@ void Soner::slettOppdrag(int onr)
 	for (const auto& sonePar : soneMap)
 	{
 		if (sonePar.second->finnesOppdrag(onr))
+		{
 			sonePar.second->slettOppdrag(onr);
+			sisteNr--;
+			return;
+		}	
+	}
+}
+
+void Soner::skrivTilFil()
+{
+	ofstream ut;
+	ut.open("SONER.DTA");
+
+	ut << soneMap.size() << '\n';
+	for (const auto& sonePar : soneMap)
+		sonePar.second->skrivTilFil(ut);
+
+	ut.close();
+}
+
+void Soner::lesFraFil()
+{
+	ifstream inn;
+	inn.open("SONER.DTA");
+
+	int soneNr, antallOppdrag, antallSoner;
+
+	if (!inn)
+		cout << "Kunne ikke lese fil \"SONER.DTA\"\n\n";
+	else
+	{
+		inn >> antallSoner;
+		for (int i = 0; i < antallSoner; i++)
+		{
+			inn >> soneNr >> antallOppdrag;
+			inn.ignore();
+
+			Sone* sp = new Sone(soneNr);
+			for (int i = 0; i < antallOppdrag; i++)
+				sp->nyttOppdrag(inn);
+			soneMap.insert(make_pair(soneNr, sp));
+		}
+		cout << "Alle soner lest inn\n";
 	}
 }

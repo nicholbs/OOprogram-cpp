@@ -26,6 +26,8 @@ Kunder gKunder;
 
 int main()
 {
+	gSoner.lesFraFil();
+
 	hovedMeny();
 
 	char kommando1;
@@ -153,6 +155,9 @@ void menySone() {
 	case 'A':
 		//Skriv HOVEDDATAENE om alle soner til terminal
 		//nr, beskrivelse, antall oppdrag
+		break;
+	case 'F':	//TESTFUNKSJON - SKAL FJERNES
+		gSoner.skrivTilFil();
 		break;
 	default:
 		cout << "Sone Default" << endl;

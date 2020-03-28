@@ -2,8 +2,7 @@
 #include "Bolig.h"
 #include "Enebolig.h"
 #include <iostream>
-#include <ctype.h>
-#include <fstream>			//nicholas lagt til for skrivTilFil
+#include <ctype.h>			//nicholas lagt til for skrivTilFil
 
 using namespace std;
 
@@ -16,13 +15,28 @@ void Sone::nyttOppdrag(int onr)
 	cout << "Leilighet/enebolig [L/E]: ";
 	char valg; cin >> valg;
 
-	Bolig* p = nullptr;
+	Bolig* bp = nullptr;
 	if (toupper(valg) == 'L')
-		p = new Bolig(onr);
+		bp = new Bolig(onr);
 	else if (toupper(valg) == 'E')
-		p = new Enebolig(onr);
+		bp = new Enebolig(onr);
 
-	boligerTilSalgs.push_back(p);
+	boligerTilSalgs.push_back(bp);
+}
+
+void Sone::nyttOppdrag(ifstream& inn)
+{
+	Bolig* bp = nullptr;
+
+	char lestChar;
+	inn >> lestChar;
+	
+	if (lestChar == 'L')
+		bp = new Bolig(inn);
+	else
+		bp = new Enebolig(inn);
+
+	boligerTilSalgs.push_back(bp);
 }
 
 Bolig* Sone::finnOppdrag(int onr) 
@@ -65,8 +79,14 @@ void Sone::skrivAlleOppdrag()
 	cout << '\n';
 }
 
-//void Sone::skrivTilFil() {
-//	ofstream utfilA("Kxxxxx.TXT");
-//	auto it = boligerTilSalgs.begin();
-//	(*it)->skrivTilFil(utfilA);
-//}
+void Sone::skrivTilFil(ofstream& ut) {
+	ut << ID << '\n';
+	for (int i = 0; i < boligerTilSalgs.size(); i++)
+	{
+		if (boligerTilSalgs[i]->erEnebolig())
+			static_cast<Enebolig*>(boligerTilSalgs[i])->skrivTilFil(ut);
+		else 
+			boligerTilSalgs[i]->skrivTilFil(ut);
+		ut << '\n';
+	}
+}
