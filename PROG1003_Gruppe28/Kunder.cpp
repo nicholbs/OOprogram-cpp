@@ -51,6 +51,35 @@ void Kunder::nyKunde() {
     //Oppretter ny kunde og flytter den bakerst i listen
     kundeListe.push_back(new Kunde(sisteNr));
 }
+/**
+*Denne funksjonen leser kunder inn fra fil
+*
+* @see Kunde::Kunde(...)
+**/
+void Kunder::kunderLesAlleFraFil(){
+    int kundeId; //Brukes for a lese inn kundeid temporert
+    ifstream innfil("KUNDER.DTA"); //lager et innfil objekt
+
+    //Kontrollerer at  datastrukt er tom for import
+    if(sisteNr == 0 && kundeListe.empty()){
+        //Sjekker om jeg far apnet filen
+        if(innfil){
+            innfil >> sisteNr; //oppdaterer sisteNr
+            //Leser inn sa lenge det er data
+            innfil >> kundeId;
+            //Sa lenge det er elementer pa filen
+            while(!innfil.eof()){
+               //Lager en ny kunde og sender med filobjekt og kundenr
+                kundeListe.push_back(new Kunde(innfil,1));
+                innfil >>kundeId;
+            }
+
+        }else cout <<"\nFinner ikke fil!";
+
+
+    }else cout <<"\nFilimport skal kun skje ved oppstart og tom datastruktur!!";
+    innfil.close();
+}
 
 /**
 *Denne funksjonen finner og skriver ut data for alle kunder

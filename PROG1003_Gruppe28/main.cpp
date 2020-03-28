@@ -144,6 +144,10 @@ void menyKunde() {
         gKunder.kunderSkrivAlleTilFil();
         cout <<"\nAlle skrevet til fil";
         break;
+    case 'L':
+        cout <<"\nTest imprt alle kunder fra fil";
+        gKunder.kunderLesAlleFraFil();
+        cout <<"\nFerdig";
 	default:
 		cout << setw(35) << "Kunde Default" << endl;
 	}

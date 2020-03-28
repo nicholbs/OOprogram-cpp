@@ -38,20 +38,55 @@ Kunde::Kunde(int nr) {
     telefon = lesInt("\nTelefonnummer:",11111111,99999999);
     //Registrerer interresenn for leilighet eller bolig
 
-    
-    while(kommando !='L' && kommando !='N'){
-        kommando = lesChar("Leilighet/enebolig[L/N]");
+
+    while(kommando !='L' && kommando !='E'){
+        kommando = lesChar("Leilighet/enebolig[L/E]");
         if(kommando =='L'){
-            boligtype::Enebolig;
+            boligType = boligtype::Leilighet;
         }
-        else if (kommando =='N'){
-           boligtype::Leilighet;
+        else if (kommando =='E'){
+          boligType=boligtype::Enebolig;
         }
         else cout <<"\nFATAL feil";
     }
-
     Kunde::registrerSoner(); //Registrerer soner til kunde.
 
+}
+/**
+*Denne konstructoren registrerer ny kunde fra fil
+*
+*@param ifstream    -   filobjekt
+*@param kId -   medsendt kundeid
+**/
+Kunde::Kunde(ifstream & inn, int kId) {
+    cout <<"\nJeg kom hit id " <<kId;
+    int tempSoneInnlest; //brukes for a lese inn sone etter sone
+    int tempBoligType; //Brukes til innlesning og omcasting boligtype
+    int antSoner; //Brukes til loop for soneinnlesning
+    int i; //Lokketeller
+    ID = kId;
+    inn.ignore(); //forkaster mellomrom
+    getline(inn,navn);
+    inn >> telefon;
+    inn.ignore();
+    getline(inn,mail);
+    getline(inn,gateAddresse);
+    getline(inn,postAdresse);
+    //Leser inn og registrerr boligtype
+    inn >> tempBoligType;
+    //Caster om og registrer boligtypen
+    boligType = static_cast<boligtype>(tempBoligType);
+    //Leser inn interessesoner
+    inn >> antSoner;
+
+    //Looper igjennom og registrerer i vectoren, tall skal allerede vare sortert
+    for(i = 0; i<antSoner; i++) {
+        inn >> tempSoneInnlest; //leser inn en sone
+        kundeSoner.push_back(tempSoneInnlest); //Putter sonen bakerst i vector
+    }
+
+    //Egentlig skal ALT allerede vare sortert, men tar dette for sikkerhetskyld
+    sort(kundeSoner.begin(),kundeSoner.end());
 }
 /**
 *Denne funksjonen endrer pa en kundes onsket sone data
@@ -150,6 +185,13 @@ void Kunde::skrivData() {
               <<"\nPoststed og nr: " <<postAdresse
               <<"\nMailaddresse: " <<mail
               <<"\nTelefon: " <<telefon;
+    cout <<"\nType: ";
+    if(boligType == boligtype::Enebolig) {
+        cout <<"\Enebolig";
+    }
+    else if(boligType ==boligtype::Leilighet){
+        cout <<"Leilighet";
+    }
     cout <<"\nInteressesoner: ";
     //Sjekker at det er soner registrert og skriver de isafall ut
     if(!kundeSoner.empty()){
@@ -160,12 +202,22 @@ void Kunde::skrivData() {
     //Hvis ingen sone gir tilbakemelding
     else cout <<"\nIngen soner er registrert!";
 }
+
+/**
+*Denne funksjonen skriver en kunde til fil
+*
+*@param ut  -   et ofstrem objekt
+**/
 void Kunde::skrivTilFil(ofstream & ut) {
     int antIntSoner; //Antall interessesoner for en kunde.
+    int enumKonertering;
+    //Konverterr enum til int
+    enumKonertering = static_cast<int>(boligType);
     ut <<ID <<" " <<navn <<"\n";
     ut << telefon <<" " <<mail <<"\n";
     ut << gateAddresse <<"\n";
     ut << postAdresse <<"\n";
+    ut <<enumKonertering <<"\n";
     //Her ma det komme en boligtyp
     //Skriver forst antall interessesoner
     antIntSoner = kundeSoner.size();
