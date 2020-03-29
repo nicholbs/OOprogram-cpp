@@ -88,16 +88,19 @@ void Kunder::kunderLesAlleFraFil(){
 **/
 void Kunder::kundeSAlleSkrivData(){
     int teller = 0; //hjelpeint for a stoppe pr 10 utskrift av kunde
-    //Skriver ut alle kunder ifra listen
-    for(const auto & liste :kundeListe) {
-        teller ++;
-        //Pauser for hvert 10 kunde
-        if(teller%10==0){
-            cin.ignore(); //Far bruker a taste enter
+    //Sjekker at det er kunder registrert
+    if(!kundeListe.empty()){
+        //Skriver ut alle kunder ifra listen
+        for(const auto & liste :kundeListe) {
+            teller ++;
+            //Pauser for hvert 10 kunde
+            if(teller%10==0){
+                cin.ignore(); //Far bruker a taste enter
+            }
+            liste -> skrivData(); //Kaller pa kunde lesdata
+            cout <<"\n";
         }
-        liste -> skrivData(); //Kaller pa kunde lesdata
-        cout <<"\n";
-    }
+    } else cout <<"\nIngen kunder er registrert! ";
 }
 /**
 *Denne klassefunkjsonen skriver alle kunder til fil

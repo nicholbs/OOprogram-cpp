@@ -15,10 +15,14 @@ using namespace std;
 
 extern Soner gSoner; //Legger til Gsonr for å kunne utføre sjekk og mappinger
 /**
- * Dette er parameterfylt konstruktor, far medsendt id og ber bruker lese inn
+ * Dette er parameterfylt konstruktor, far medsendt id og ber bruker lese inn data
  *
  * @param   nr  -   unik id
- *@see Kunde::registrerSoner()
+ * @see Kunde::registrerSoner()
+ * @see lesEpostAdr()
+ * @see lesGateAdr()
+ * @see lesPostAdr()
+ * @see skrivNavn()
  * */
 
 Kunde::Kunde(int nr) {
@@ -56,25 +60,24 @@ Kunde::Kunde(int nr) {
 *Denne konstructoren registrerer ny kunde fra fil
 *
 *@param ifstream    -   filobjekt
-*@param kId -   medsendt kundeid
+*@param kId         -   medsendt kundeid
 **/
 Kunde::Kunde(ifstream & inn, int kId) {
-    cout <<"\nJeg kom hit id " <<kId;
     int tempSoneInnlest; //brukes for a lese inn sone etter sone
     int tempBoligType; //Brukes til innlesning og omcasting boligtype
     int antSoner; //Brukes til loop for soneinnlesning
     int i; //Lokketeller
     ID = kId;
-    inn.ignore(); //forkaster mellomrom
+    inn.ignore();
     getline(inn,navn);
     inn >> telefon;
     inn.ignore();
     getline(inn,mail);
     getline(inn,gateAddresse);
     getline(inn,postAdresse);
-    //Leser inn og registrerr boligtype
+    //Leser inn og registrerr int boligtype
     inn >> tempBoligType;
-    //Caster om og registrer boligtypen
+    //Caster om og registrer boligtypen basert pa innlest ing
     boligType = static_cast<boligtype>(tempBoligType);
     //Leser inn interessesoner
     inn >> antSoner;
@@ -91,7 +94,8 @@ Kunde::Kunde(ifstream & inn, int kId) {
 /**
 *Denne funksjonen endrer pa en kundes onsket sone data
 *
-*@see Kunde::kundeSkrivData(..)
+* @see Kunde::kundeSkrivData(..)
+* @see Kunde::registrerSoner()
 **/
 void Kunde::endreData(){
     char kommando; //Menyvalg
@@ -113,17 +117,18 @@ void Kunde::endreData(){
                 this ->registrerSoner(); //Registrerer soner
                 break;
             case 'F':
+                //sa lenge det finnes registrerte soner kan man fjerne en sone
                 if(!kundeSoner.empty()){
                 soneInnlest = lesInt("\nSonenr:",1,MAX_SONER);
                 //Sjekker om innlest sone finnes registrert hos bruker
                 auto it = find(kundeSoner.begin(),kundeSoner.end(),soneInnlest);
                 //Hvis den finnes sa sletter jeg den og sorterer vectoren
                 if(it !=kundeSoner.end()){
-                    remove(kundeSoner.begin(),kundeSoner.end(),soneInnlest);
+                    kundeSoner.erase(it);
                     sort(kundeSoner.begin(),kundeSoner.end());
                     cout <<"\nSonenr: " <<soneInnlest <<" slettet fra bruker";
                 }
-                else cout <<"\nFinner ikke Sone hos bruker " <<soneInnlest;
+                else cout <<"\nFinner ikke Soner:" <<soneInnlest<<" hos bruker";
              }
              else cout <<"\nIngen soner er registrert pa bruker ";
             default:
@@ -135,10 +140,14 @@ void Kunde::endreData(){
     kommando=lesChar("\nMenyvalg");
     }
 }
-
+/**
+* Denne klassefuksjonen registrerer soner hos en kunde
+*
+*@see Soner::finnesSone()
+**/
 void Kunde::registrerSoner(){
     int soneInnlest; //Bruker for a lese inn en sone.
-    char kommando;
+    char kommando; //Registrerr brukerens menyvalg
     cout <<"\nRegistrer sone J trykk Q for avslutt";
     kommando = lesChar("");
     while(kommando !='Q') {
@@ -151,7 +160,7 @@ void Kunde::registrerSoner(){
         //Hvis ikke allerede registrert pa kunde, gor dette
         if(it ==kundeSoner.end()){
             kundeSoner.push_back(soneInnlest);
-            cout <<"\nSonen: " <<soneInnlest <<"er registrert";
+            cout <<"\nSonen: " <<soneInnlest <<" er registrert";
         }
         else cout <<"\nSonenr: " <<soneInnlest <<" allerede registrert";
        }
@@ -168,7 +177,7 @@ void Kunde::registrerSoner(){
 
 
 /**
-*Denne funksjonen returnerer den unike ID til en kunde
+*Denne klassefunksjonen returnerer den unike ID til en kunde
 *
 *@return ID -   returnerer ID til en person
 **/
@@ -177,7 +186,7 @@ int Kunde::kundeIdRetur(){
 }
 
 /**
- * Denne klassefunksjonen skriver ut den medlemmer pa skjerm
+ * Denne klassefunksjonen skriver kundens data pa skjerm
  * */
 void Kunde::skrivData() {
     cout <<"\nNavn: " <<navn
@@ -185,22 +194,24 @@ void Kunde::skrivData() {
               <<"\nPoststed og nr: " <<postAdresse
               <<"\nMailaddresse: " <<mail
               <<"\nTelefon: " <<telefon;
+    //Skriver ut basert pa enum om det er Enebolig eller Leilighet
     cout <<"\nType: ";
     if(boligType == boligtype::Enebolig) {
-        cout <<"\Enebolig";
+        cout <<"Enebolig";
     }
     else if(boligType ==boligtype::Leilighet){
         cout <<"Leilighet";
     }
+    //Skriver ut hele vectoren med interessesoner
     cout <<"\nInteressesoner: ";
     //Sjekker at det er soner registrert og skriver de isafall ut
     if(!kundeSoner.empty()){
-        for(auto const & val:kundeSoner){
+        for(const auto & val:kundeSoner){
             cout <<val<<", ";
         }
     }
     //Hvis ingen sone gir tilbakemelding
-    else cout <<"\nIngen soner er registrert!";
+    else cout <<"\nIngen soner er registrert pa bruker!";
 }
 
 /**
@@ -210,16 +221,16 @@ void Kunde::skrivData() {
 **/
 void Kunde::skrivTilFil(ofstream & ut) {
     int antIntSoner; //Antall interessesoner for en kunde.
-    int enumKonertering;
+    int enumKonertering; //Brukes til a konvertere fra enum til int
     //Konverterr enum til int
     enumKonertering = static_cast<int>(boligType);
+    //Skriver dataelementer til fil
     ut <<ID <<" " <<navn <<"\n";
     ut << telefon <<" " <<mail <<"\n";
     ut << gateAddresse <<"\n";
     ut << postAdresse <<"\n";
     ut <<enumKonertering <<"\n";
-    //Her ma det komme en boligtyp
-    //Skriver forst antall interessesoner
+    //Skriver forst antall interessesoner il fil
     antIntSoner = kundeSoner.size();
     ut <<antIntSoner <<" ";
     //Skriver sa ut alle sonenr til fil
