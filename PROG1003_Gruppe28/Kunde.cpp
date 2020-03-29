@@ -30,12 +30,12 @@ Kunde::Kunde(int nr) {
     char kommando = ' ';
     int soneInnlest=NULL; //Bruker for a lese inn en sone.  //la til null fordi den brukes ikke???
     //Leser inn data fra bruker
-
+    cout <<"\nKundeid: " <<nr;
     cin.ignore();
     skrivNavn(navn); //Registrerer navn
     lesGateAdr(gateAddresse); //Registrerer gateaddresse
     //lesPostAdr(postAdresse);//nye postaddresse fungerer fint men er litt streng, leser inn pa gammel mate
-    cout <<"\nPoststed og nr: ";
+    cout <<"\nPostnr og sted: ";
     getline(cin,postAdresse);
     lesEpostAdr(mail); //Leser mail fra bruker
     //Sikrer innlesning av tlfnr
