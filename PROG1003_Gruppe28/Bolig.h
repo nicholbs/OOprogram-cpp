@@ -20,12 +20,13 @@ private:
 public:
 	Bolig(int id);
 	Bolig(ifstream& inn);
+	Bolig();
 	~Bolig();
 	int getID();
 	void skrivData();
-	void skrivTilFil(ofstream& ut);		//Er denne nødvendig??
+	void skrivTilFil(ofstream& ut);		//Er denne nødvendig?? Ja ser ut til at den er brukt i Enebolig::skrivTilFIl
 	void skrivTilFil(ofstream& ut, vector <int> interesseSone);
-	void lesFraFil(ifstream& inn);
+	void lesFraFil();
 	bool erEnebolig();
 };
 
