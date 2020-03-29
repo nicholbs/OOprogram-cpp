@@ -28,7 +28,7 @@ extern Soner gSoner; //Legger til Gsonr for å kunne utføre sjekk og mappinger
 Kunde::Kunde(int nr) {
     ID = nr; //Setter medsent nr til ID
     char kommando = ' ';
-    int soneInnlest; //Bruker for a lese inn en sone.
+    int soneInnlest=NULL; //Bruker for a lese inn en sone.  //la til null fordi den brukes ikke???
     //Leser inn data fra bruker
 
     cin.ignore();

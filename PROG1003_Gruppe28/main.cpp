@@ -124,9 +124,10 @@ void menyKunde() {
 						else
 							{
 							cout << setw(35) << "Skriver Bolig:" << ' ' << kundeSoneInteresse.at(i) << endl;
-							boligPeker->skrivTilFil(utfilA, kundeSoneInteresse);
+							boligPeker->skrivTilFil(utfilA, kundeSoneInteresse);			//Er det dust å skrive ut for hver bolig at de er del av kunden sine interesse sone?
 							}
 					}
+
 				}
 			else
 				{
@@ -147,7 +148,9 @@ void menyKunde() {
     case 'L':
         cout <<"\nTest imprt alle kunder fra fil";
         gKunder.kunderLesAlleFraFil();
-        cout <<"\nFerdig";
+        cout <<"\nFerdig";   
+		break;
+
 	default:
 		cout << setw(35) << "Kunde Default" << endl;
 	}
@@ -160,9 +163,20 @@ void menySone() {
 
 	cin >> kommando2;
 	switch (toupper(kommando2)) {
-	case 'N':
+	case 'N':		//Nicholas la til if else for å sikre ikke flere soner av samme nummer
+		{
+
 		cin >> snr;
-		gSoner.nySone(snr);
+		if (gSoner.finnesSone(snr) == true)
+			{
+				cout << setw(35) << "Sonen finnes allerede" << endl;
+			}
+		else
+			{
+				gSoner.nySone(snr);
+			}
+		
+		}
 		break;
 	case '1':
 		//Skriv ut alt om alle oppdrag
@@ -232,6 +246,7 @@ void kundeMeny() {
 	cout << setw(5) << "(E)" << setw(30) << "Endre info om kunde" << endl;
 	cout << setw(5) << "(S)" << setw(30) << "Slett kunde" << endl;
 	cout << setw(5) << "(O)" << setw(30) << "Skriver all bolig data" << endl;
+	cout << setw(5) << "(H)" << setw(30) << "Henter alle nedskrevne kunder" << endl;		//ekstra funksjonalitet Nicholas har lagt til
 	cout << endl;
 
 }
