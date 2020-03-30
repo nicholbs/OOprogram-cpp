@@ -81,14 +81,13 @@ void Sone::skrivAlleOppdrag()
 }
 
 void Sone::skrivTilFil(ofstream& ut) {
-	ut << ID << '\n';
+	ut << ID << " " << boligerTilSalgs.size() << '\n';
 	for (int i = 0; i < boligerTilSalgs.size(); i++)
 	{
 		if (boligerTilSalgs[i]->erEnebolig())
 			static_cast<Enebolig*>(boligerTilSalgs[i])->skrivTilFil(ut);
 		else 
 			boligerTilSalgs[i]->skrivTilFil(ut);
-		ut << '\n';
 	}
 }
 

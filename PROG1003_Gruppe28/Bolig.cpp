@@ -77,14 +77,13 @@ void Bolig::skrivData() {
 }
 
 void Bolig::skrivTilFil(ofstream& ut) {
-	ut << "O-";
 	if (boligType == boligtype::Leilighet)
 		ut << "L ";
 	else
 		ut << "E ";
 	ut << ID << '\n';
 
-	ut	<< gateadresse << '-' << postadresse << '\n'
+	ut	<< gateadresse << '\n' << postadresse << '\n'
 		<< navnEier << '\n' << navnSaksbehandler << '\n'
 		<< dato << ' ' << bruttoareal << ' '
 		<< antallSoverom << ' ' << byggeaar << '\n'

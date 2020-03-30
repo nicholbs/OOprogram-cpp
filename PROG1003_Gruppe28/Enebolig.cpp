@@ -46,6 +46,6 @@ void Enebolig::skrivData()
 void Enebolig::skrivTilFil(ofstream& ut)
 {
 	Bolig::skrivTilFil(ut);
-	ut  << 'F' << (festetomt ? '1' : '0')
+	ut  << (festetomt ? '1' : '0')
 		<< ' ' << areal << '\n';
 }

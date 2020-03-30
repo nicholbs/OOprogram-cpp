@@ -27,6 +27,7 @@ Kunder gKunder;
 int main()
 {
 	gSoner.lesFraFil();
+	gKunder.kunderLesAlleFraFil();
 
 	hovedMeny();
 
@@ -148,7 +149,7 @@ void menyKunde() {
     case 'L':
         cout <<"\nTest imprt alle kunder fra fil";
         gKunder.kunderLesAlleFraFil();
-        cout <<"\nFerdig";   
+        cout <<"\nFerdig";
 		break;
 
 	default:
@@ -164,19 +165,8 @@ void menySone() {
 	cin >> kommando2;
 	switch (toupper(kommando2)) {
 	case 'N':		//Nicholas la til if else for å sikre ikke flere soner av samme nummer
-		{
-
 		cin >> snr;
-		if (gSoner.finnesSone(snr) == true)
-			{
-				cout << setw(35) << "Sonen finnes allerede" << endl;
-			}
-		else
-			{
-				gSoner.nySone(snr);
-			}
-		
-		}
+		gSoner.nySone(snr);
 		break;
 	case '1':
 		//Skriv ut alt om alle oppdrag
@@ -220,6 +210,7 @@ void menyOppdrag() {
 	default:
 		cout << "Oppdrag Default" << endl;
 	}
+gKunder.kunderSkrivAlleTilFil();
 }
 
 /**

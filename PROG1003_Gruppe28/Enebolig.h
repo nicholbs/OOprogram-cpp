@@ -6,8 +6,8 @@ class Enebolig : public Bolig
 	bool festetomt;
 
 public:
-	Enebolig(int id);
-	Enebolig(ifstream& inn);
+	Enebolig(int id);			//Konstruktor for manuelt lagde oppdrag
+	Enebolig(ifstream& inn);	//Konstruktor for lesing fra fil
 	~Enebolig();
 	void skrivData();
 	void skrivTilFil(ofstream& ut);
