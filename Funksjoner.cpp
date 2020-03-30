@@ -1,9 +1,45 @@
+#include "Const.h"
 #include "Funksjoner.h"
+#include "Kunder.h"
+#include "LesData3.h"
+#include "Soner.h"
+#include <ctype.h>		//toupper()
 #include <iostream>
+#include <iomanip>
 #include <string>
 //#include <locale> //sialpha, is nuermic osv
 
 using namespace std;
+
+extern Kunder gKunder;
+extern Soner gSoner;
+
+/**
+* Utskrift av meny for hoved meny, med andre ord switch i main funksjonen
+**/
+void hovedMeny() {
+	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
+	cout << setw(5) << "(K)" << setw(30) << "for Kunde funksjoner" << endl;
+	cout << setw(5) << "(S)" << setw(30) << "for Sone funksjoner" << endl;
+	cout << setw(5) << "(O)" << setw(30) << "for Oppdrag/Bolig funksjoner" << endl;
+	cout << endl;
+
+}
+
+/**
+* Utskrift av meny for kunde funksjoner, kommer etter input "K" fra hovedMeny
+**/
+void kundeMeny() {
+	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
+	cout << setw(5) << "(N)" << setw(30) << "Lage ny Kunde" << endl;
+	cout << setw(5) << "(1)" << setw(30) << "Skriv info om en kunde" << endl;
+	cout << setw(5) << "(A)" << setw(30) << "Skriv info om alle kunder" << endl;
+	cout << setw(5) << "(E)" << setw(30) << "Endre info om kunde" << endl;
+	cout << setw(5) << "(S)" << setw(30) << "Slett kunde" << endl;
+	cout << setw(5) << "(O)" << setw(30) << "Skriver all bolig data" << endl;
+	cout << endl;
+
+}
 
 /**
 *Denne funksjonen validerer og registrerer en e-postaddr
@@ -43,6 +79,79 @@ void lesEpostAdr(std::string & epost){
                  <<"Bokstaver, tall, @ - . ";
         }
     }while(valider == false);
+}
+
+/**
+*	Meny for Oppdrag basert på input
+*
+*	De forskjellige kommandoer er:
+*	N - lager nytt oppdrag
+*	1 - skriver informasjon om ett oppdrag
+*	A - skriver all informasjon om alle oppdrag
+*	S - Sletter spesifikt oppdrag
+**/
+void menyOppdrag() {
+
+	oppdragMeny();
+	char kommando2;
+	int nr;
+	cout << setw(35) << "Skriv kommando:" << endl;
+	cin >> kommando2;
+
+	switch (toupper(kommando2)) {
+	case 'N':
+		cin.ignore();
+		nr = lesInt("Skriv hvilken sone det nye oppdraget skal ligge i",1, MAX_SONER);
+		gSoner.nyttOppdrag(nr);
+		break;
+	case '1':
+		nr = lesInt("Skriv inn nr på oppdrag du vil skrive ut", 1, MAX_OPPDRAG);
+		gSoner.skrivOppdrag(nr);
+		break;
+	case 'A':		//TESTCASE - SKAL FJERNES
+		gSoner.skrivAlleOppdrag();
+		break;
+	case 'S':
+		cin >> nr;
+		gSoner.slettOppdrag(nr);
+		break;
+	default:
+		cout << "Oppdrag Default" << endl;
+	}
+}
+
+/**
+*	Meny for Sone basert på input
+*
+*	De forskjellige kommandoer er:
+*	N - lager ny Sone
+*	1 - skriver all informasjon om en sone
+*	A - skriver hoved data om alle soner
+**/
+void menySone() {
+	soneMeny();
+	char kommando2;
+	int snr;
+
+	cin >> kommando2;
+	switch (toupper(kommando2)) {
+	case 'N':
+		cin >> snr;
+		gSoner.nySone(snr);
+		break;
+	case '1':
+		////////////////////////skriv funksjon som skriver ut all info om valgt sone og stopper for input hver femte linje, henviser til kundeAllesklriv
+		gSoner.skrivOppdrag(snr);
+		break;
+	case 'A':
+		gSoner.skrivHovedDataAlleSoner();
+		break;
+	case 'F':	//TESTFUNKSJON - SKAL FJERNES
+		gSoner.skrivTilFil();
+		break;
+	default:
+		cout << "Sone Default" << endl;
+	}
 }
 
 /**
@@ -148,3 +257,27 @@ void skrivNavn(string & nvn){
 
     }while(valider ==false);
 }
+/**
+* Utskrift av meny for Sone funksjoner, kommer etter input "S" fra hovedMeny
+**/
+void soneMeny() {
+	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
+	cout << setw(5) << "(N)" << setw(30) << "Lage ny Sone" << endl;
+	cout << setw(5) << "(1)" << setw(30) << "Skriv ut alt om alle oppdrag" << endl;
+	cout << setw(5) << "(A)" << setw(30) << "Hoveddata om alle soner" << endl;
+	cout << endl;
+
+}
+/**
+* Utskrift av meny for Oppdrag/Bolig funksjoner, kommer etter input "O" fra hovedMeny
+**/
+
+void oppdragMeny() {
+	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
+	cout << setw(5) << "(N)" << setw(30) << "Lage ny Oppdrag" << endl;
+	cout << setw(5) << "(1)" << setw(30) << "Skriv ut alt om alle oppdrag?? eller bare om et oppdrag" << endl;			///////////////Skal det skrives ut om en eller alle oppdrag??????????
+	cout << setw(5) << "(S)" << setw(30) << "Slett oppdrag" << endl;
+	cout << endl;
+
+}
+
