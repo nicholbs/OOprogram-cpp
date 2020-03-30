@@ -18,8 +18,9 @@ private:
 	string navnSaksbehandler, navnEier, gateadresse, postadresse, beskrivelse;
 	
 public:
-	Bolig(int id);
-	Bolig(ifstream& inn);
+	Bolig(int id);			//Konstruktor for manuelt lagde oppdrag
+	Bolig(ifstream& inn);	//Konstruktor for lesing fra fil
+
 	Bolig();
 	~Bolig();
 	int getID();
