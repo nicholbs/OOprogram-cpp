@@ -1,7 +1,8 @@
 #include <vector>
 #include <string>
-#include <iostream>
 #include <ctype.h>		//toupper()
+#include <string>		
+#include <iostream>		//Library for cout/cin
 #include "Soner.h"
 #include "Kunder.h"
 #include "Kunde.h"		//nicholas la til for testing i K O <knr>
@@ -9,6 +10,7 @@
 #include <iomanip>
 #include "LesData3.h"
 #include <fstream>		//K O <knr>
+#include "Const.h"		//Brukes for Max konstanter
 
 using namespace std;
 
@@ -188,8 +190,8 @@ void menySone() {
 		gSoner.nySone(snr);
 		break;
 	case '1':
-		//Skriv ut alt om alle oppdrag
-		//Stans utskrift hver 5. sone
+		////////////////////////skriv funksjon som skriver ut all info om valgt sone og stopper for input hver femte linje, henviser til kundeAllesklriv
+		gSoner.skrivOppdrag(snr);
 		break;
 	case 'A':
 		gSoner.skrivHovedDataAlleSoner();
@@ -216,15 +218,17 @@ void menyOppdrag() {
 	oppdragMeny();
 	char kommando2;
 	int nr;
+	cout << setw(35) << "Skriv kommando:" << endl;
 	cin >> kommando2;
 
 	switch (toupper(kommando2)) {
 	case 'N':
-		cin >> nr;
+		cin.ignore();
+		nr = lesInt("Skriv hvilken sone det nye oppdraget skal ligge i",1, MAX_SONER);
 		gSoner.nyttOppdrag(nr);
 		break;
 	case '1':
-		cin >> nr;
+		nr = lesInt("Skriv inn nr på oppdrag du vil skrive ut", 1, MAX_OPPDRAG);
 		gSoner.skrivOppdrag(nr);
 		break;
 	case 'A':		//TESTCASE - SKAL FJERNES

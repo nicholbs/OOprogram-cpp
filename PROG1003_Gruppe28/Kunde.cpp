@@ -101,9 +101,11 @@ void Kunde::endreData(){
     this->skrivData(); //Skriver ut kundens data
 
     //Skriver ut melding til bruker
+    cout << "\n";
     cout <<"\nTast L for a legge til soner"
          <<"\nTast F for a fjerne soner"
          <<"\nTast Q for a avbryte";
+    cout << "\n";
 
        // this ->registrerSoner(); //Registrerer soner
     kommando=lesChar("\nMenyvalg: "); //Leser inn fra bruker
@@ -145,6 +147,7 @@ void Kunde::endreData(){
 void Kunde::registrerSoner(){
     int soneInnlest; //Bruker for a lese inn en sone.
     char kommando; //Registrerr brukerens menyvalg
+    ////////////////Sjekk om det faktisk finnes soner
     cout <<"\nRegistrer sone J trykk Q for avslutt";
     kommando = lesChar("");
     while(kommando !='Q') {
@@ -254,6 +257,6 @@ vector <int> Kunde::kundeSonerRetur() {
 *Test destructor
 **/
 Kunde::~Kunde() {
-cout <<"\nKunde med navn: "<<navn <<" og id "<<ID <<"Slettes";
+//cout <<"\nKunde med navn: "<<navn <<" og id "<<ID <<"Slettes";
 }
 
