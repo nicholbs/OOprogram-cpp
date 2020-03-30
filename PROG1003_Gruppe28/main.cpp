@@ -27,6 +27,7 @@ Kunder gKunder;
 int main()
 {
 	gSoner.lesFraFil();
+	gKunder.kunderLesAlleFraFil();
 
 	hovedMeny();
 
@@ -148,7 +149,7 @@ void menyKunde() {
     case 'L':
         cout <<"\nTest imprt alle kunder fra fil";
         gKunder.kunderLesAlleFraFil();
-        cout <<"\nFerdig";   
+        cout <<"\nFerdig";
 		break;
 
 	default:
@@ -210,6 +211,7 @@ void menyOppdrag() {
 	default:
 		cout << "Oppdrag Default" << endl;
 	}
+gKunder.kunderSkrivAlleTilFil();
 }
 
 /**

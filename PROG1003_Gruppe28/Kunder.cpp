@@ -71,7 +71,7 @@ void Kunder::kunderLesAlleFraFil(){
             //Sa lenge det er elementer pa filen
             while(!innfil.eof()){
                //Lager en ny kunde og sender med filobjekt og kundenr
-                kundeListe.push_back(new Kunde(innfil,1));
+                kundeListe.push_back(new Kunde(innfil,sisteNr));
                 innfil >>kundeId;
             }
 
