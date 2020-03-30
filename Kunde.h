@@ -4,7 +4,7 @@
 
 #include <vector>
 #include <string>
-#include "boligtype.h"
+#include "Enum.h"
 #include "Soner.h"
 
 

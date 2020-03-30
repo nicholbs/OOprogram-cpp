@@ -1,4 +1,3 @@
-#include "boligtype.h"
 #include "Const.h"
 #include "Kunde.h"
 #include "Soner.h"
