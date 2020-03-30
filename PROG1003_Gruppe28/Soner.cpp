@@ -8,9 +8,14 @@
 
 void Soner::nySone(int snr) 
 {
-	Sone* sp = new Sone(snr);
-	soneMap.insert(make_pair(snr, sp));
-	cout << "Opprettet ny Sone " << snr << "!\n\n";
+	if (finnesSone(snr))
+		cout << "Sone " << snr << " finnes allerede!\n";
+	else
+	{
+		Sone* sp = new Sone(snr);
+		soneMap.insert(make_pair(snr, sp));
+		cout << "Opprettet ny Sone " << snr << "!\n\n";
+	}
 }
 
 void Soner::nyttOppdrag(int snr) 
