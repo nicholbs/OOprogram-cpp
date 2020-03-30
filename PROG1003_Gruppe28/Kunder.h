@@ -19,6 +19,7 @@ class Kunder
 
         void nyKunde();
         void kundeEndreData();
+        void kunderLesAlleFraFil();
         void kundeSAlleSkrivData();
         void kunderSkrivAlleTilFil();
         void kundeSkrivData();

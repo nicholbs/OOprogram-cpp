@@ -35,9 +35,9 @@ void Kunder::kundeEndreData(){
         if (it != kundeListe.end()){
         (*it)-> endreData();
         }
-        else cout << "\n" <<("Finner ikke kunde med id") <<nr;
+        else cout << "\n" <<("Finner ikke kunde med id ") <<nr;
     }
-    else cout <<"\nFATAL Finner ingen kunder";
+    else cout <<"\nIngen kunder registrert";
 }
 
 /**
@@ -47,9 +47,39 @@ void Kunder::kundeEndreData(){
 **/
 void Kunder::nyKunde() {
     sisteNr ++; //teller opp sistenr med en
-    cout <<("\nNummer er: ") <<sisteNr;
-    //Oppretter ny kunde og flytter den bakerst i listen
+    //Oppretter ny kunde og flytter den bakerst i listen (holder seg da sortert
+    // da sistnr oker med og alle nye legges altid bakerst
     kundeListe.push_back(new Kunde(sisteNr));
+}
+
+/**
+*Denne funksjonen leser kunder inn fra fil
+*
+* @see Kunde::Kunde(...)
+**/
+void Kunder::kunderLesAlleFraFil(){
+    int kundeId; //Brukes for a lese inn kundeid temporert
+    ifstream innfil("KUNDER.DTA"); //lager et innfil objekt
+
+    //Kontrollerer at  datastrukt er tom for import
+    if(sisteNr == 0 && kundeListe.empty()){
+        //Sjekker om jeg far apnet filen
+        if(innfil){
+            innfil >> sisteNr; //oppdaterer sisteNr
+            //Leser inn sa lenge det er data
+            innfil >> kundeId;
+            //Sa lenge det er elementer pa filen
+            while(!innfil.eof()){
+               //Lager en ny kunde og sender med filobjekt og kundenr
+                kundeListe.push_back(new Kunde(innfil,1));
+                innfil >>kundeId;
+            }
+
+        }else cout <<"\nFinner ikke fil!";
+
+
+    }else cout <<"\nFilimport skal kun skje ved oppstart og tom datastruktur!!";
+    innfil.close();
 }
 
 /**
@@ -59,26 +89,31 @@ void Kunder::nyKunde() {
 **/
 void Kunder::kundeSAlleSkrivData(){
     int teller = 0; //hjelpeint for a stoppe pr 10 utskrift av kunde
-    //Skriver ut alle kunder ifra listen
-    for(const auto & liste :kundeListe) {
-        teller ++;
-        //Pauser for hvert 10 kunde
-        if(teller%10==0){
-            cin.ignore(); //Far bruker a taste enter
+    //Sjekker at det er kunder registrert
+    if(!kundeListe.empty()){
+        //Skriver ut alle kunder ifra listen
+        for(const auto & liste :kundeListe) {
+            teller ++;
+            //Pauser for hvert 10 kunde
+            if(teller%10==0){
+                cin.ignore(); //Far bruker a taste enter
+            }
+            liste -> skrivData(); //Kaller pa kunde lesdata
+            cout <<"\n";
         }
-        liste -> skrivData(); //Kaller pa kunde lesdata
-        cout <<"\n";
-    }
+    } else cout <<"\nIngen kunder er registrert! ";
 }
 /**
 *Denne klassefunkjsonen skriver alle kunder til fil
 *
+*@see kunde::skrivTilFil()
 **/
 void Kunder::kunderSkrivAlleTilFil(){
     ofstream utfil("KUNDER.DTA");
     //Sa lenge det finnes registrerte kunder:
     if(!kundeListe.empty()){
         utfil << sisteNr <<"\n"; //Legger kunder sistenr pa fil
+        //Skriver en og en kunde pa fil
         for(const auto &val : kundeListe){
             val->skrivTilFil(utfil);
         }
@@ -95,17 +130,20 @@ void Kunder::kunderSkrivAlleTilFil(){
 *@see Kunde::skrivData(..)
 **/
 void Kunder::kundeSkrivData(){
-    int nr; //Hvilken kunde skal fa data skrevet ut
-    nr = lesInt("\nKundenr: ",1,sisteNr); //hvilken kunde ?
-    //Leter etter kunden
-    auto it = find_if(kundeListe.begin(),kundeListe.end(),
+     int nr; //Hvilken kunde skal fa data skrevet ut
+    //Sjekker at det finnes kunder registert og i sa fall fortetter
+    if(!kundeListe.empty()){
+        nr = lesInt("\nKundenr: ",1,sisteNr); //hvilken kunde ?
+        //Leter etter kunden
+        auto it = find_if(kundeListe.begin(),kundeListe.end(),
                       [nr](auto val){return(val -> kundeIdRetur() ==nr);});
 
-    //Sa lenge treff pa kunden sa skriver jeg ut data
-    if (it != kundeListe.end()){
-    (*it)-> skrivData();
-    }
-    else cout << '\n' <<("Finner ikke kunde med id") <<nr;
+        //Sa lenge treff pa kunden sa skriver jeg ut data
+        if (it != kundeListe.end()){
+            (*it)-> skrivData(); //Skriver ut kundens data
+        }
+        else cout << '\n' <<("Finner ikke kunde med id") <<nr;
+    }else cout <<"\nIngen kunder er registrert i systemet!";
 }
 
 /**
@@ -143,20 +181,22 @@ bool Kunder::kundeListeTomSjekk() {
 *@see Kunde::kundeIdReturn()
 **/
 void Kunder::slettKunde() {
-     int nr;
-     cout <<"\nHvilken kunde vil du slette? ";
-     cin >> nr;
-     //leter etter kunden
-     auto it = find_if(kundeListe.begin(),kundeListe.end(),
+     int nr; //Brukes til innlesning
+     if(!kundeListe.empty()){
+        cout <<"\nHvilken kunde vil du slette? ";
+        cin >> nr;
+        //leter etter kunden
+        auto it = find_if(kundeListe.begin(),kundeListe.end(),
                       [nr](auto val){return(val -> kundeIdRetur() ==nr);});
 
-   //Sa lenge den finnes
-    if(it !=kundeListe.end()){
-        delete (*it); //Sletter brukerobjektet
-        kundeListe.remove((*it)); //Fjerner peker fra listen
-        cout <<"\nBruker er slettet";
-    }
-    else cout <<"\nFATAL finner ikke bruker, slett ikke mulig";
+    //Sa lenge den finnes
+        if(it !=kundeListe.end()){
+            delete (*it); //Sletter brukerobjektet
+            kundeListe.remove((*it)); //Fjerner peker fra listen
+            cout <<"\nBruker med id: " <<nr <<" er slettet";
+        }
+        else cout <<"\nFATAL finner ikke bruker, slett ikke mulig";
+     }else cout <<"\nIngen kunder registrert i systemet";
 
 }
 

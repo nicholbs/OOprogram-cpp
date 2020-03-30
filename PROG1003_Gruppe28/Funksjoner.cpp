@@ -24,8 +24,12 @@ void lesEpostAdr(std::string & epost){
         //Sjekker om epostaddessen inneholder @
         if (epost.find("@") !=string::npos){
             valider = true;
-        }
-        else valider = false;
+        }else valider = false;
+        //Sjekker at epost addresse inneholder minst et punktum
+         if (epost.find(".") !=string::npos){
+            valider = true;
+        } else valider = false;
+        //Sjekker teksten og sa lenge den kun inneholder bokstaver, tall - @ .
         for(i= 0; i<epost.size(); i++){
             if(valider == true && (isalpha(epost[i]) ||isdigit(epost[i]) || epost[i] =='-' || epost[i]=='@' || epost[i]=='.')) {
                 valider = true;
@@ -35,7 +39,7 @@ void lesEpostAdr(std::string & epost){
             }
         }
         if(!valider){
-            cout <<"\nIkke gyldig e-post addresse, Ma inneholde @ og kan kun inneholde: "
+            cout <<"\nIkke gyldig e-post addresse, Ma inneholde @ samt . og kan kun inneholde: "
                  <<"Bokstaver, tall, @ - . ";
         }
     }while(valider == false);
@@ -44,6 +48,7 @@ void lesEpostAdr(std::string & epost){
 /**
 *Denne funksjonen validerer og registrerer et gateaddresse
 *
+* @param    gta -   Medsendt gateaddressevariabel
 **/
 //Gateaddresse inneholder forst en bokstav derretter ' ' ; - og tall
 void lesGateAdr(std::string & gta){
@@ -72,6 +77,7 @@ void lesGateAdr(std::string & gta){
 /**
 *Denne funksjonen validerer og registrerer en post addresse
 *
+*@param pad -  medsendt variabel for oppdatering av postaddresse
 **/
 //forutsettning 3 eller 4 første er tall, etterfulgt med et mellomrom og deretter tekst med . ' ' - eller bokstaver
 void lesPostAdr(std::string & pad){
@@ -82,7 +88,7 @@ void lesPostAdr(std::string & pad){
         valider = true;
         cout <<"\nSkriv inn postnr poststed: ";
         getline(cin,pad);
-        //Kontrolerer at de 3 forste er takk
+        //Kontrolerer at de 3 forste er tall
         for (i=0;i<=2;i++){
             if(isdigit(pad[i])){
                 valider = true;
@@ -97,14 +103,18 @@ void lesPostAdr(std::string & pad){
         if(valider == true && (isdigit(pad[3]) && pad[4] !=' ')) {
             valider = false;
         }
-        //Sjekker resten av tekstem kan inneholde ' ' - .
+        //Sjekker resten av tekstem kan inneholde bokstaver mellomrom - .
         for(i=5; i <pad.size(); i++) {
             if(valider == true && (isalpha(pad[i])|| pad[i]==' ' || pad[i]== '.' || pad[i]=='-')) {
                 valider = true;
             } else valider = false;
         }
         if(!valider){
-            cout <<"\nUgyldig sammensettning av postnr og poststed";
+            cout <<"\nUgyldig sammensettning av postnr og poststed"
+                 <<", Kan kun inneholde bokstaver, tall, mellomrom, punktum, bindestrek"
+                 <<" og Ma skrives pa format:\n"
+                 <<"tre tall mellomrom etterfulgt av bokstaver, punktum og bindestrek eller:\n"
+                 <<"fire tall mellomrom etterfulgt av bokstaver, punktum og bindestrek";
         }
     }while(valider == false);
 

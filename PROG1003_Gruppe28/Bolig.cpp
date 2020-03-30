@@ -4,6 +4,7 @@
 #include <istream>
 #include <iomanip>
 #include <fstream>		//kanskje denne ikke trengs
+#include <string>		//lesFraFil
 
 Bolig::Bolig(int id) {
 	ID = id;
@@ -91,13 +92,6 @@ void Bolig::skrivTilFil(ofstream& ut) {
 }
 
 void Bolig::skrivTilFil(ofstream& ut, vector <int> interesseSone) {
-	ut << ID << ' ' << navnSaksbehandler << endl;
-	ut << dato << ' ' << navnEier << endl;
-	ut << byggeaar << ' ' << gateadresse << endl;
-	ut << bruttoareal << ' ' << postadresse << endl;
-	ut << antallSoverom << ' ' << beskrivelse << endl;
-	ut << pris << ' ';
-
 	if (boligType == boligtype::Leilighet)
 	{
 		ut << "Leilighet" << endl;
@@ -107,11 +101,67 @@ void Bolig::skrivTilFil(ofstream& ut, vector <int> interesseSone) {
 		ut << "Enebolig" << endl;
 	}
 
+
+	ut << ID << ' ' << navnSaksbehandler << endl;
+	ut << dato << ' ' << navnEier << endl;
+	ut << byggeaar << ' ' << gateadresse << endl;
+	ut << bruttoareal << ' ' << postadresse << endl;
+	ut << antallSoverom << ' ' << beskrivelse << endl;
+	ut << pris << endl;
+
 	for (int i = 0; i < interesseSone.size(); i++)
 	{
 		ut << interesseSone[i];
 	}
 	ut << endl;
+}
+
+void Bolig::lesFraFil() {
+	ifstream innfil;
+innfil >> ID;
+	innfil.ignore();	
+		getline(innfil, navnSaksbehandler);
+			
+innfil >> dato;			
+	innfil.ignore();	
+		getline(innfil, navnEier);
+			
+innfil >> byggeaar;		
+	innfil.ignore();	
+		getline(innfil, gateadresse);
+			
+innfil >> bruttoareal;	
+	innfil.ignore();	
+		getline(innfil, postadresse);
+			
+innfil >> antallSoverom;
+	innfil.ignore();	
+		getline(innfil, beskrivelse);
+	
+innfil >> pris;	
+	innfil.ignore();	
+					
+	string kundeSoneInteresse;
+	int hentKundeSoneInteresse=NULL;
+	innfil >> kundeSoneInteresse;
+	kundeSoneInteresse = to_string(hentKundeSoneInteresse);	//Her kan jeg returnere hvilke soner kunden er interessert i, eller la være og bare opprette boligene.
+				
+	cout << setw(35) << "Her kommer utskrift fra objektet!!!:" << endl;
+	cout << setw(35) << ID << endl;
+	cout << setw(35) << navnSaksbehandler << endl;
+	cout << setw(35) << dato << endl;
+	cout << setw(35) << navnEier << endl;
+	cout << setw(35) << byggeaar << endl;
+	cout << setw(35) << gateadresse << endl;
+	cout << setw(35) << bruttoareal << endl;
+	cout << setw(35) << postadresse << endl;
+	cout << setw(35) << antallSoverom << endl;
+	cout << setw(35) << beskrivelse << endl;
+}
+
+Bolig::Bolig() {		//Brukt i menyKunder case H. Når vi lager bolig uten parameter leser den inn fra fil og lager enten leilighet eller bolig objekter. Disse blir ikke lagt til i noen containere per nå.
+	cout << setw(35) << "Du er nå i Bolig::Bolig()" << endl;
+	lesFraFil();
 }
 
 bool Bolig::erEnebolig()
