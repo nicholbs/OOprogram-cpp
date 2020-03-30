@@ -6,7 +6,7 @@ using namespace std;
 Enebolig::Enebolig(int id) : Enebolig::Bolig(id) 
 {
 	boligType = boligtype::Enebolig;
-
+	//////////////////////////////////////Oddbjørn lag en sjekk på areal
 	cout << "Areal: ";
 	cin >> areal;
 	cout << "Festetomt [J/N]: ";

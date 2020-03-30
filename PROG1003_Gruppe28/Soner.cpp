@@ -102,7 +102,7 @@ void Soner::lesFraFil()
 	int soneNr, antallOppdrag, antallSoner;
 
 	if (!inn)
-		cout << "Kunne ikke lese fil \"SONER.DTA\"\n\n";
+		cout << setw(35) << "Kunne ikke lese fil \"SONER.DTA\"\n\n";
 	else
 	{
 		inn >> antallSoner;
@@ -116,7 +116,6 @@ void Soner::lesFraFil()
 				sp->nyttOppdrag(inn);
 			soneMap.insert(make_pair(soneNr, sp));
 		}
-		cout << "Alle soner lest inn\n";
 	}
 }
 

@@ -12,7 +12,7 @@ class Kunde;
 class Kunder
 {
     private:
-        int sisteNr;
+        int sisteNr;        //Konstruktoren initialiserer sisteNr til å bli 0
         list<Kunde*> kundeListe;
     public:
         Kunder();
