@@ -100,7 +100,6 @@ void Bolig::skrivTilFil(ofstream& ut, vector <int> interesseSone) {
 		ut << "Enebolig" << endl;
 	}
 
-
 	ut << ID << ' ' << navnSaksbehandler << endl;
 	ut << dato << ' ' << navnEier << endl;
 	ut << byggeaar << ' ' << gateadresse << endl;

@@ -31,28 +31,28 @@ int main()
 
 	hovedMeny();
 
+	bool loop = true;
 	char kommando1;
 	cin >> kommando1;
 
-	while (1) {
+	while (loop) {
 		switch (toupper(kommando1)) {
 		case 'K':
-			cout << setw(35) << "Du har valgt Kunde funksjoner" << endl;
 			menyKunde();
 			break;
 		case 'S':
-			cout << setw(35) << "Du har valgt Sone funksjoner" << endl;
 			menySone();
 			break;
 		case 'O':
-			cout << setw(35) << "Du har valgt Oppdrag/bolig funksjoner" << endl;
 			menyOppdrag();
 			break;
 		case 'Q':
-			exit(1);
+			loop = false;
+			gSoner.skrivTilFil();
+			gKunder.kunderSkrivAlleTilFil();
 			break;
 		default:
-			cout << "\nMain default\n";
+			hovedMeny();
 		}
 		cin >> kommando1;
 	}
@@ -183,7 +183,7 @@ void menySone() {
 
 	cin >> kommando2;
 	switch (toupper(kommando2)) {
-	case 'N':		//Nicholas la til if else for å sikre ikke flere soner av samme nummer
+	case 'N':		
 		cin >> snr;
 		gSoner.nySone(snr);
 		break;
@@ -237,7 +237,6 @@ void menyOppdrag() {
 	default:
 		cout << "Oppdrag Default" << endl;
 	}
-gKunder.kunderSkrivAlleTilFil();
 }
 
 /**
