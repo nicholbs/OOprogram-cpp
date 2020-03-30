@@ -34,9 +34,7 @@ Kunde::Kunde(int nr) {
     cin.ignore();
     skrivNavn(navn); //Registrerer navn
     lesGateAdr(gateAddresse); //Registrerer gateaddresse
-    //lesPostAdr(postAdresse);//nye postaddresse fungerer fint men er litt streng, leser inn pa gammel mate
-    cout <<"\nPostnr og sted: ";
-    getline(cin,postAdresse);
+    lesPostAdr(postAdresse);//Leser postaddresse
     lesEpostAdr(mail); //Leser mail fra bruker
     //Sikrer innlesning av tlfnr
     telefon = lesInt("\nTelefonnummer:",11111111,99999999);
@@ -202,6 +200,7 @@ void Kunde::skrivData() {
     else if(boligType ==boligtype::Leilighet){
         cout <<"Leilighet";
     }
+    cout <<"\nAntall interessesoner: " << kundeSoner.size();
     //Skriver ut hele vectoren med interessesoner
     cout <<"\nInteressesoner: ";
     //Sjekker at det er soner registrert og skriver de isafall ut
