@@ -168,13 +168,8 @@ vector <int>  Kunder::finnKundeSone(int knrParam) {
 }
 
 bool Kunder::kundeListeTomSjekk() {
-    if (kundeListe.empty() == true)
-        return true;
-      else if (kundeListe.empty() == false)
-          return false;
+    return kundeListe.empty();
 }
-
-
 
 /**Denne klassefunksjonen finner og sletter en spesifikk kunde
 *

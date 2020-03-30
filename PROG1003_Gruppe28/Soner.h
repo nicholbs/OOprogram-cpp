@@ -11,6 +11,7 @@ private:
 	map <int, Sone*> soneMap;
 
 public:	
+	Soner();
 	void nySone(int snr);
 	void nyttOppdrag(int snr);
 	bool finnesSone(int snr);
@@ -21,4 +22,5 @@ public:
 	void slettOppdrag(int onr);
 	void skrivTilFil();
 	void lesFraFil();
+	bool isEmpty();
 };

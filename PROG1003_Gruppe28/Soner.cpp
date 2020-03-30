@@ -6,6 +6,11 @@
 #include <fstream>
 #include <iomanip>
 
+Soner::Soner()
+{
+	sisteNr = 0;
+}
+
 void Soner::nySone(int snr) 
 {
 	if (finnesSone(snr))
@@ -14,6 +19,7 @@ void Soner::nySone(int snr)
 	{
 		Sone* sp = new Sone(snr);
 		soneMap.insert(make_pair(snr, sp));
+		skrivTilFil();
 		cout << "Opprettet ny Sone " << snr << "!\n\n";
 	}
 }
@@ -25,11 +31,26 @@ void Soner::nyttOppdrag(int snr)
 	{
 		so->second->nyttOppdrag(sisteNr + 1);
 		sisteNr++;
+		skrivTilFil();
 		cout << "Opprettet ny Bolig " << sisteNr << "!\n\n";
 	}
 	else 
 	{
 		cout << "Fant ingen Sone " << snr << ".\n\n";
+	}
+}
+
+void Soner::slettOppdrag(int onr)
+{
+	for (const auto& sonePar : soneMap)
+	{
+		if (sonePar.second->finnesOppdrag(onr))
+		{
+			sonePar.second->slettOppdrag(onr);
+			sisteNr--;
+			skrivTilFil();
+			return;
+		}
 	}
 }
 
@@ -67,19 +88,6 @@ void Soner::skrivAlleOppdrag()
 {
 	for (const auto& sonePar : soneMap)
 		sonePar.second->skrivAlleOppdrag();
-}
-
-void Soner::slettOppdrag(int onr)
-{
-	for (const auto& sonePar : soneMap)
-	{
-		if (sonePar.second->finnesOppdrag(onr))
-		{
-			sonePar.second->slettOppdrag(onr);
-			sisteNr--;
-			return;
-		}	
-	}
 }
 
 void Soner::skrivTilFil()
@@ -120,7 +128,9 @@ void Soner::lesFraFil()
 	}
 }
 
-
+bool Soner::isEmpty() {
+	return soneMap.empty();
+}
 
 /**
 *   Går gjennom alle instanser i Soner sin map av type Sone pekere og skriver Sone sin hovedData.

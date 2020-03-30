@@ -1,4 +1,5 @@
 #include "Enebolig.h"
+#include "LesData3.h"
 #include <iostream>
 
 using namespace std;
@@ -8,7 +9,7 @@ Enebolig::Enebolig(int id) : Enebolig::Bolig(id)
 	boligType = boligtype::Enebolig;
 
 	cout << "Areal: ";
-	cin >> areal;
+	areal = lesInt("Areal", 1, 1000);
 	cout << "Festetomt [J/N]: ";
 	char valg; cin >> valg;
 	if (toupper(valg) == 'J')

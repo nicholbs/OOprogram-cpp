@@ -77,7 +77,7 @@ void Sone::skrivAlleOppdrag()
 	cout << "\nSone " << ID;
 	for (unsigned int i = 0; i < boligerTilSalgs.size(); i++)
 		cout << "\nBolig " << boligerTilSalgs[i]->getID();
-	cout << '\n';
+	cout << "\n\n";
 }
 
 void Sone::skrivTilFil(ofstream& ut) {

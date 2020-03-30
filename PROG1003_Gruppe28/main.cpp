@@ -1,7 +1,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include <ctype.h>
+#include <ctype.h>		//toupper()
 #include "Soner.h"
 #include "Kunder.h"
 #include "Kunde.h"		//nicholas la til for testing i K O <knr>
