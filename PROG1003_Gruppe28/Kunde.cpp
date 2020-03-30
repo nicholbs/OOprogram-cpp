@@ -28,8 +28,8 @@ extern Soner gSoner; //Legger til Gsonr for å kunne utføre sjekk og mappinger
 Kunde::Kunde(int nr) {
     ID = nr; //Setter medsent nr til ID
     char kommando = ' ';
+     cout <<"\nKundeid: " <<nr;
     //Leser inn data fra bruker
-    cout <<"\nKundeid: " <<nr;
     cin.ignore();
     skrivNavn(navn); //Registrerer navn
     lesGateAdr(gateAddresse); //Registrerer gateaddresse
@@ -186,6 +186,7 @@ int Kunde::kundeIdRetur(){
  * Denne klassefunksjonen skriver kundens data pa skjerm
  * */
 void Kunde::skrivData() {
+    cout <<"\nKundeid: " <<ID;
     cout <<"\nNavn: " <<navn
               <<"\nAddresse: " <<gateAddresse
               <<"\nPoststed og nr: " <<postAdresse
