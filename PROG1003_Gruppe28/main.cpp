@@ -58,6 +58,17 @@ int main()
 	}
 }
 
+/**
+*	Meny for Kunde basert på input
+*
+*	De forskjellige kommandoer er:
+*	N - lager ny kunde
+*	1 - skriver informasjon om en kunde
+*	A - skriver hoveddata om alle kunder
+*	E - Valgt kunde sin data skrives ut, for å så kunne bli endret
+*	S - Sletter valgt kunde
+*	O - All data om alle boliger i kundens interessesoner skrives på lesbart og forståelig format til filen Kxxxxx.DTA. Der «xxxxx» er kundens unike nummer. 
+**/
 void menyKunde() {
 	kundeMeny();
 
@@ -157,6 +168,14 @@ void menyKunde() {
 	}
 }
 
+/**
+*	Meny for Sone basert på input
+*
+*	De forskjellige kommandoer er:
+*	N - lager ny Sone
+*	1 - skriver all informasjon om en sone	
+*	A - skriver hoved data om alle soner
+**/
 void menySone() {
 	soneMeny();
 	char kommando2;
@@ -183,7 +202,15 @@ void menySone() {
 	}
 }
 
-
+/**
+*	Meny for Oppdrag basert på input
+*
+*	De forskjellige kommandoer er:
+*	N - lager nytt oppdrag
+*	1 - skriver informasjon om ett oppdrag
+*	A - skriver all informasjon om alle oppdrag
+*	S - Sletter spesifikt oppdrag
+**/
 void menyOppdrag() {
 
 	oppdragMeny();
@@ -236,7 +263,6 @@ void kundeMeny() {
 	cout << setw(5) << "(E)" << setw(30) << "Endre info om kunde" << endl;
 	cout << setw(5) << "(S)" << setw(30) << "Slett kunde" << endl;
 	cout << setw(5) << "(O)" << setw(30) << "Skriver all bolig data" << endl;
-	cout << setw(5) << "(H)" << setw(30) << "Henter alle nedskrevne kunder" << endl;		//ekstra funksjonalitet Nicholas har lagt til
 	cout << endl;
 
 }
