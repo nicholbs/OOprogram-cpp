@@ -3,6 +3,7 @@
 #include "Enebolig.h"
 #include <iostream>
 #include <ctype.h>			//nicholas lagt til for skrivTilFil
+#include <iomanip>
 
 using namespace std;
 
@@ -89,4 +90,17 @@ void Sone::skrivTilFil(ofstream& ut) {
 			boligerTilSalgs[i]->skrivTilFil(ut);
 		ut << '\n';
 	}
+}
+
+/**
+ *   Funksjon for å skrive ut hoved data om hver Sone i Soner
+ *
+ *	 Brukes av Soner::skrivHovedDataAlleSoner() ved foor loop.
+ *   HovedData for hver sone er dens ID, beskrivelse og antall boliger i sonen.
+ */
+void Sone::skrivHovedDataSone() {
+	cout << setw(35) << "Skriver hoveddata om sone" << ' ' << ID << endl;
+	
+	cout << setw(35) << "Beskrivelse av sonen:" << ' ' << beskrivelse << endl;
+	cout << setw(35) << "Antall boliger til salgs i sonen" << ' ' << boligerTilSalgs.size() << endl << endl;
 }

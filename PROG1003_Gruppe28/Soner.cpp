@@ -114,3 +114,21 @@ void Soner::lesFraFil()
 		cout << "Alle soner lest inn\n";
 	}
 }
+
+
+
+/**
+*   Går gjennom alle instanser i Soner sin map av type Sone pekere og skriver Sone sin hovedData.
+*
+*   sonePar er for range basert gjennomgang av Soner sin map. For hver instant bruker vi
+*	valgt Sone sin skrivHovedDataSone funksjon
+*
+*   @see     Sone::skrivHovedDataSone()
+*/
+void Soner::skrivHovedDataAlleSoner() {
+	cout << setw(35) << "Skriver ut alle hoved data om soner:" << endl;
+	for (const auto& sonePar : soneMap)
+		{
+		sonePar.second->skrivHovedDataSone();
+		}
+}

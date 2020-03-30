@@ -17,6 +17,7 @@ public:
 	Bolig* finnOppdrag(int onr);
 	void skrivOppdrag(int onr);
 	void skrivAlleOppdrag();	//TESTFUNKSJON
+	void skrivHovedDataAlleSoner();		//brukt i case S A for å skrive hovedData om alle Soner
 	void slettOppdrag(int onr);
 	void skrivTilFil();
 	void lesFraFil();

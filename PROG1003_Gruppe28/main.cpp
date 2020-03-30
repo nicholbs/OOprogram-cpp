@@ -183,8 +183,7 @@ void menySone() {
 		//Stans utskrift hver 5. sone
 		break;
 	case 'A':
-		//Skriv HOVEDDATAENE om alle soner til terminal
-		//nr, beskrivelse, antall oppdrag
+		gSoner.skrivHovedDataAlleSoner();
 		break;
 	case 'F':	//TESTFUNKSJON - SKAL FJERNES
 		gSoner.skrivTilFil();
