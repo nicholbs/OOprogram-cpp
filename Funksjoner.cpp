@@ -334,9 +334,7 @@ void soneMeny() {
 	cout << endl;
 
 }
-/**
-* Utskrift av meny for Oppdrag/Bolig funksjoner, kommer etter input "O" fra hovedMeny
-**/
+
 
 void oppdragMeny() {
 	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
@@ -347,46 +345,50 @@ void oppdragMeny() {
 
 }
 
+/**
+*  Skriver all data i alle boliger i alle kundens interessesoner til fil på leselig format.
+*
+*  @see Kunder::finnKundeSone(..)
+*  @see Soner::finnBoligerISone(..)
+*  @see Bolig::skrivTilKundeFil(..)
+**/
 void kundeOversiktTilFil()
 {
 	int kundeNr;	//Variabel for å holde medsent int i kommando "K O <knr>"
-	cin >> kundeNr;	//Innskriving av <knr> går til helvette om bruker taster bokstav og ikke tall
-	cout << setw(35) << "Leter etter kunde med nr:" << ' ' << kundeNr << endl;
+	cin.ignore();
+	kundeNr = lesInt("Kundenummer:", 1, MAX_PERSONER);	
 
 	if (!gKunder.kundeListeTomSjekk())
 	{
-		vector <int> kundeSoneInteresse;	//Holder kundens interessesoner
-		vector<Bolig*> boligVector;			//Holder alle boliger i kundens interessesoner
+		vector <int> kundeSoneInteresse;	//Holder alle kundens interessesoner
+		vector<Bolig*> boligVector;			//Holder alle boligene i en interessesone
 
 		kundeSoneInteresse = gKunder.finnKundeSone(kundeNr);
 		if (!kundeSoneInteresse.empty())
 		{
-			//Oppretter filnavn
-			string navnPaFil = "K";
-			string kunde = to_string(kundeNr);
-			kunde.append(".DTA");
-			string skrivTilFil = navnPaFil + kunde;
+			string filNavn = "K" + to_string(kundeNr) + ".DTA";		//Oppretter filnavn
+			ofstream ut(filNavn);
 
-			ofstream utfilA(skrivTilFil);
-
-			for (int i = 0; i < kundeSoneInteresse.size(); i++)        //Skriver alle boliger i alle interessesoner til fil
+			for (int i = 0; i < kundeSoneInteresse.size(); i++)		//Skriver alle boliger i alle interessesoner til fil
 			{
-				utfilA << "\n SONE " << kundeSoneInteresse[i] << "\n";
+				ut << "\n SONE " << kundeSoneInteresse[i] << "\n";
 				boligVector = gSoner.finnBoligerISone(kundeSoneInteresse[i]);
 
-				if (boligVector.empty())
-					cout << setw(35) << "Det er ikke blitt skrevet til fil" << endl;
-				else
+				//Skriver all boligdata på leselig format
+				ut << "-----------------------------------------------------\n";
+				for (int i = 0; i < boligVector.size(); i++)	
 				{
-					utfilA << "-----------------------------------------------------\n";
-					for (int i = 0; i < boligVector.size(); i++)
-						boligVector[i]->skrivTilKundeFil(utfilA);	//Skriver all boligdata på leselig format
+					if(boligVector[i]->erEnebolig())
+						static_cast<Enebolig*>(boligVector[i])->skrivTilKundeFil(ut);
+					else
+						boligVector[i]->skrivTilKundeFil(ut);	
+					ut << "\n-----------------------------------------------------\n";
 				}
 			}
 		}
 		else
-			cout << setw(35) << "Kunden fantes, men han har ikke registrert noen soner:" << endl;
+			cout << setw(35) << "Kunden fantes, men han har ingen registrert soner\n" << endl;
 	}
 	else
-		cout << setw(35) << "Det finnes ingen kunder i hele tatt" << endl;
+		cout << setw(35) << "Det finnes ingen kunder\n" << endl;
 }

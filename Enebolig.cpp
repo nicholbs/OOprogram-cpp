@@ -1,9 +1,16 @@
 #include "Enebolig.h"
 #include "LesData3.h"
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
+/**
+*  Konstruktor som kjøres etter når en Enebolig opprettes manuelt.
+*
+*  @param inn  -  Oppdragets ID
+*  @see Bolig::Bolig(int id)
+**/
 Enebolig::Enebolig(int id) : Enebolig::Bolig(id) 
 {
 	boligType = boligtype::Enebolig;
@@ -18,6 +25,12 @@ Enebolig::Enebolig(int id) : Enebolig::Bolig(id)
 		festetomt = false;
 }
 
+/**
+*  Konstruktor som kjøres etter når en Enebolig opprettes fra fil.
+*
+*  @param inn  -  Oppdragets ID
+*  @see Bolig::Bolig(ifstream& inn)
+**/
 Enebolig::Enebolig(ifstream& inn) : Enebolig::Bolig(inn)
 {
 	boligType = boligtype::Enebolig;
@@ -29,10 +42,11 @@ Enebolig::Enebolig(ifstream& inn) : Enebolig::Bolig(inn)
 	inn.ignore();
 }
 
-Enebolig::~Enebolig() {
-	cout << "Enebolig destruert" << endl;
-}
-
+/**
+*  Skriver data spesifikke til underklassen Enebolig til terminalen.
+*
+*  @see Bolig::skrivData()
+**/
 void Enebolig::skrivData()
 {
 	Bolig::skrivData();
@@ -44,9 +58,28 @@ void Enebolig::skrivData()
 	cout << "Pris: " << pris << " NOK\n\n";
 }
 
+/**
+*  Skriver data spesifikke til underklassen Enebolig til fil.
+*
+*  @see Bolig::skrivTilFil()
+**/
 void Enebolig::skrivTilFil(ofstream& ut)
 {
 	Bolig::skrivTilFil(ut);
 	ut  << (festetomt ? '1' : '0')
 		<< ' ' << areal << '\n';
+}
+
+/**
+*  Skriver boliginformasjon til kundefil på leselig format.
+*
+*  @param ut  -  fil data skal skrives til (Kxxxx.DTA)
+*  @see Bolig::skrivTilKundeFil(..)
+**/
+void Enebolig::skrivTilKundeFil(std::ofstream& ut)
+{
+	Bolig::skrivTilKundeFil(ut);
+	ut	<< left << setw(25) << "\nAreal: " << areal
+		<< setw(25) << "\nFestetomt: " << (festetomt ? "Ja" : "Nei")
+		<< "\n\n\"" << beskrivelse << "\"";
 }

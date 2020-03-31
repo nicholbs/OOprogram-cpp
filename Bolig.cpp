@@ -10,11 +10,11 @@
 using namespace std;
 
 /**
-*Denne klassefunksjonen registrerer en ny bolig
+*  Konstruktor som kjøres etter når en Bolig opprettes manuelt. 
 *
-* @param id -   medsendt id
-* @see lesGateAdr(..);
-* @see lesPostAdr(..)
+*  @param id -   Oppdragets ID
+*  @see lesGateAdr(..)
+*  @see lesPostAdr(..)
 **/
 Bolig::Bolig(int id) {
 	ID = id;
@@ -37,9 +37,9 @@ Bolig::Bolig(int id) {
 }
 
 /**
-* Denne klassefunksjonen leser data fra fil
+*  Konstruktor som kjøres etter når en Bolig opprettes manuelt. 
 *
-* @param inn    -   medsendt filobjekt for innlesning
+* @param inn    -   Fil som skal skrives til (SONER.DTA)
 * */
 Bolig::Bolig(ifstream& inn)
 {
@@ -59,18 +59,6 @@ Bolig::Bolig(ifstream& inn)
 }
 
 /**
-* Bolig sin destructor
-**/
-Bolig::~Bolig() {
-	cout << "\nSlettet ";
-	if (boligType == boligtype::Leilighet)
-		cout << "leilighet";
-	else
-		cout << "enebolig";
-	cout << " med ID " << ID << ".\n";
-}
-
-/**
 *Denne klassefunksjonen returnerer Bolig sin ID
 *
 *@return ID -   Boligens ID
@@ -80,7 +68,7 @@ int Bolig::getID() {
 }
 
 /**
-*Denne Klassefunksjonen skriver ut en Bolig
+*  Skriver all data til en Bolig til terminalen.
 **/
 void Bolig::skrivData() {
 	if (boligType == boligtype::Leilighet)
@@ -100,9 +88,9 @@ void Bolig::skrivData() {
 }
 
 /**
-* Denne klassefunksjonen for Bolig skriver data ut til fil
+*  Skriver all data til en Bolig til en fil.
 *
-* @param ut -   Et ofstream objekt for utskrift til fil
+* @param ut  -  Fil som skal skrives til
 **/
 void Bolig::skrivTilFil(ofstream& ut) {
 	if (boligType == boligtype::Leilighet)
@@ -130,21 +118,24 @@ void Bolig::skrivTilKundeFil(ofstream& ut) {
 	else
 		ut << "Enebolig~\n";
 
-	ut << left << setw(24) << "Pris: " << pris 
+	ut	<< left << setw(24) << "Pris: " << pris
 		<< setw(25) << "\nLagt ut: " << dato
-		<< setw(25) << "\nEier: " << navnEier 
+		<< setw(25) << "\nEier: " << navnEier
 		<< setw(25) << "\nSaksbehandler: " << navnSaksbehandler
-		<< setw(25) << "\nGateadresse: " << gateadresse 
+		<< setw(25) << "\nGateadresse: " << gateadresse
 		<< setw(25) << "\nPostadresse: " << postadresse
-		<< setw(25) << "\nBruttoareal: " << bruttoareal 
+		<< setw(25) << "\nBruttoareal: " << bruttoareal
 		<< setw(25) << "\nSoverom: " << antallSoverom
-		<< setw(25) << "\nBygd: " << byggeaar 
-		<< "\n\n\"" << beskrivelse << "\"";
-	ut << "\n-----------------------------------------------------\n";
+		<< setw(25) << "\nBygd: " << byggeaar;
+
+	if(boligType != boligtype::Enebolig)		//Sørger for at beskrivelse alltid kommer til slutt
+		ut << "\n\n\"" << beskrivelse << "\"";
 }
 
 /**
+*  Sjekker om et oppdrag er av boligtype Enebolig.
 *
+*  @return bool - true hvis oppdraget er Enebolig, ellers false
 */
 bool Bolig::erEnebolig()
 {
