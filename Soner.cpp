@@ -6,11 +6,23 @@
 #include <fstream>
 #include <iomanip>
 
+/**
+ * Dette er parameterlos konstruktor for Soner, initialiserer siteNr til å bli 0
+ * */
 Soner::Soner()
 {
 	sisteNr = 0;
 }
 
+/**
+ * nySone er funksjon for å lage nye "Sone" objekter i Soner sin map.
+ *
+ * Sjekker om sonen finnes allerede ved hjelp av parameter og finnesSone().
+ * Lager ny Sone og legger den til i Soner sin map.
+ *
+ * @See Soner::finnesSone 
+ * @Param int snr
+ * */
 void Soner::nySone(int snr) 
 {
 	if (finnesSone(snr))
@@ -24,6 +36,17 @@ void Soner::nySone(int snr)
 	}
 }
 
+/**
+ * nyttOppdrag leter etter sone og oppretter nytt oppdrag dersom funnet.
+ *
+ * 
+ *	
+ *
+ *
+ * @Param int snr
+ * @See Sone::nyttOppdrag()
+ * @See Soner::skrivTilFil()
+ * */
 void Soner::nyttOppdrag(int snr) 
 {
 	const auto& so = soneMap.find(snr);
@@ -129,6 +152,11 @@ void Soner::lesFraFil()
 
 bool Soner::isEmpty() {
 	return soneMap.empty();
+}
+
+vector<Bolig*> Soner::finnBoligerISone(int snr)
+{
+	return soneMap.at(snr)->getAlleBoliger();
 }
 
 /**
