@@ -103,3 +103,8 @@ void Sone::skrivHovedDataSone() {
 	cout << setw(35) << "Beskrivelse av sonen:" << ' ' << beskrivelse << endl;
 	cout << setw(35) << "Antall boliger til salgs i sonen" << ' ' << boligerTilSalgs.size() << endl << endl;
 }
+
+vector<Bolig*> Sone::getAlleBoliger()
+{
+	return vector<Bolig*>();
+}
