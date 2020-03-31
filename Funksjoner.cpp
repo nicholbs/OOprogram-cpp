@@ -67,7 +67,8 @@ void lesEpostAdr(std::string & epost){
         } else valider = false;
         //Sjekker teksten og sa lenge den kun inneholder bokstaver, tall - @ .
         for(i= 0; i<epost.size(); i++){
-            if(valider == true && (isalpha(epost[i]) ||isdigit(epost[i]) || epost[i] =='-' || epost[i]=='@' || epost[i]=='.')) {
+            if(valider == true && (isalpha(epost[i]) ||isdigit(epost[i])
+                        || epost[i] =='-' || epost[i]=='@' || epost[i]=='.')) {
                 valider = true;
             }
             else {
@@ -75,7 +76,8 @@ void lesEpostAdr(std::string & epost){
             }
         }
         if(!valider){
-            cout <<"\nIkke gyldig e-post addresse, Ma inneholde @ samt . og kan kun inneholde: "
+            cout <<"\nIkke gyldig e-post addresse, Ma inneholde "
+                 << "@ samt . og kan kun inneholde: "
                  <<"Bokstaver, tall, @ - . ";
         }
     }while(valider == false);
@@ -172,7 +174,8 @@ void lesGateAdr(std::string & gta){
             if (isalpha(gta[0])){
                 for (i = 1; i < gta.size();i++){
                     //Sa lenge string inneholder bokstaver, mellomrom, tall og -
-                    if(valider == true && (isalpha(gta[i]) || gta[i]==' ' || isdigit(gta[i])||gta[i]=='-')){
+                    if(valider == true && (isalpha(gta[i]) || gta[i]==' '
+                        || isdigit(gta[i])||gta[i]=='-')){
                         valider =true;
                     }
                     else {
@@ -214,7 +217,8 @@ void lesPostAdr(std::string & pad){
         }
         //Sjekker resten av tekstem kan inneholde bokstaver mellomrom - .
         for(i=5; i <pad.size(); i++) {
-            if(valider == true && (isalpha(pad[i])|| pad[i]==' ' || pad[i]== '.' || pad[i]=='-')) {
+            if(valider == true && (isalpha(pad[i])|| pad[i]==' ' || pad[i]== '.'
+                            || pad[i]=='-')) {
                 valider = true;
             } else valider = false;
         }
