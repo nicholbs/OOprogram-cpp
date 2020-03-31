@@ -21,7 +21,7 @@ Soner::Soner()
  * Lager ny Sone og legger den til i Soner sin map.
  *
  * @See Soner::finnesSone 
- * @Param int snr
+ * @Param int snr - Sonen sitt nr
  **/
 void Soner::nySone(int snr) 
 {
@@ -43,7 +43,7 @@ void Soner::nySone(int snr)
  * Dersom Sone eksisterer opprettes ny bolig.
  * Bolig skriver så til Soner.DTA
  *
- * @Param int snr
+ * @Param int snr - Sonen sitt nr
  * @See Sone::nyttOppdrag()
  * @See Soner::skrivTilFil()
  **/
@@ -70,7 +70,7 @@ void Soner::nyttOppdrag(int snr)
  * Dersom oppdrag er funnet brukes slettOppdrag() og sisteNr blir redusert.
  * Til slutt skrives filen Soner.DTA på nytt.
  *
- * @Param int onr
+ * @Param int onr - Oppdraget sitt nr
  * @See Sone::finnesOppdrag()
  * @See Sone::slettOppdrag()
  * @See Soner::skrivTilFil()
@@ -95,7 +95,7 @@ void Soner::slettOppdrag(int onr)
  * Leter etter Sone med parameter som nr.
  * Dersom Sone eksisterer returneres true/false.
  *
- * @Param int snr
+ * @Param int snr - Sonen sitt nr
  * @Return bool statement
  **/
 bool Soner::finnesSone(int snr) 
@@ -112,8 +112,8 @@ bool Soner::finnesSone(int snr)
  * Dersom Oppdrag eksisterer returneres peker til Oppdraget.
  *
  * @See Sone::finnOppdrag()
- * @Param int snr
- * @Return bp - Bolig peker
+ * @Param int snr - Sonen sitt nr
+ * @Return bp - peker til Oppdraget
  **/
 Bolig* Soner::finnOppdrag(int onr) 
 {
@@ -139,7 +139,7 @@ Bolig* Soner::finnOppdrag(int onr)
  * @See Bolig::erEnebolig()
  * @See Bolig::skrivData()
  * @See Enebolig::skrivData()
- * @Param int onr
+ * @Param int onr - Oppdrag sitt nr
  **/
 void Soner::skrivOppdrag(int onr) 
 {
@@ -156,8 +156,9 @@ void Soner::skrivOppdrag(int onr)
 /**
  * skrivAlleOppdrag går gjennom alle Sone i Soner, skriver ut alle oppdrag i Sonene.
  *
- * Range basert gjennom hele Soner sin vector
- *	
+ * Range basert gjennom hele Soner sin Map.
+ * Bruker tilpekt Sone sin skrivAlleOppdrag funksjon for utskrift av alle Oppdrag i Sone.
+ *
  * @See Sone::skrivAlleOppdrag()
  **/
 void Soner::skrivAlleOppdrag()
@@ -166,6 +167,14 @@ void Soner::skrivAlleOppdrag()
 		sonePar.second->skrivAlleOppdrag();
 }
 
+/**
+ * skrivTilFil lager "SONER.DTA" fil, skriver til fil antall Sone i Soner, skriver til fil oppdrag i Sone.
+ *
+ * Range basert gjennom hele Soner sin Map.
+ * Bruker tilpekt sone sin skrivTilFil for å skrive oppdrag i sone til fil.
+ *
+ * @See Sone::skrivTilFil()
+ **/
 void Soner::skrivTilFil()
 {
 	ofstream ut;
@@ -178,6 +187,15 @@ void Soner::skrivTilFil()
 	ut.close();
 }
 
+/**
+ * lesFraFil åpner "SONER.DTA" fil, lager og leser inn nye Sone + oppdrag, legger til Sone i Soner.
+ *
+ * Dersom "SONER.DTA" finnes leses antall sone.
+ * Går gjennom alle sone i fil, lager og leser inn Sone pluss den sine oppdrag.
+ * Legger til Sone i Soner sin map.
+ *
+ * @See Sone::nyttOppdrag()
+ **/
 void Soner::lesFraFil()
 {
 	ifstream inn;
@@ -203,10 +221,20 @@ void Soner::lesFraFil()
 	}
 }
 
+/**
+ * isEmpty sjekker om det finnes Sone i Soner sin map, returnerer true/false.
+ **/
 bool Soner::isEmpty() {
 	return soneMap.empty();
 }
 
+/**
+ * finnBoligerISone finner Sone med parameter, henter alle boliger fra Sone i vector.
+ *
+ * @See Sone::getAlleBoliger()
+ * @Param int snr - Sonen sitt nr
+ * @Return vector<Bolig*> boligerTilSalgs - vector fra Sonen
+ **/
 vector<Bolig*> Soner::finnBoligerISone(int snr)
 {
 	return (soneMap.at(snr)->getAlleBoliger());
