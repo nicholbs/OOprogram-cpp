@@ -1,5 +1,6 @@
 #pragma once
 #include <map>
+#include <vector>
 #include "Sone.h"
 #include "Enebolig.h"
 using namespace std;
@@ -23,4 +24,5 @@ public:
 	void skrivTilFil();
 	void lesFraFil();
 	bool isEmpty();
+	vector<Bolig*> finnBoligerISone(int snr);
 };

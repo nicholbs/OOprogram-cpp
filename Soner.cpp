@@ -131,6 +131,11 @@ bool Soner::isEmpty() {
 	return soneMap.empty();
 }
 
+vector<Bolig*> Soner::finnBoligerISone(int snr)
+{
+	return soneMap.at(snr)->getAlleBoliger();
+}
+
 /**
 *   Går gjennom alle instanser i Soner sin map av type Sone pekere og skriver Sone sin hovedData.
 *
