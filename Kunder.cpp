@@ -1,3 +1,4 @@
+#include "Const.h"
 #include "Kunder.h"
 #include "Kunde.h"
 #include "LesData3.h"
@@ -46,10 +47,12 @@ void Kunder::kundeEndreData(){
 *@param Kunde::Kunde(..)
 **/
 void Kunder::nyKunde() {
-    sisteNr ++; //teller opp sistenr med en
-    //Oppretter ny kunde og flytter den bakerst i listen (holder seg da sortert
-    // da sistnr oker med og alle nye legges altid bakerst
-    kundeListe.push_back(new Kunde(sisteNr));
+    if(kundeListe.size() < MAX_PERSONER) {
+        sisteNr ++; //teller opp sistenr med en
+        //Oppretter ny kunde og flytter den bakerst i listen (holder seg da sortert
+        // da sistnr oker med og alle nye legges altid bakerst
+        kundeListe.push_back(new Kunde(sisteNr));
+    }else cout <<"\nIkke mulig a registrere flere brukere i systemet ";
 }
 
 /**

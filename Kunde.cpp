@@ -142,35 +142,38 @@ void Kunde::endreData(){
 * Denne klassefuksjonen registrerer soner hos en kunde
 *
 *@see Soner::finnesSone()
+*@see Soner::isEmpty()
 **/
 void Kunde::registrerSoner(){
     int soneInnlest; //Bruker for a lese inn en sone.
     char kommando; //Registrerr brukerens menyvalg
-    ////////////////Sjekk om det faktisk finnes soner
-    cout <<"\nRegistrer sone J trykk Q for avslutt";
-    kommando = lesChar("");
-    while(kommando !='Q') {
-       soneInnlest = lesInt("\nSonenr:",1,MAX_SONER);
-       //Sa lenge sonen finnes registrer den
-       if(gSoner.finnesSone(soneInnlest)){
-        //Sjekker om sonen allerede er registrert (om bruker gjentar seg
-        //og for a unga duplikat)
-        auto it = find(kundeSoner.begin(),kundeSoner.end(),soneInnlest);
-        //Hvis ikke allerede registrert pa kunde, gor dette
-        if(it ==kundeSoner.end()){
-            kundeSoner.push_back(soneInnlest);
-            cout <<"\nSonen: " <<soneInnlest <<" er registrert";
+    //Sjekker at det er soner og fortsetter hvis det er
+    if(!gSoner.isEmpty()){
+        cout <<"\nRegistrer sone J trykk Q for avslutt";
+        kommando = lesChar("");
+        while(kommando !='Q') {
+            soneInnlest = lesInt("\nSonenr:",1,MAX_SONER);
+            //Sa lenge sonen finnes registrer den
+            if(gSoner.finnesSone(soneInnlest)){
+                //Sjekker om sonen allerede er registrert (om bruker gjentar seg
+                //og for a unga duplikat)
+                auto it = find(kundeSoner.begin(),kundeSoner.end(),soneInnlest);
+                //Hvis ikke allerede registrert pa kunde, gor dette
+                    if(it ==kundeSoner.end()){
+                        kundeSoner.push_back(soneInnlest);
+                        cout <<"\nSonen: " <<soneInnlest <<" er registrert";
+                    }
+                    else cout <<"\nSonenr: " <<soneInnlest <<" allerede registrert";
+                }
+                else cout <<"\nFinner ikke sonenr: " <<soneInnlest;
+            kommando = lesChar("\nRegistrer sone J trykk Q for avslutt");
+
+
         }
-        else cout <<"\nSonenr: " <<soneInnlest <<" allerede registrert";
-       }
-       else cout <<"\nFinner ikke sonenr: " <<soneInnlest;
-      kommando = lesChar("\nRegistrer sone J trykk Q for avslutt");
-
-
-    }
 
     //Sorterer intreserte soner i stigende rekkefolge
     sort(kundeSoner.begin(),kundeSoner.end());
+    }else cout <<"\nIngen soner registrert";
 
 }
 
