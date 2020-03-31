@@ -92,27 +92,23 @@ void Bolig::skrivTilFil(ofstream& ut) {
 }
 
 void Bolig::skrivTilFil(ofstream& ut, vector <int> interesseSone) {
+	ut << " ~Oppdrag " << ID << ", ";
 	if (boligType == boligtype::Leilighet)
-	{
-		ut << "Leilighet" << endl;
-	}
+		ut << "Leilighet~\n";
 	else
-	{
-		ut << "Enebolig" << endl;
-	}
+		ut << "Enebolig~\n";
 
-	ut << ID << ' ' << navnSaksbehandler << endl;
-	ut << dato << ' ' << navnEier << endl;
-	ut << byggeaar << ' ' << gateadresse << endl;
-	ut << bruttoareal << ' ' << postadresse << endl;
-	ut << antallSoverom << ' ' << beskrivelse << endl;
-	ut << pris << endl;
-
-	for (int i = 0; i < interesseSone.size(); i++)
-	{
-		ut << interesseSone[i];
-	}
-	ut << endl;
+	ut << left << setw(24) << "Pris: " << pris 
+		<< setw(25) << "\nLagt ut: " << dato
+		<< setw(25) << "\nEier: " << navnEier 
+		<< setw(25) << "\nSaksbehandler: " << navnSaksbehandler
+		<< setw(25) << "\nGateadresse: " << gateadresse 
+		<< setw(25) << "\nPostadresse: " << postadresse
+		<< setw(25) << "\nBruttoareal: " << bruttoareal 
+		<< setw(25) << "\nSoverom: " << antallSoverom
+		<< setw(25) << "\nBygd: " << byggeaar 
+		<< "\n\n\"" << beskrivelse << "\"";
+	ut << "\n-----------------------------------------------------\n";
 }
 
 bool Bolig::erEnebolig()

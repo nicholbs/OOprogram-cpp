@@ -22,6 +22,7 @@ class Kunde
 		Kunde(int nr);
 		Kunde(std::ifstream & inn, int kId);
 		int kundeIdRetur();
+		string getNavn();
 		void endreData();
 		void registrerSoner();
 		void skrivData();

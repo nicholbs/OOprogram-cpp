@@ -16,6 +16,6 @@ void lesGateAdr(std::string & gta);
 void lesPostAdr(std::string & pad);
 void skrivNavn(std::string & nvn);
 
-void skrivUtInteresseSoner();
+void kundeOversiktTilFil();
 
 #endif

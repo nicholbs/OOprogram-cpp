@@ -199,7 +199,7 @@ void menyKunde() {
 		break;
 
 	case 'O':			//K -kunde, O - Skriv ut all data om kundens interesseSone, <knr> -valgt kunde
-		skrivUtInteresseSoner();
+		kundeOversiktTilFil();
 		break;
 
 	case 'D':
@@ -347,51 +347,46 @@ void oppdragMeny() {
 
 }
 
-void skrivUtInteresseSoner()
+void kundeOversiktTilFil()
 {
 	int kundeNr;	//Variabel for å holde medsent int i kommando "K O <knr>"
 	cin >> kundeNr;	//Innskriving av <knr> går til helvette om bruker taster bokstav og ikke tall
 	cout << setw(35) << "Leter etter kunde med nr:" << ' ' << kundeNr << endl;
 
-
 	if (!gKunder.kundeListeTomSjekk())
 	{
-		vector <int> kundeSoneInteresse;
+		vector <int> kundeSoneInteresse;	//Holder kundens interessesoner
+		vector<Bolig*> boligVector;			//Holder alle boliger i kundens interessesoner
+
 		kundeSoneInteresse = gKunder.finnKundeSone(kundeNr);
 		if (!kundeSoneInteresse.empty())
 		{
+			//Oppretter filnavn
 			string navnPaFil = "K";
 			string kunde = to_string(kundeNr);
 			kunde.append(".DTA");
 			string skrivTilFil = navnPaFil + kunde;
+
 			ofstream utfilA(skrivTilFil);
 
-			for (int i = 0; i < kundeSoneInteresse.size(); i++)        //Utskrift av vector sin data
+			for (int i = 0; i < kundeSoneInteresse.size(); i++)        //Skriver alle boliger i alle interessesoner til fil
 			{
-				vector<Bolig*> boligVector;
-				boligVector = gSoner.finnBoligerISone(i);
+				utfilA << "\n SONE " << kundeSoneInteresse[i] << "\n";
+				boligVector = gSoner.finnBoligerISone(kundeSoneInteresse[i]);
+
 				if (boligVector.empty())
-				{
 					cout << setw(35) << "Det er ikke blitt skrevet til fil" << endl;
-				}
 				else
 				{
+					utfilA << "-----------------------------------------------------\n";
 					for (int i = 0; i < boligVector.size(); i++)
-					{
-						cout << setw(35) << "Skriver Bolig:" << ' ' << boligVector[i]->getID() << endl;
-						boligVector[i]->skrivTilFil(utfilA, kundeSoneInteresse);
-					}
+						boligVector[i]->skrivTilFil(utfilA, kundeSoneInteresse);	//Skriver all boligdata på leselig format
 				}
 			}
-
 		}
 		else
-		{
 			cout << setw(35) << "Kunden fantes, men han har ikke registrert noen soner:" << endl;
-		}
 	}
 	else
-	{
 		cout << setw(35) << "Det finnes ingen kunder i hele tatt" << endl;
-	}
 }

@@ -187,6 +187,11 @@ int Kunde::kundeIdRetur(){
     return ID;
 }
 
+string Kunde::getNavn()
+{
+	return navn;
+}
+
 /**
  * Denne klassefunksjonen skriver kundens data pa skjerm
  * */
