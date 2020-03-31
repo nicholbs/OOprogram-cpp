@@ -93,13 +93,10 @@ void lesEpostAdr(std::string & epost){
 *	S - Sletter spesifikt oppdrag
 **/
 void menyOppdrag() {
-
-	oppdragMeny();
 	char kommando2;
 	int nr;
-	cout << setw(35) << "Skriv kommando:" << endl;
+	
 	cin >> kommando2;
-
 	switch (toupper(kommando2)) {
 	case 'N':
 		cin.ignore();
@@ -131,7 +128,6 @@ void menyOppdrag() {
 *	A - skriver hoved data om alle soner
 **/
 void menySone() {
-	soneMeny();
 	char kommando2;
 	int snr;
 
@@ -150,6 +146,75 @@ void menySone() {
 		break;
 	default:
 		cout << "Sone Default" << endl;
+	}
+}
+
+/**
+*	Meny for Kunde basert på input
+*
+*	De forskjellige kommandoer er:
+*	N - lager ny kunde
+*	1 - skriver informasjon om en kunde
+*	A - skriver hoveddata om alle kunder
+*	E - Valgt kunde sin data skrives ut, for å så kunne bli endret
+*	S - Sletter valgt kunde
+*	O - All data om alle boliger i kundens interessesoner skrives på lesbart og forståelig format til filen Kxxxxx.DTA. Der «xxxxx» er kundens unike nummer.
+**/
+void menyKunde() {
+	char kommando2;
+	cin >> kommando2;
+
+	switch (toupper(kommando2)) {
+	case 'N':
+		gKunder.nyKunde();
+		gKunder.kunderSkrivAlleTilFil();
+		break;
+
+	case '1':
+		//Skriv ut info om enkelt Kunde
+		//Stans utskrift hver 10. sone
+		cout << setw(35) << "Skriv info om en kunde" << endl;
+		gKunder.kundeSkrivData();
+		break;
+
+	case 'A':
+		//Skriv ut ALLE Kunder
+		cout << setw(35) << "Skriv info om alle kunder" << endl;
+		gKunder.kundeSAlleSkrivData();
+		break;
+
+	case 'E':
+		//Skriv ut info om Kunde
+		//Bruker kan legge til/slette soner fra kunden | NB SORTER VECTOR
+		cout << setw(35) << "Endre info om kunde" << endl;
+		gKunder.kundeEndreData();
+		gKunder.kunderSkrivAlleTilFil();
+		break;
+
+	case 'S':
+		//Slett kunde | HUSK PEKER
+		cout << setw(35) << "Slett kunde" << endl;
+		gKunder.slettKunde();
+		gKunder.kunderSkrivAlleTilFil();
+		break;
+
+	case 'O':			//K -kunde, O - Skriv ut all data om kundens interesseSone, <knr> -valgt kunde
+		skrivUtInteresseSoner();
+		break;
+
+	case 'D':
+		cout << "\nTest skriv ut alle kunder til fil";
+		gKunder.kunderSkrivAlleTilFil();
+		cout << "\nAlle skrevet til fil";
+		break;
+	case 'L':
+		cout << "\nTest imprt alle kunder fra fil";
+		gKunder.kunderLesAlleFraFil();
+		cout << "\nFerdig";
+		break;
+
+	default:
+		cout << setw(35) << "Kunde Default" << endl;
 	}
 }
 
@@ -289,11 +354,11 @@ void skrivUtInteresseSoner()
 	cout << setw(35) << "Leter etter kunde med nr:" << ' ' << kundeNr << endl;
 
 
-	if (gKunder.kundeListeTomSjekk() == false)
+	if (!gKunder.kundeListeTomSjekk())
 	{
 		vector <int> kundeSoneInteresse;
 		kundeSoneInteresse = gKunder.finnKundeSone(kundeNr);
-		if (kundeSoneInteresse.empty() == false)
+		if (!kundeSoneInteresse.empty())
 		{
 			string navnPaFil = "K";
 			string kunde = to_string(kundeNr);

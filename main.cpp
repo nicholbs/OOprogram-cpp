@@ -40,7 +40,7 @@ int main()
 	char kommando1;
 	cin >> kommando1;
 
-	while (kommando1 != 'Q') {
+	while (kommando1 != 'Q' && kommando1 != 'q') {
 		switch (toupper(kommando1)) {
 		case 'K':
 			menyKunde();
@@ -60,81 +60,3 @@ int main()
 	gKunder.kunderSkrivAlleTilFil();
 	return 0;
 }
-
-/**
-*	Meny for Kunde basert på input
-*
-*	De forskjellige kommandoer er:
-*	N - lager ny kunde
-*	1 - skriver informasjon om en kunde
-*	A - skriver hoveddata om alle kunder
-*	E - Valgt kunde sin data skrives ut, for å så kunne bli endret
-*	S - Sletter valgt kunde
-*	O - All data om alle boliger i kundens interessesoner skrives på lesbart og forståelig format til filen Kxxxxx.DTA. Der «xxxxx» er kundens unike nummer.
-**/
-void menyKunde() {
-	kundeMeny();
-
-	char kommando2;
-	cin >> kommando2;
-
-	switch (toupper(kommando2)) {
-	case 'N':
-		gKunder.nyKunde();
-		break;
-
-	case '1':
-		//Skriv ut info om enkelt Kunde
-		//Stans utskrift hver 10. sone
-		cout << setw(35) << "Skriv info om en kunde" << endl;
-        gKunder.kundeSkrivData();
-		break;
-
-	case 'A':
-		//Skriv ut ALLE Kunder
-		cout << setw(35) << "Skriv info om alle kunder" << endl;
-		gKunder.kundeSAlleSkrivData();
-		break;
-
-	case 'E':
-		//Skriv ut info om Kunde
-		//Bruker kan legge til/slette soner fra kunden | NB SORTER VECTOR
-		cout << setw(35) << "Endre info om kunde" << endl;
-		gKunder.kundeEndreData();
-		break;
-
-	case 'S':
-		//Slett kunde | HUSK PEKER
-		cout << setw(35) << "Slett kunde" << endl;
-		gKunder.slettKunde();
-		break;
-
-	case 'O':			//K -kunde, O - Skriv ut all data om kundens interesseSone, <knr> -valgt kunde
-		skrivUtInteresseSoner();
-		break;
-
-    case 'D':
-        cout <<"\nTest skriv ut alle kunder til fil";
-        gKunder.kunderSkrivAlleTilFil();
-        cout <<"\nAlle skrevet til fil";
-        break;
-    case 'L':
-        cout <<"\nTest imprt alle kunder fra fil";
-        gKunder.kunderLesAlleFraFil();
-        cout <<"\nFerdig";
-		break;
-
-	default:
-		cout << setw(35) << "Kunde Default" << endl;
-	}
-}
-
-
-
-
-
-
-
-
-
-
