@@ -3,25 +3,25 @@
 #include <vector>
 #include <fstream>
 #include "Bolig.h"
-using namespace std;
+
 
 class Sone
 {
 	int ID;
-	string beskrivelse = "";
-	vector<Bolig*> boligerTilSalgs;
+	std::string beskrivelse = "";
+	std::vector<Bolig*> boligerTilSalgs;
 
 public:
 	Sone(int id);
 	void nyttOppdrag(int onr);
-	void nyttOppdrag(ifstream& inn);
+	void nyttOppdrag(std::ifstream& inn);
 	Bolig* finnOppdrag(int onr);
 	void slettOppdrag(int onr);
 	bool finnesOppdrag(int onr);
 	void skrivAlleOppdrag(); //TESTFUNKSJON
-	void skrivTilFil(ofstream& ut);
+	void skrivTilFil(std::ofstream& ut);
 	void skrivHovedDataSone();				//brukes av Soner::skrivHovedDataAlleSoner()
-	vector<Bolig*> getAlleBoliger();
+	std::vector<Bolig*> getAlleBoliger();
 
 };
 
