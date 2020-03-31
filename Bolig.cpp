@@ -119,13 +119,12 @@ void Bolig::skrivTilFil(ofstream& ut) {
 }
 
 /**
-* Denne klassefunksjonen skriver en kunde til fil samt interessesoner
+* Skriver boliginformasjon til kundefil på leselig format.
 *
-* @see interesseSone    -   Vector med interesseonser
-* @see ut    -   et ofstream objekt
+* @param ut    -   fil data skal skrives til (Kxxxx.DTA)
 **/
 
-void Bolig::skrivKundeTilFil(ofstream& ut, vector <int> interesseSone) {
+void Bolig::skrivTilKundeFil(ofstream& ut) {
 	if (boligType == boligtype::Leilighet)
 		ut << "Leilighet~\n";
 	else

@@ -380,7 +380,7 @@ void kundeOversiktTilFil()
 				{
 					utfilA << "-----------------------------------------------------\n";
 					for (int i = 0; i < boligVector.size(); i++)
-						boligVector[i]->skrivKundeTilFil(utfilA, kundeSoneInteresse);	//Skriver all boligdata på leselig format
+						boligVector[i]->skrivTilKundeFil(utfilA);	//Skriver all boligdata på leselig format
 				}
 			}
 		}
