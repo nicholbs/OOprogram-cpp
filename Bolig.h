@@ -18,13 +18,12 @@ private:
 	std::string navnSaksbehandler, navnEier, gateadresse, postadresse;
 
 public:
-	Bolig(int id);			//Konstruktor for manuelt lagde oppdrag
+	Bolig(int id);				//Konstruktor for manuelt lagde oppdrag
 	Bolig(std::ifstream& inn);	//Konstruktor for lesing fra fil
 
 	int getID();
-	void skrivData();
-	void skrivTilFil(std::ofstream& ut);		//Er denne nødvendig?? Ja ser ut til at den er brukt i Enebolig::skrivTilFIl
-	void skrivTilKundeFil(std::ofstream& ut);
+	void skrivData(std::ostream& ut);
+	void skrivTilFil(std::ofstream& ut);		
 	bool erEnebolig();
 };
 

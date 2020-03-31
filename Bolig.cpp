@@ -68,23 +68,29 @@ int Bolig::getID() {
 }
 
 /**
-*  Skriver all data til en Bolig til terminalen.
+*  Skriver all data til en Bolig til terminal eller leselig fil.
+*
+*  @param ut  -  Ostream som skal skrives til i.e. cout eller fil
 **/
-void Bolig::skrivData() {
+void Bolig::skrivData(ostream& ut) {
+	ut << " ~Oppdrag " << ID << ", ";
 	if (boligType == boligtype::Leilighet)
-		cout << "\nLeilighet ";
+		ut << "Leilighet~\n\n";
 	else
-		cout << "\nEnebolig ";
+		ut << "Enebolig~\n\n";
 
-	cout << "nr " << ID << ", annonse lagt inn " << dato << '\n'
-		<< "Adresse: " << gateadresse << ", " << postadresse << "\n\n"
-		<< setw(15) << left << "Eier: " << navnEier << '\n'
-		<< setw(15) << left << "Saksbehandler: " << navnSaksbehandler << "\n\n"
-		<< "Bruttoareal " << bruttoareal << " kvm med " << antallSoverom << " soverom."
-		<< " Bygd " << byggeaar << ".\n" << '\"' << beskrivelse << "\"\n";
+	ut << left << setw(24) << "Pris: " << pris << " NOK"
+		<< setw(25) << "\nLagt ut: " << dato
+		<< setw(25) << "\nEier: " << navnEier
+		<< setw(25) << "\nSaksbehandler: " << navnSaksbehandler
+		<< setw(25) << "\nGateadresse: " << gateadresse
+		<< setw(25) << "\nPostadresse: " << postadresse
+		<< setw(25) << "\nBruttoareal: " << bruttoareal << " kvm"
+		<< setw(25) << "\nSoverom: " << antallSoverom
+		<< setw(25) << "\nBygd: " << byggeaar;
 
-	if(boligType == boligtype::Leilighet)
-		cout << "Pris: " << pris << " NOK\n\n";
+	if (boligType != boligtype::Enebolig)		//Sørger for at beskrivelse alltid kommer til slutt
+		ut << "\n\n\"" << beskrivelse << "\"";
 }
 
 /**
@@ -94,42 +100,15 @@ void Bolig::skrivData() {
 **/
 void Bolig::skrivTilFil(ofstream& ut) {
 	if (boligType == boligtype::Leilighet)
-		ut << "L ";
+		ut << "L " << ID << '\n';
 	else
-		ut << "E ";
-	ut << ID << '\n';
+		ut << "E " << ID << '\n';;
 
 	ut	<< gateadresse << '\n' << postadresse << '\n'
 		<< navnEier << '\n' << navnSaksbehandler << '\n'
 		<< dato << ' ' << bruttoareal << ' '
 		<< antallSoverom << ' ' << byggeaar << '\n'
 		<< beskrivelse << '\n' << pris << '\n';
-}
-
-/**
-* Skriver boliginformasjon til kundefil på leselig format.
-*
-* @param ut    -   fil data skal skrives til (Kxxxx.DTA)
-**/
-
-void Bolig::skrivTilKundeFil(ofstream& ut) {
-	if (boligType == boligtype::Leilighet)
-		ut << "Leilighet~\n";
-	else
-		ut << "Enebolig~\n";
-
-	ut	<< left << setw(24) << "Pris: " << pris
-		<< setw(25) << "\nLagt ut: " << dato
-		<< setw(25) << "\nEier: " << navnEier
-		<< setw(25) << "\nSaksbehandler: " << navnSaksbehandler
-		<< setw(25) << "\nGateadresse: " << gateadresse
-		<< setw(25) << "\nPostadresse: " << postadresse
-		<< setw(25) << "\nBruttoareal: " << bruttoareal
-		<< setw(25) << "\nSoverom: " << antallSoverom
-		<< setw(25) << "\nBygd: " << byggeaar;
-
-	if(boligType != boligtype::Enebolig)		//Sørger for at beskrivelse alltid kommer til slutt
-		ut << "\n\n\"" << beskrivelse << "\"";
 }
 
 /**

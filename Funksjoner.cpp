@@ -15,138 +15,53 @@ extern Kunder gKunder;
 extern Soner gSoner;
 
 /**
-* Utskrift av meny for hoved meny, med andre ord switch i main funksjonen
-**/
-void hovedMeny() {
-	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
-	cout << setw(5) << "(K)" << setw(30) << "for Kunde funksjoner" << endl;
-	cout << setw(5) << "(S)" << setw(30) << "for Sone funksjoner" << endl;
-	cout << setw(5) << "(O)" << setw(30) << "for Oppdrag/Bolig funksjoner" << endl;
-	cout << endl;
-
-}
-
-/**
-* Utskrift av meny for kunde funksjoner, kommer etter input "K" fra hovedMeny
-**/
-void kundeMeny() {
-	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
-	cout << setw(5) << "(N)" << setw(30) << "Lage ny Kunde" << endl;
-	cout << setw(5) << "(1)" << setw(30) << "Skriv info om en kunde" << endl;
-	cout << setw(5) << "(A)" << setw(30) << "Skriv info om alle kunder" << endl;
-	cout << setw(5) << "(E)" << setw(30) << "Endre info om kunde" << endl;
-	cout << setw(5) << "(S)" << setw(30) << "Slett kunde" << endl;
-	cout << setw(5) << "(O)" << setw(30) << "Skriver all bolig data" << endl;
-	cout << endl;
-
-}
-
-/**
-*Denne funksjonen validerer og registrerer en e-postaddr
+*  Skriver all data i alle boliger i alle kundens interessesoner til fil på leselig format.
 *
-*@param -   epost   medsent variabel som skal fa data oppdatert
+*  @see Kunder::finnKundeSone(..)
+*  @see Soner::finnBoligerISone(..)
+*  @see Bolig::skrivTilKundeFil(..)
 **/
-void lesEpostAdr(std::string & epost){
-    int i;
-    bool valider;
+void kundeOversiktTilFil()
+{
+	int kundeNr;	//Variabel for å holde medsent int i kommando "K O <knr>"
 
+	cout << '\n';
+	cin.ignore();
+	kundeNr = lesInt("Kundenummer:", 1, MAX_PERSONER);
 
-    do{
-        valider =true;
-        cout <<"\nE-post addresse: ";
-        cin >>epost;
-        cin.ignore();
+	if (!gKunder.kundeListeTomSjekk())
+	{
+		vector <int> kundeSoneInteresse;	//Holder alle kundens interessesoner
+		vector<Bolig*> boligVector;			//Holder alle boligene i en interessesone
 
-        //Sjekker om epostaddessen inneholder @
-        if (epost.find("@") !=string::npos){
-            valider = true;
-        }else valider = false;
-        //Sjekker at epost addresse inneholder minst et punktum
-         if (epost.find(".") !=string::npos){
-            valider = true;
-        } else valider = false;
-        //Sjekker teksten og sa lenge den kun inneholder bokstaver, tall - @ .
-        for(i= 0; i<epost.size(); i++){
-            if(valider == true && (isalpha(epost[i]) ||isdigit(epost[i])
-                        || epost[i] =='-' || epost[i]=='@' || epost[i]=='.')) {
-                valider = true;
-            }
-            else {
-                    valider = false;
-            }
-        }
-        if(!valider){
-            cout <<"\nIkke gyldig e-post addresse, Ma inneholde "
-                 << "@ samt . og kan kun inneholde: "
-                 <<"Bokstaver, tall, @ - . ";
-        }
-    }while(valider == false);
-}
+		kundeSoneInteresse = gKunder.finnKundeSone(kundeNr);
+		if (!kundeSoneInteresse.empty())
+		{
+			string filNavn = "K" + to_string(kundeNr) + ".DTA";		//Oppretter filnavn
+			ofstream ut(filNavn);
 
-/**
-*	Meny for Oppdrag basert på input
-*
-*	De forskjellige kommandoer er:
-*	N - lager nytt oppdrag
-*	1 - skriver informasjon om ett oppdrag
-*	A - skriver all informasjon om alle oppdrag
-*	S - Sletter spesifikt oppdrag
-**/
-void menyOppdrag() {
-	char kommando2;
-	int nr;
-	
-	cin >> kommando2;
-	switch (toupper(kommando2)) {
-	case 'N':
-		cin.ignore();
-		nr = lesInt("Skriv hvilken sone det nye oppdraget skal ligge i",1, MAX_SONER);
-		gSoner.nyttOppdrag(nr);
-		break;
-	case '1':
-		nr = lesInt("Skriv inn nr på oppdrag du vil skrive ut", 1, MAX_OPPDRAG);
-		gSoner.skrivOppdrag(nr);
-		break;
-	case 'A':		//TESTCASE - SKAL FJERNES
-		gSoner.skrivAlleOppdrag();
-		break;
-	case 'S':
-		cin >> nr;
-		gSoner.slettOppdrag(nr);
-		break;
-	default:
-		cout << "Oppdrag Default" << endl;
+			for (int i = 0; i < kundeSoneInteresse.size(); i++)		//Skriver alle boliger i alle interessesoner til fil
+			{
+				ut << "\n SONE " << kundeSoneInteresse[i] << "\n";
+				boligVector = gSoner.finnBoligerISone(kundeSoneInteresse[i]);
+
+				//Skriver all boligdata på leselig format
+				ut << "-----------------------------------------------------\n";
+				for (int i = 0; i < boligVector.size(); i++)
+				{
+					if (boligVector[i]->erEnebolig())
+						static_cast<Enebolig*>(boligVector[i])->skrivData(ut);
+					else
+						boligVector[i]->skrivData(ut);
+					ut << "\n-----------------------------------------------------\n";
+				}
+			}
+		}
+		else
+			cout << setw(35) << "Kunden fantes, men han har ingen registrert soner\n" << endl;
 	}
-}
-
-/**
-*	Meny for Sone basert på input
-*
-*	De forskjellige kommandoer er:
-*	N - lager ny Sone
-*	1 - skriver all informasjon om en sone
-*	A - skriver hoved data om alle soner
-**/
-void menySone() {
-	char kommando2;
-	int snr;
-
-	cin >> kommando2;
-	switch (toupper(kommando2)) {
-	case 'N':
-		cin >> snr;
-		gSoner.nySone(snr);
-		break;
-	case '1':
-		////////////////////////skriv funksjon som skriver ut all info om valgt sone og stopper for input hver femte linje, henviser til kundeAllesklriv
-		gSoner.skrivOppdrag(snr);
-		break;
-	case 'A':
-		gSoner.skrivHovedDataAlleSoner();
-		break;
-	default:
-		cout << "Sone Default" << endl;
-	}
+	else
+		cout << setw(35) << "Det finnes ingen kunder\n" << endl;
 }
 
 /**
@@ -219,87 +134,198 @@ void menyKunde() {
 }
 
 /**
-*Denne funksjonen validerer og registrerer et gateaddresse
+*	Meny for Sone basert på input
+*
+*	De forskjellige kommandoer er:
+*	N - lager ny Sone
+*	1 - skriver all informasjon om en sone
+*	A - skriver hoved data om alle soner
+**/
+void menySone() {
+	char kommando2;
+	int snr;
+
+	cin >> kommando2;
+	switch (toupper(kommando2)) {
+	case 'N':
+		cin >> snr;
+		gSoner.nySone(snr);
+		gSoner.skrivTilFil();
+		break;
+	case '1':
+		cin >> snr;
+		gSoner.skrivAlleOppdragISone(snr);
+		break;
+	case 'A':
+		gSoner.skrivHovedDataAlleSoner();
+		break;
+	default:
+		cout << "Sone Default" << endl;
+	}
+}
+
+/**
+*	Meny for Oppdrag basert på input
+*
+*	De forskjellige kommandoer er:
+*	N - lager nytt oppdrag
+*	1 - skriver informasjon om ett oppdrag
+*	A - skriver all informasjon om alle oppdrag
+*	S - Sletter spesifikt oppdrag
+**/
+void menyOppdrag() {
+	char kommando2;
+	int nr;
+
+	cin >> kommando2;
+	switch (toupper(kommando2)) {
+	case 'N':
+		cin.ignore();
+		nr = lesInt("Sonenummer", 1, MAX_SONER);
+		gSoner.nyttOppdrag(nr);
+		gSoner.skrivTilFil();
+		break;
+	case '1':
+		nr = lesInt("Oppdragsnummer", 1, MAX_OPPDRAG);
+		gSoner.skrivOppdrag(nr);
+		break;
+	case 'S':
+		cin >> nr;
+		gSoner.slettOppdrag(nr);
+		gSoner.skrivTilFil();
+		break;
+	default:
+		cout << "Oppdrag Default" << endl;
+	}
+}
+
+/**
+*  Denne funksjonen validerer og registrerer en e-postaddr
+*
+*  @param -   epost   medsent variabel som skal fa data oppdatert
+**/
+void lesEpostAdr(std::string& epost) {
+	int i;
+	bool valider;
+
+	do {
+		valider = true;
+		cout << "\nE-post addresse: ";
+		cin >> epost;
+		cin.ignore();
+
+		//Sjekker om epostaddessen inneholder @
+		if (epost.find("@") != string::npos) {
+			valider = true;
+		}
+		else valider = false;
+		//Sjekker at epost addresse inneholder minst et punktum
+		if (epost.find(".") != string::npos) {
+			valider = true;
+		}
+		else valider = false;
+		//Sjekker teksten og sa lenge den kun inneholder bokstaver, tall - @ .
+		for (i = 0; i < epost.size(); i++) {
+			if (valider == true && (isalpha(epost[i]) || isdigit(epost[i])
+				|| epost[i] == '-' || epost[i] == '@' || epost[i] == '.')) {
+				valider = true;
+			}
+			else {
+				valider = false;
+			}
+		}
+		if (!valider) {
+			cout << "\nIkke gyldig e-post addresse, Ma inneholde "
+				<< "@ samt . og kan kun inneholde: "
+				<< "Bokstaver, tall, @ - . ";
+		}
+	} while (valider == false);
+}
+
+/**
+*  Denne funksjonen validerer og registrerer et gateaddresse
+*
+*  Gateaddresse inneholder forst en bokstav derretter ' ' ; - og tall.
 *
 * @param    gta -   Medsendt gateaddressevariabel
 **/
-//Gateaddresse inneholder forst en bokstav derretter ' ' ; - og tall
 void lesGateAdr(std::string & gta){
    int i; //Lokketeller
-    bool valider =true; //Brukes til a sjekke innlest navn
+    bool valider; //Brukes til a sjekke innlest navn
 
-    do{
-        valider = true; //settes til true for a kontrollere lokken
+    do
+	{
+        valider = false; //settes til false for a kontrollere lokken
         cout <<"\nGateaddresse: ";
         getline(cin,gta);
-            //Sjekker at forste tegn inneholder en bokstav
-            if (isalpha(gta[0])){
-                for (i = 1; i < gta.size();i++){
-                    //Sa lenge string inneholder bokstaver, mellomrom, tall og -
-                    if(valider == true && (isalpha(gta[i]) || gta[i]==' '
-                        || isdigit(gta[i])||gta[i]=='-')){
-                        valider =true;
-                    }
-                    else {
-                        valider = false;
-                    }
-                }
-            } else valider=false;
-    }while(valider ==false);
+
+        //Sjekker at forste tegn inneholder en bokstav
+        if (isalpha(gta[0]))
+		{
+            for (i = 1; i < gta.size(); i++)
+			{
+                //Sa lenge string inneholder bokstaver, mellomrom, tall og -
+				if ((isalpha(gta[i]) || gta[i] == ' ' || isdigit(gta[i]) || gta[i] == '-'))
+					valider = true;
+            }
+        } 
+
+		if (!valider)
+			cout << "\nUgyldig gateadresse!\n";
+    }
+	while(valider == false);
 }
 
 /**
 *Denne funksjonen validerer og registrerer en post addresse
 *
+*  Forutsettning 3 eller 4 første er tall, etterfulgt med et mellomrom og deretter tekst med . ' ' - eller bokstaver.
+*
 *@param pad -  medsendt variabel for oppdatering av postaddresse
 **/
-//forutsettning 3 eller 4 første er tall, etterfulgt med et mellomrom og deretter tekst med . ' ' - eller bokstaver
 void lesPostAdr(std::string & pad){
     int i; //Lokketeller
     bool valider = true; //Brukes til sjekk av tekst
 
     do{
         valider = true;
-        cout <<"\nSkriv inn postnr poststed: ";
+        cout <<"\nPostadresse: ";
         getline(cin,pad);
+
         //Kontrolerer at de 3 forste er tall
-        for (i=0;i<=2;i++){
-            if(isdigit(pad[i])){
+        for (i=0; i<=2; i++){
+            if(isdigit(pad[i]))
                 valider = true;
-            } else valider=false;
+            else 
+				valider=false;
         }
         //Sjekker deretter at 4 tegn er tall eller mellomrom
-        if(valider == true && (isdigit(pad[3]) || pad[3]==' ')){
+        if(valider == true && (isdigit(pad[3]) || pad[3]==' '))
             valider = true;
-        } else valider = false;
+        else 
+			valider = false;
 
         //Hvis det ikke er et mellomrom fra 4 tall og tekst sa skal det forkastes
-        if(valider == true && (isdigit(pad[3]) && pad[4] !=' ')) {
+        if(valider == true && (isdigit(pad[3]) && pad[4] !=' '))
             valider = false;
-        }
+		
         //Sjekker resten av tekstem kan inneholde bokstaver mellomrom - .
         for(i=5; i <pad.size(); i++) {
-            if(valider == true && (isalpha(pad[i])|| pad[i]==' ' || pad[i]== '.'
-                            || pad[i]=='-')) {
+            if(valider == true && (isalpha(pad[i])|| pad[i]==' ' || pad[i]== '.' || pad[i]=='-')) 
                 valider = true;
-            } else valider = false;
+			else 
+				valider = false;
         }
-        if(!valider){
-            cout <<"\nUgyldig sammensettning av postnr og poststed"
-                 <<", Kan kun inneholde bokstaver, tall, mellomrom, punktum, bindestrek"
-                 <<" og Ma skrives pa format:\n"
-                 <<"tre tall mellomrom etterfulgt av bokstaver, punktum og bindestrek eller:\n"
-                 <<"fire tall mellomrom etterfulgt av bokstaver, punktum og bindestrek";
-        }
+        if(!valider)
+			cout << "\nUgyldig postadresse!\n";
     }while(valider == false);
-
 }
+
 /**
-*Denne funksjonen validerer og registrerer et navn
+*Denne funksjonen validerer og registrerer av et navn med mellomrom og alfabetiske tegn.
 *
 *param  @nvn    -   navn
 **/
-//Tilater mellomrom og alfa.
 void skrivNavn(string & nvn){
     int i; //Lokketeller
     bool valider =true; //Brukes til a sjekke innlest navn
@@ -323,6 +349,34 @@ void skrivNavn(string & nvn){
 
     }while(valider ==false);
 }
+
+/**
+* Utskrift av meny for hoved meny, med andre ord switch i main funksjonen
+**/
+void hovedMeny() {
+	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
+	cout << setw(5) << "(K)" << setw(30) << "for Kunde funksjoner" << endl;
+	cout << setw(5) << "(S)" << setw(30) << "for Sone funksjoner" << endl;
+	cout << setw(5) << "(O)" << setw(30) << "for Oppdrag/Bolig funksjoner" << endl;
+	cout << endl;
+
+}
+
+/**
+* Utskrift av meny for kunde funksjoner, kommer etter input "K" fra hovedMeny
+**/
+void kundeMeny() {
+	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
+	cout << setw(5) << "(N)" << setw(30) << "Lage ny Kunde" << endl;
+	cout << setw(5) << "(1)" << setw(30) << "Skriv info om en kunde" << endl;
+	cout << setw(5) << "(A)" << setw(30) << "Skriv info om alle kunder" << endl;
+	cout << setw(5) << "(E)" << setw(30) << "Endre info om kunde" << endl;
+	cout << setw(5) << "(S)" << setw(30) << "Slett kunde" << endl;
+	cout << setw(5) << "(O)" << setw(30) << "Skriver all bolig data" << endl;
+	cout << endl;
+
+}
+
 /**
 * Utskrift av meny for Sone funksjoner, kommer etter input "S" fra hovedMeny
 **/
@@ -335,7 +389,6 @@ void soneMeny() {
 
 }
 
-
 void oppdragMeny() {
 	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
 	cout << setw(5) << "(N)" << setw(30) << "Lage ny Oppdrag" << endl;
@@ -343,52 +396,4 @@ void oppdragMeny() {
 	cout << setw(5) << "(S)" << setw(30) << "Slett oppdrag" << endl;
 	cout << endl;
 
-}
-
-/**
-*  Skriver all data i alle boliger i alle kundens interessesoner til fil på leselig format.
-*
-*  @see Kunder::finnKundeSone(..)
-*  @see Soner::finnBoligerISone(..)
-*  @see Bolig::skrivTilKundeFil(..)
-**/
-void kundeOversiktTilFil()
-{
-	int kundeNr;	//Variabel for å holde medsent int i kommando "K O <knr>"
-	cin.ignore();
-	kundeNr = lesInt("Kundenummer:", 1, MAX_PERSONER);	
-
-	if (!gKunder.kundeListeTomSjekk())
-	{
-		vector <int> kundeSoneInteresse;	//Holder alle kundens interessesoner
-		vector<Bolig*> boligVector;			//Holder alle boligene i en interessesone
-
-		kundeSoneInteresse = gKunder.finnKundeSone(kundeNr);
-		if (!kundeSoneInteresse.empty())
-		{
-			string filNavn = "K" + to_string(kundeNr) + ".DTA";		//Oppretter filnavn
-			ofstream ut(filNavn);
-
-			for (int i = 0; i < kundeSoneInteresse.size(); i++)		//Skriver alle boliger i alle interessesoner til fil
-			{
-				ut << "\n SONE " << kundeSoneInteresse[i] << "\n";
-				boligVector = gSoner.finnBoligerISone(kundeSoneInteresse[i]);
-
-				//Skriver all boligdata på leselig format
-				ut << "-----------------------------------------------------\n";
-				for (int i = 0; i < boligVector.size(); i++)	
-				{
-					if(boligVector[i]->erEnebolig())
-						static_cast<Enebolig*>(boligVector[i])->skrivTilKundeFil(ut);
-					else
-						boligVector[i]->skrivTilKundeFil(ut);	
-					ut << "\n-----------------------------------------------------\n";
-				}
-			}
-		}
-		else
-			cout << setw(35) << "Kunden fantes, men han har ingen registrert soner\n" << endl;
-	}
-	else
-		cout << setw(35) << "Det finnes ingen kunder\n" << endl;
 }

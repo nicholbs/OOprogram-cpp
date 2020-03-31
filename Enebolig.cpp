@@ -14,8 +14,6 @@ using namespace std;
 Enebolig::Enebolig(int id) : Enebolig::Bolig(id) 
 {
 	boligType = boligtype::Enebolig;
-	//////////////////////////////////////Oddbjørn lag en sjekk på areal
-	cout << "Areal: ";
 	areal = lesInt("Areal", 1, 1000);
 	cout << "Festetomt [J/N]: ";
 	char valg; cin >> valg;
@@ -43,19 +41,17 @@ Enebolig::Enebolig(ifstream& inn) : Enebolig::Bolig(inn)
 }
 
 /**
-*  Skriver data spesifikke til underklassen Enebolig til terminalen.
+*  Skriver data spesifikke til underklassen Enebolig terminal eller leselig fil.
 *
-*  @see Bolig::skrivData()
+*  @param ut  -  Ostream som skal skrives til i.e. cout eller fil
+*  @see Bolig::skrivData(..)
 **/
-void Enebolig::skrivData()
+void Enebolig::skrivData(ostream& ut)
 {
-	Bolig::skrivData();
-	cout << "Areal: " << areal << '\n';
-	if (festetomt)
-		cout << "Festetomt\n";
-	else
-		cout << "Selveiet\n";
-	cout << "Pris: " << pris << " NOK\n\n";
+	Bolig::skrivData(ut);
+	ut << left << setw(25) << "\nAreal: " << areal << " kvm"
+		<< setw(25) << "\nFestetomt: " << (festetomt ? "Ja" : "Nei")
+		<< "\n\n\"" << beskrivelse << "\"";
 }
 
 /**
@@ -68,18 +64,4 @@ void Enebolig::skrivTilFil(ofstream& ut)
 	Bolig::skrivTilFil(ut);
 	ut  << (festetomt ? '1' : '0')
 		<< ' ' << areal << '\n';
-}
-
-/**
-*  Skriver boliginformasjon til kundefil på leselig format.
-*
-*  @param ut  -  fil data skal skrives til (Kxxxx.DTA)
-*  @see Bolig::skrivTilKundeFil(..)
-**/
-void Enebolig::skrivTilKundeFil(std::ofstream& ut)
-{
-	Bolig::skrivTilKundeFil(ut);
-	ut	<< left << setw(25) << "\nAreal: " << areal
-		<< setw(25) << "\nFestetomt: " << (festetomt ? "Ja" : "Nei")
-		<< "\n\n\"" << beskrivelse << "\"";
 }

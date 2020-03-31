@@ -133,10 +133,22 @@ bool Sone::finnesOppdrag(int onr)
  */
 void Sone::skrivAlleOppdrag()
 {
-	cout << "\nSone " << ID;
-	for (unsigned int i = 0; i < boligerTilSalgs.size(); i++)
-		cout << "\nBolig " << boligerTilSalgs[i]->getID();
-	cout << "\n\n";
+    if (boligerTilSalgs.empty())
+    {
+        cout << "\nSone " << ID << " har ingen oppdrag.\n";
+    }
+    else
+    {
+        cout << "\n-----------------------------------------------------\n";
+        for (int i = 0; i < boligerTilSalgs.size(); i++)
+        {
+            if (boligerTilSalgs[i]->erEnebolig())
+                static_cast<Enebolig*>(boligerTilSalgs[i])->skrivData(cout);
+            else
+                boligerTilSalgs[i]->skrivData(cout);
+            cout << "\n-----------------------------------------------------\n";
+        }
+    }
 }
 
 /**

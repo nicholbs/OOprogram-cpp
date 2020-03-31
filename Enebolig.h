@@ -9,8 +9,7 @@ public:
 	Enebolig(int id);				//Konstruktor for manuelt lagde oppdrag
 	Enebolig(std::ifstream& inn);	//Konstruktor for lesing fra fil
 
-	void skrivData();
+	void skrivData(std::ostream& ut);
 	void skrivTilFil(std::ofstream& ut);
-	void skrivTilKundeFil(std::ofstream& ut);
 };
 

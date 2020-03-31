@@ -34,10 +34,10 @@ int main()
 {
 	gSoner.lesFraFil();
 	gKunder.kunderLesAlleFraFil();
-
 	hovedMeny();
 
 	char kommando1;
+	cout << "Kommando: ";
 	cin >> kommando1;
 
 	while (kommando1 != 'Q' && kommando1 != 'q') {
@@ -54,6 +54,7 @@ int main()
 		default:
 			hovedMeny();
 		}
+		cout << "\nKommando: ";
 		cin >> kommando1;
 	}
 	gSoner.skrivTilFil();

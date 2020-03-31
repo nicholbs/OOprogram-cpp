@@ -1,10 +1,11 @@
-#include "Soner.h"
-#include "Sone.h"
 #include <iostream>
 #include <iterator>
 #include <algorithm>
 #include <fstream>
 #include <iomanip>
+#include "Soner.h"
+#include "Sone.h"
+#include "LesData3.h"
 
 /**
  * Dette er parameterlos konstruktor for Soner, initialiserer siteNr til å bli 0
@@ -20,7 +21,7 @@ Soner::Soner()
  * Sjekker om sonen finnes allerede ved hjelp av parameter og finnesSone().
  * Lager ny Sone og legger den til i Soner sin map.
  *
- * @See Soner::finnesSone 
+ * @See Soner::finnesSone(..) 
  * @Param int snr - Sonen sitt nr
  **/
 void Soner::nySone(int snr) 
@@ -31,7 +32,6 @@ void Soner::nySone(int snr)
 	{
 		Sone* sp = new Sone(snr);
 		soneMap.insert(make_pair(snr, sp));
-		skrivTilFil();
 		cout << "Opprettet ny Sone " << snr << "!\n\n";
 	}
 }
@@ -54,13 +54,10 @@ void Soner::nyttOppdrag(int snr)
 	{
 		so->second->nyttOppdrag(sisteNr + 1);
 		sisteNr++;
-		skrivTilFil();
-		cout << "Opprettet ny Bolig " << sisteNr << "!\n\n";
+		cout << "Opprettet ny Bolig " << sisteNr << "!\n";
 	}
 	else 
-	{
-		cout << "Fant ingen Sone " << snr << ".\n\n";
-	}
+		cout << "Fant ingen Sone " << snr << ".\n";
 }
 
 /**
@@ -77,16 +74,26 @@ void Soner::nyttOppdrag(int snr)
  **/
 void Soner::slettOppdrag(int onr)
 {
-	for (const auto& sonePar : soneMap)
-	{
-		if (sonePar.second->finnesOppdrag(onr))
-		{
-			sonePar.second->slettOppdrag(onr);
-			sisteNr--;
-			skrivTilFil();
-			return;			//Stopper å loope i map dersom oppdraget ble funnet
-		}
-	}
+    char konfirmasjon;
+
+    for (const auto& sonePar : soneMap)
+    {
+        if (sonePar.second->finnesOppdrag(onr))
+        {
+            konfirmasjon = lesChar("\nNB! Hvis du sletter et Oppdrag er det borte for alltid. Slett? [j/n]");
+            if (konfirmasjon == 'J')
+            {
+                sonePar.second->slettOppdrag(onr);
+                sisteNr--;
+                cout << "Oppdrag " << onr << " har blitt slettet.\n";		
+            }
+            else
+            {
+                cout << "Oppdraget ble ikke slettet.\n";
+            }
+            return;     //Stopper å loope i map dersom oppdraget ble funnet
+        }
+    }   
 }
 
 /**
@@ -146,10 +153,12 @@ void Soner::skrivOppdrag(int onr)
 	Bolig* bp = finnOppdrag(onr);
 	if (bp != nullptr)
 	{
+        cout << "\n-----------------------------------------------------\n";
 		if (bp->erEnebolig())
-			static_cast<Enebolig*>(bp)->skrivData();
+			static_cast<Enebolig*>(bp)->skrivData(cout);
 		else
-			bp->skrivData();
+			bp->skrivData(cout);
+        cout << "\n-----------------------------------------------------\n";
 	}
 }
 
@@ -161,10 +170,9 @@ void Soner::skrivOppdrag(int onr)
  *
  * @See Sone::skrivAlleOppdrag()
  **/
-void Soner::skrivAlleOppdrag()
+void Soner::skrivAlleOppdragISone(int snr)
 {
-	for (const auto& sonePar : soneMap)
-		sonePar.second->skrivAlleOppdrag();
+    soneMap.at(snr)->skrivAlleOppdrag();
 }
 
 /**
