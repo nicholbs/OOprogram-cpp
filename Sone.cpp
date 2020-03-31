@@ -60,6 +60,16 @@ void Sone::nyttOppdrag(ifstream& inn)
 	boligerTilSalgs.push_back(bp);
 }
 
+/**
+ * finnOppdrag leter etter Oppdrag med ID fra param, returnerer enten peker til Oppdraget eller nullptr.
+ *
+ * Går gjennom alle Oppdrag i Sone.
+ * Sjekker ID med int onr parameter.
+ * Dersom funnet returnerer peker til Oppdrag, dersom ikke nullptr.
+ *
+ * @Param int onr - ID til Oppdrag
+ * @Return nullptr/boligerTilSalgs[i] - Enten peker til Oppdrag eller nullptr
+ */
 Bolig* Sone::finnOppdrag(int onr) 
 {
 	for (unsigned int i = 0; i < boligerTilSalgs.size(); i++) 
@@ -70,6 +80,16 @@ Bolig* Sone::finnOppdrag(int onr)
 	return nullptr;
 }
 
+/**
+ * slettOppdrag leter etter Oppdrag med ID fra param, dersom funnet sletter Oppdrag og fjerner peker.
+ *
+ * Går gjennom alle Oppdrag i Sone.
+ * Bruker getID for å sjekke ID med int onr parameter.
+ * Dersom funnet sletter Oppdrag og fjerner peker i boligerTilSalgs.
+ *
+ * @Param int onr - ID til Oppdrag
+ * @See Bolig::getID()
+ */
 void Sone::slettOppdrag(int onr)
 {
 	for (unsigned int i = 0; i < boligerTilSalgs.size(); i++)
@@ -82,6 +102,17 @@ void Sone::slettOppdrag(int onr)
 	}
 }
 
+/**
+ * finnesOppdrag leter etter Oppdrag med ID fra param, returnerer true/false
+ *
+ * Går gjennom alle Oppdrag i Sone.
+ * Bruker getID for å sjekke ID med int onr parameter.
+ * Returnerer true/false basert på resultat av sjekk.
+ *
+ * @Param int onr - ID til Oppdrag
+ * @See Bolig::getID()
+ * @Return bool statement - true/false
+ */
 bool Sone::finnesOppdrag(int onr)
 {
 	for (unsigned int i = 0; i < boligerTilSalgs.size(); i++)
@@ -92,6 +123,14 @@ bool Sone::finnesOppdrag(int onr)
 	return false;
 }
 
+/**
+ * skrivAlleOppdrag skriver ut Sone sin ID og antall Oppdrag i Sone.
+ *
+ * Går gjennom alle Oppdrag i Sone.
+ * Bruker getID for å hente ID til Oppdrag.
+ *
+ * @See Bolig::getID()
+ */
 void Sone::skrivAlleOppdrag()
 {
 	cout << "\nSone " << ID;
@@ -100,6 +139,18 @@ void Sone::skrivAlleOppdrag()
 	cout << "\n\n";
 }
 
+/**
+ * skrivTilFil går gjennom alle Oppdrag i Sone og bruker Oppdrag sin skrivTilFil.
+ *
+ * Går gjennom alle Oppdrag i Sone.
+ * Sjekker Oppdrag type.
+ * Bruker Oppdraget sin skrivTilFil med param.
+ * 
+ * @Param ofstream& ut - utfill medsendt, blir til "SONER.DTA"
+ * @See Bolig::erEnebolig()
+ * @See Enebolig::skrivTilFIl()
+ * @See Bolig::skrivTilFil()
+ */
 void Sone::skrivTilFil(ofstream& ut) {
 	ut << ID << " " << boligerTilSalgs.size() << '\n';
 	for (int i = 0; i < boligerTilSalgs.size(); i++)
@@ -124,6 +175,11 @@ void Sone::skrivHovedDataSone() {
 	cout << setw(35) << "Antall boliger til salgs i sonen" << ' ' << boligerTilSalgs.size() << endl << endl;
 }
 
+/**
+ *   getAlleBoliger returnerer alle Boliger fra Sone.
+ *
+ * @Return vector <Bolig*> boligerTilSalgs - Alle boliger i Sone
+ */
 vector<Bolig*> Sone::getAlleBoliger()
 {
 	return boligerTilSalgs;
