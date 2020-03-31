@@ -7,6 +7,8 @@
 #include <fstream>		//kanskje denne ikke trengs
 #include <string>		//lesFraFil
 
+using namespace std;
+
 Bolig::Bolig(int id) {
 	ID = id;
 	boligType = boligtype::Leilighet;

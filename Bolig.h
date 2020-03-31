@@ -1,11 +1,10 @@
 #pragma once
 #include <string>
-#include <fstream>			
+#include <fstream>
 #include "Enum.h"
-#include <fstream>			
+#include <fstream>
 #include <vector>
 
-using namespace std;
 
 class Bolig
 {
@@ -15,17 +14,17 @@ protected:
 
 private:
 	int ID, dato, byggeaar, bruttoareal, antallSoverom;
-	string navnSaksbehandler, navnEier, gateadresse, postadresse, beskrivelse;
-	
+	std::string navnSaksbehandler, navnEier, gateadresse, postadresse, beskrivelse;
+
 public:
 	Bolig(int id);			//Konstruktor for manuelt lagde oppdrag
-	Bolig(ifstream& inn);	//Konstruktor for lesing fra fil
+	Bolig(std::ifstream& inn);	//Konstruktor for lesing fra fil
 
 	~Bolig();
 	int getID();
 	void skrivData();
-	void skrivTilFil(ofstream& ut);		//Er denne nødvendig?? Ja ser ut til at den er brukt i Enebolig::skrivTilFIl
-	void skrivTilFil(ofstream& ut, vector <int> interesseSone);
+	void skrivTilFil(std::ofstream& ut);		//Er denne nødvendig?? Ja ser ut til at den er brukt i Enebolig::skrivTilFIl
+	void skrivTilFil(std::ofstream& ut, std::vector <int> interesseSone);
 	bool erEnebolig();
 };
 

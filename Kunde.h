@@ -8,7 +8,6 @@
 #include "Soner.h"
 
 
-using namespace std;
 
 //enum boligtype {Leilighet, Bolig};
 
@@ -16,9 +15,9 @@ class Kunde
 {
 	private:
 		int ID, telefon;
-		string navn, gateAddresse, postAdresse, mail;
+		std::string navn, gateAddresse, postAdresse, mail;
 		boligtype boligType;
-		vector<int> kundeSoner;
+		std::vector<int> kundeSoner;
 	public:
 		Kunde(int nr);
 		Kunde(std::ifstream & inn, int kId);
@@ -28,7 +27,7 @@ class Kunde
 		void skrivData();
 		void skrivTilFil(std::ofstream & ut);
 
-		vector <int> kundeSonerRetur();
+		std::vector <int> kundeSonerRetur();
 		~Kunde(); //Brukes til midlertidig test
 
 };

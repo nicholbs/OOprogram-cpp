@@ -7,9 +7,9 @@ class Enebolig : public Bolig
 
 public:
 	Enebolig(int id);			//Konstruktor for manuelt lagde oppdrag
-	Enebolig(ifstream& inn);	//Konstruktor for lesing fra fil
+	Enebolig(std::ifstream& inn);	//Konstruktor for lesing fra fil
 	~Enebolig();
 	void skrivData();
-	void skrivTilFil(ofstream& ut);
+	void skrivTilFil(std::ofstream& ut);
 };
 

@@ -5,7 +5,7 @@
 
 #include <list>
 #include <vector>
-using namespace std;
+
 
 class Kunde;
 
@@ -13,7 +13,7 @@ class Kunder
 {
     private:
         int sisteNr;        //Konstruktoren initialiserer sisteNr til å bli 0
-        list<Kunde*> kundeListe;
+        std::list<Kunde*> kundeListe;
     public:
         Kunder();
 
@@ -25,7 +25,7 @@ class Kunder
         void kundeSkrivData();
         bool kundeListeTomSjekk();
 
-        vector <int> finnKundeSone(int knrParam);
+        std::vector <int> finnKundeSone(int knrParam);
 
 
         void slettKunde();
