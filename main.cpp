@@ -17,12 +17,6 @@ using namespace std;
 
 void menyKunde();
 
-
-
-
-
-
-
 Soner gSoner;
 Kunder gKunder;
 
@@ -43,11 +37,10 @@ int main()
 
 	hovedMeny();
 
-	bool loop = true;
 	char kommando1;
 	cin >> kommando1;
 
-	while (loop) {
+	while (kommando1 != 'Q') {
 		switch (toupper(kommando1)) {
 		case 'K':
 			menyKunde();
@@ -58,16 +51,13 @@ int main()
 		case 'O':
 			menyOppdrag();
 			break;
-		case 'Q':
-			loop = false;
-			gSoner.skrivTilFil();
-			gKunder.kunderSkrivAlleTilFil();
-			continue;
 		default:
 			hovedMeny();
 		}
 		cin >> kommando1;
 	}
+	gSoner.skrivTilFil();
+	gKunder.kunderSkrivAlleTilFil();
 	return 0;
 }
 
