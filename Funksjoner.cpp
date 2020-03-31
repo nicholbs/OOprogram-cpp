@@ -281,3 +281,48 @@ void oppdragMeny() {
 
 }
 
+void skrivUtInteresseSoner()
+{
+	int kundeNr;	//Variabel for å holde medsent int i kommando "K O <knr>"
+	cin >> kundeNr;	//Innskriving av <knr> går til helvette om bruker taster bokstav og ikke tall
+	cout << setw(35) << "Leter etter kunde med nr:" << ' ' << kundeNr << endl;
+
+
+	if (gKunder.kundeListeTomSjekk() == false)
+	{
+		vector <int> kundeSoneInteresse;
+		kundeSoneInteresse = gKunder.finnKundeSone(kundeNr);
+		if (kundeSoneInteresse.empty() == false)
+		{
+			string navnPaFil = "K";
+			string kunde = to_string(kundeNr);
+			kunde.append(".DTA");
+			string skrivTilFil = navnPaFil + kunde;
+			ofstream utfilA(skrivTilFil);
+			Bolig* boligPeker;
+
+			for (int i = 0; i < kundeSoneInteresse.size(); i++)        //Utskrift av vector sin data
+			{
+				boligPeker = (gSoner.finnOppdrag(kundeSoneInteresse.at(i)));
+				if (boligPeker == nullptr)
+				{
+					cout << setw(35) << "Det er ikke blitt skrevet til fil" << endl;
+				}
+				else
+				{
+					cout << setw(35) << "Skriver Bolig:" << ' ' << kundeSoneInteresse.at(i) << endl;
+					boligPeker->skrivTilFil(utfilA, kundeSoneInteresse);			//Er det dust å skrive ut for hver bolig at de er del av kunden sine interesse sone?
+				}
+			}
+
+		}
+		else
+		{
+			cout << setw(35) << "Kunden fantes, men han har ikke registrert noen soner:" << endl;
+		}
+	}
+	else
+	{
+		cout << setw(35) << "Det finnes ingen kunder i hele tatt" << endl;
+	}
+}
