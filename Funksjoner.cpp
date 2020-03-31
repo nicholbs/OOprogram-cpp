@@ -146,9 +146,6 @@ void menySone() {
 	case 'A':
 		gSoner.skrivHovedDataAlleSoner();
 		break;
-	case 'F':	//TESTFUNKSJON - SKAL FJERNES
-		gSoner.skrivTilFil();
-		break;
 	default:
 		cout << "Sone Default" << endl;
 	}
@@ -299,19 +296,22 @@ void skrivUtInteresseSoner()
 			kunde.append(".DTA");
 			string skrivTilFil = navnPaFil + kunde;
 			ofstream utfilA(skrivTilFil);
-			Bolig* boligPeker;
 
 			for (int i = 0; i < kundeSoneInteresse.size(); i++)        //Utskrift av vector sin data
 			{
-				boligPeker = (gSoner.finnOppdrag(kundeSoneInteresse.at(i)));
-				if (boligPeker == nullptr)
+				vector<Bolig*> boligVector;
+				boligVector = gSoner.finnBoligerISone(i);
+				if (boligVector.empty())
 				{
 					cout << setw(35) << "Det er ikke blitt skrevet til fil" << endl;
 				}
 				else
 				{
-					cout << setw(35) << "Skriver Bolig:" << ' ' << kundeSoneInteresse.at(i) << endl;
-					boligPeker->skrivTilFil(utfilA, kundeSoneInteresse);			//Er det dust å skrive ut for hver bolig at de er del av kunden sine interesse sone?
+					for (int i = 0; i < boligVector.size(); i++)
+					{
+						cout << setw(35) << "Skriver Bolig:" << ' ' << boligVector[i]->getID() << endl;
+						boligVector[i]->skrivTilFil(utfilA, kundeSoneInteresse);
+					}
 				}
 			}
 
