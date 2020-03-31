@@ -14,7 +14,7 @@ using namespace std;
 *Konstruktor som nullstiller dataene
 **/
 Kunder::Kunder() {
-sisteNr = 0;
+    sisteNr = 0;
 }
 
 /**

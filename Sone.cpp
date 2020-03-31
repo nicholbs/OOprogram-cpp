@@ -106,5 +106,5 @@ void Sone::skrivHovedDataSone() {
 
 vector<Bolig*> Sone::getAlleBoliger()
 {
-	return vector<Bolig*>();
+	return boligerTilSalgs;
 }
