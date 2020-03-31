@@ -21,6 +21,7 @@ public:
 	void skrivAlleOppdrag(); //TESTFUNKSJON
 	void skrivTilFil(ofstream& ut);
 	void skrivHovedDataSone();				//brukes av Soner::skrivHovedDataAlleSoner()
+	vector<Bolig*> getAlleBoliger();
 
 };
 

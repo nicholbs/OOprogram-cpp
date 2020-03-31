@@ -62,7 +62,7 @@ int main()
 			loop = false;
 			gSoner.skrivTilFil();
 			gKunder.kunderSkrivAlleTilFil();
-			break;
+			continue;
 		default:
 			hovedMeny();
 		}

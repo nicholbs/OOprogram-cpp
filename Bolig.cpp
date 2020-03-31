@@ -1,4 +1,5 @@
 #include "Bolig.h"
+#include "Funksjoner.h"
 #include "LesData3.h"
 #include <iostream>
 #include <istream>
@@ -21,10 +22,8 @@ Bolig::Bolig(int id) {
 	getline(cin, navnSaksbehandler);
 	cout << "Eier: ";
 	getline(cin, navnEier);
-	cout << "Gateadresse: ";
-	getline(cin, gateadresse);
-	cout << "Postadresse: ";
-	getline(cin, postadresse);
+	lesGateAdr(gateadresse);
+	lesPostAdr(postadresse);
 	cout << "Kort beskrivelse: ";
 	getline(cin, beskrivelse);
 }
@@ -64,7 +63,7 @@ void Bolig::skrivData() {
 		cout << "\nLeilighet ";
 	else
 		cout << "\nEnebolig ";
-	
+
 	cout << "nr " << ID << ", annonse lagt inn " << dato << '\n'
 		<< "Adresse: " << gateadresse << ", " << postadresse << "\n\n"
 		<< setw(15) << left << "Eier: " << navnEier << '\n'
