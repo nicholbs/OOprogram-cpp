@@ -209,7 +209,7 @@ bool Soner::isEmpty() {
 
 vector<Bolig*> Soner::finnBoligerISone(int snr)
 {
-	return soneMap.at(snr)->getAlleBoliger();
+	return (soneMap.at(snr)->getAlleBoliger());
 }
 
 /**
