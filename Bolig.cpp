@@ -9,10 +9,16 @@
 
 using namespace std;
 
+/**
+*Denne klassefunksjonen registrerer en ny bolig
+*
+* @param id -   medsendt id
+* @see lesGateAdr(..);
+* @see lesPostAdr(..)
+**/
 Bolig::Bolig(int id) {
 	ID = id;
 	boligType = boligtype::Leilighet;
-	////////////////////////////////////////Odd lag en sjekk her på gate + post addresse
 	cin.ignore();
 	dato = lesInt("Dato [YYYYMMDD]: ", 0, 99999999);
 	byggeaar = lesInt("Byggeaar: ", 0, 2020);
@@ -30,6 +36,11 @@ Bolig::Bolig(int id) {
 	getline(cin, beskrivelse);
 }
 
+/**
+* Denne klassefunksjonen leser data fra fil
+*
+* @param inn    -   medsendt filobjekt for innlesning
+* */
 Bolig::Bolig(ifstream& inn)
 {
 	boligType = boligtype::Leilighet;
@@ -47,6 +58,9 @@ Bolig::Bolig(ifstream& inn)
 	inn.ignore();
 }
 
+/**
+* Bolig sin destructor
+**/
 Bolig::~Bolig() {
 	cout << "\nSlettet ";
 	if (boligType == boligtype::Leilighet)
@@ -56,10 +70,18 @@ Bolig::~Bolig() {
 	cout << " med ID " << ID << ".\n";
 }
 
+/**
+*Denne klassefunksjonen returnerer Bolig sin ID
+*
+*@return ID -   Boligens ID
+**/
 int Bolig::getID() {
 	return ID;
 }
 
+/**
+*Denne Klassefunksjonen skriver ut en Bolig
+**/
 void Bolig::skrivData() {
 	if (boligType == boligtype::Leilighet)
 		cout << "\nLeilighet ";
@@ -77,6 +99,11 @@ void Bolig::skrivData() {
 		cout << "Pris: " << pris << " NOK\n\n";
 }
 
+/**
+* Denne klassefunksjonen for Bolig skriver data ut til fil
+*
+* @param ut -   Et ofstream objekt for utskrift til fil
+**/
 void Bolig::skrivTilFil(ofstream& ut) {
 	if (boligType == boligtype::Leilighet)
 		ut << "L ";
@@ -91,8 +118,14 @@ void Bolig::skrivTilFil(ofstream& ut) {
 		<< beskrivelse << '\n' << pris << '\n';
 }
 
-void Bolig::skrivTilFil(ofstream& ut, vector <int> interesseSone) {
-	ut << " ~Oppdrag " << ID << ", ";
+/**
+* Denne klassefunksjonen skriver en kunde til fil samt interessesoner
+*
+* @see interesseSone    -   Vector med interesseonser
+* @see ut    -   et ofstream objekt
+**/
+
+void Bolig::skrivKundeTilFil(ofstream& ut, vector <int> interesseSone) {
 	if (boligType == boligtype::Leilighet)
 		ut << "Leilighet~\n";
 	else
@@ -111,6 +144,9 @@ void Bolig::skrivTilFil(ofstream& ut, vector <int> interesseSone) {
 	ut << "\n-----------------------------------------------------\n";
 }
 
+/**
+*
+*/
 bool Bolig::erEnebolig()
 {
 	return (boligType == boligtype::Enebolig);

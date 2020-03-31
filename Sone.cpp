@@ -7,10 +7,20 @@
 
 using namespace std;
 
+/**
+ * Sone er parameterfult konstruktor som initialiserer Sone sin ID til aa vaere medsendt param.
+ *
+ * @Param int id - ID til Sone
+ */
 Sone::Sone(int id) {
 	ID = id;
 }
 
+/**
+ * nyttOppdrag oppretter ny Oppdrag basert på input og medsendt param, legger til Oppdrag i Sone.
+ *
+ * @Param int onr - ID til Oppdrag
+ */
 void Sone::nyttOppdrag(int onr)
 {
 	cout << "Leilighet/enebolig [L/E]: ";
@@ -25,6 +35,16 @@ void Sone::nyttOppdrag(int onr)
 	boligerTilSalgs.push_back(bp);
 }
 
+/**
+ * nyttOppdrag oppretter ny Oppdrag basert på input fra medsendt fil, legger til Oppdrag i Sone.
+ *
+ * Leser BoligType fra fil
+ * Oppretter ny Oppdrag basert på BoligType 
+ * Legger til Oppdrag i Sone
+ * 
+ * @Param int onr - ID til Oppdrag
+ * @See Bolig::Bolig(ifstream& inn)
+ */
 void Sone::nyttOppdrag(ifstream& inn)
 {
 	Bolig* bp = nullptr;
