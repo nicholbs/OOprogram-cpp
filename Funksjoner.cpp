@@ -314,7 +314,7 @@ void skrivUtInteresseSoner()
 					for (int i = 0; i < boligVector.size(); i++)
 					{
 						cout << setw(35) << "Skriver Bolig:" << ' ' << boligVector[i]->getID() << endl;
-						boligVector[i]->skrivTilFil(utfilA, kundeSoneInteresse);
+						boligVector[i]->skrivKundeTilFil(utfilA, kundeSoneInteresse);
 					}
 				}
 			}

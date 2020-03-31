@@ -24,7 +24,7 @@ public:
 	int getID();
 	void skrivData();
 	void skrivTilFil(std::ofstream& ut);		//Er denne nødvendig?? Ja ser ut til at den er brukt i Enebolig::skrivTilFIl
-	void skrivTilFil(std::ofstream& ut, std::vector <int> interesseSone);
+	void skrivKundeTilFil(std::ofstream& ut, std::vector <int> interesseSone);
 	bool erEnebolig();
 };
 
