@@ -16,7 +16,7 @@ void lesGateAdr(std::string & gta);
 void lesPostAdr(std::string & pad);
 void skrivNavn(std::string & nvn);
 
-void kundeOversiktTilFil();
+void kundeOversiktTilFil(int kundeNr);
 
 int lesIntX(int min, int max);
 

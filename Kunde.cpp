@@ -30,25 +30,25 @@ Kunde::Kunde(int nr) {
      cout <<"\nKundeid: " <<nr;
     //Leser inn data fra bruker
     cin.ignore();
-    skrivNavn(navn); //Registrerer navn
-    lesGateAdr(gateAddresse); //Registrerer gateaddresse
-    lesPostAdr(postAdresse);//Leser postaddresse
-    lesEpostAdr(mail); //Leser mail fra bruker
-    //Sikrer innlesning av tlfnr
-    telefon = lesInt("\nTelefonnummer:",11111111,99999999);
+    skrivNavn(navn); 
+    lesGateAdr(gateAddresse);
+    lesPostAdr(postAdresse);
+    lesEpostAdr(mail); 
+    cin.ignore();
+    telefon = lesInt("Telefonnummer:",11111111,99999999);
+
     //Registrerer interresenn for leilighet eller bolig
-
-
-    while(kommando !='L' && kommando !='E'){
-        kommando = lesChar("Leilighet/enebolig[L/E]");
-        if(kommando =='L'){
+    kommando = lesChar("Leilighet/Enebolig [L/E]");
+    do
+    {    
+        if(kommando == 'L')
             boligType = boligtype::Leilighet;
-        }
-        else if (kommando =='E'){
-          boligType=boligtype::Enebolig;
-        }
-        else cout <<"\nFATAL feil";
-    }
+        else if (kommando =='E')
+            boligType=boligtype::Enebolig;
+        else 
+            cout <<"\nVennligst velg enten [L]eilighet eller [E]nebolig.\n";
+    } while (kommando != 'L' && kommando != 'E');
+
     Kunde::registrerSoner(); //Registrerer soner til kunde.
 
 }
@@ -99,43 +99,43 @@ void Kunde::endreData(){
 
     this->skrivData(); //Skriver ut kundens data
 
-    //Skriver ut melding til bruker
-    cout << "\n";
-    cout <<"\nTast L for a legge til soner"
-         <<"\nTast F for a fjerne soner"
-         <<"\nTast Q for a avbryte";
-    cout << "\n";
+    cout << "\n\n[L] - Legg til soner"
+         << "\n[F] - Fjern sone"
+         << "\n[Q] - Avbryt\n";
 
-       // this ->registrerSoner(); //Registrerer soner
-    kommando=lesChar("\nMenyvalg: "); //Leser inn fra bruker
+    kommando = lesChar("~Menyvalg"); //Leser inn fra bruker
 
     while (kommando !='Q') {
         switch(kommando){
-            case 'L':
-                this ->registrerSoner(); //Registrerer soner
-                break;
-            case 'F':
-                //sa lenge det finnes registrerte soner kan man fjerne en sone
-                if(!kundeSoner.empty()){
-                soneInnlest = lesInt("\nSonenr:",1,MAX_SONER);
+        case 'L':
+            registrerSoner(); //Registrerer soner
+            break;
+        case 'F':
+            //sa lenge det finnes registrerte soner kan man fjerne en sone
+            if(!kundeSoner.empty())
+            {
+                soneInnlest = lesInt("Sonenr:",1,MAX_SONER);
+
                 //Sjekker om innlest sone finnes registrert hos bruker
                 auto it = find(kundeSoner.begin(),kundeSoner.end(),soneInnlest);
-                //Hvis den finnes sa sletter jeg den og sorterer vectoren
-                if(it !=kundeSoner.end()){
+                if(it !=kundeSoner.end())
+                {
                     kundeSoner.erase(it);
                     sort(kundeSoner.begin(),kundeSoner.end());
-                    cout <<"\nSonenr: " <<soneInnlest <<" slettet fra bruker";
+                    cout <<"Sonenr: " <<soneInnlest <<" slettet fra bruker";
                 }
-                else cout <<"\nFinner ikke Soner:" <<soneInnlest<<" hos bruker";
-             }
-             else cout <<"\nIngen soner er registrert pa bruker ";
-            default:
-                cout <<"\nTast L for a legge til soner"
-                <<"\nTast F for a fjerne soner"
-                <<"\nTast Q for a avbryte";
-                break;
+                else 
+                    cout <<"\nFinner ikke Soner:" <<soneInnlest<<" hos bruker\n";
+            }
+            else 
+                cout <<"\nIngen soner er registrert pa bruker\n";
+            break;
+        default:
+            cout << "\n\n[L] - Legg til soner"
+                << "\n[F] - Fjern sone"
+                << "\n[Q] - Avbryt\n";
         }
-    kommando=lesChar("\nMenyvalg");
+    kommando = lesChar("\n~Menyvalg");
     }
 }
 /**
@@ -147,33 +147,41 @@ void Kunde::endreData(){
 void Kunde::registrerSoner(){
     int soneInnlest; //Bruker for a lese inn en sone.
     char kommando; //Registrerr brukerens menyvalg
+
     //Sjekker at det er soner og fortsetter hvis det er
     if(!gSoner.isEmpty()){
-        cout <<"\nRegistrer sone J trykk Q for avslutt";
-        kommando = lesChar("");
-        while(kommando !='Q') {
+        cout << "\n[R] - Registrer sone"
+             << "\n[Q] - Avbryt\n";
+        kommando = lesChar("~Menyvalg");
+
+        while(kommando !='Q') 
+        {
             soneInnlest = lesInt("\nSonenr:",1,MAX_SONER);
             //Sa lenge sonen finnes registrer den
-            if(gSoner.finnesSone(soneInnlest)){
+            if(gSoner.finnesSone(soneInnlest))
+            {
                 //Sjekker om sonen allerede er registrert (om bruker gjentar seg
                 //og for a unga duplikat)
                 auto it = find(kundeSoner.begin(),kundeSoner.end(),soneInnlest);
+
                 //Hvis ikke allerede registrert pa kunde, gor dette
-                    if(it ==kundeSoner.end()){
-                        kundeSoner.push_back(soneInnlest);
-                        cout <<"\nSonen: " <<soneInnlest <<" er registrert";
-                    }
-                    else cout <<"\nSonenr: " <<soneInnlest <<" allerede registrert";
+                if(it ==kundeSoner.end())
+                {
+                    kundeSoner.push_back(soneInnlest);
+                    cout <<"\nSone " <<soneInnlest <<" er registrert\n";
                 }
-                else cout <<"\nFinner ikke sonenr: " <<soneInnlest;
-            kommando = lesChar("\nRegistrer sone J trykk Q for avslutt");
+                else cout <<"\nSone " <<soneInnlest <<" er allerede registrert\n";
+            }
+            else cout <<"\nFant ikke sone " << soneInnlest << ".\n";
 
-
+            cout << "\n[R] - Registrer sone"
+                 << "\n[Q] - Avbryt\n";
+            kommando = lesChar("~Menyvalg");
         }
 
     //Sorterer intreserte soner i stigende rekkefolge
     sort(kundeSoner.begin(),kundeSoner.end());
-    }else cout <<"\nIngen soner registrert";
+    }else cout <<"\nFinnes ingen soner i systemet.\n";
 
 }
 

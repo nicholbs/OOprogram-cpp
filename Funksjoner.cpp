@@ -21,14 +21,8 @@ extern Soner gSoner;
 *  @see Soner::finnBoligerISone(..)
 *  @see Bolig::skrivTilKundeFil(..)
 **/
-void kundeOversiktTilFil()
+void kundeOversiktTilFil(int kundeNr)
 {
-	int kundeNr;	//Variabel for å holde medsent int i kommando "K O <knr>"
-
-	cout << '\n';
-	cin.ignore();
-	kundeNr = lesIntX(1, MAX_PERSONER);
-
 	if (!gKunder.kundeListeTomSjekk())
 	{
 		vector <int> kundeSoneInteresse;	//Holder alle kundens interessesoner
@@ -37,33 +31,30 @@ void kundeOversiktTilFil()
 		kundeSoneInteresse = gKunder.finnKundeSone(kundeNr);
 		if (!kundeSoneInteresse.empty())
 		{
-			string filNavn = "K" + to_string(kundeNr) + ".DTA";		//Oppretter filnavn
-			ofstream ut(filNavn);
+			string filnavn = "K" + to_string(kundeNr) + ".DTA";		//Oppretter filnavn
+			ofstream ut(filnavn);
 
-			for (int i = 0; i < kundeSoneInteresse.size(); i++)		//Skriver alle boliger i alle interessesoner til fil
-			{
-				ut << "\n SONE " << kundeSoneInteresse[i] << "\n";
-				boligVector = gSoner.finnBoligerISone(kundeSoneInteresse[i]);
+			//Skriver all boligdata for alle boliger i sonen på leselig format
+			for (int i = 0; i < kundeSoneInteresse.size(); i++)
+				gSoner.skrivAlleOppdragISoneTilFil(kundeSoneInteresse[i], ut);	//BURDE BYTTES UT?
 
-				//Skriver all boligdata på leselig format
-				ut << "-----------------------------------------------------\n";
-				for (int i = 0; i < boligVector.size(); i++)
-				{
-					if (boligVector[i]->erEnebolig())
-						static_cast<Enebolig*>(boligVector[i])->skrivData(ut);
-					else
-						boligVector[i]->skrivData(ut);
-					ut << "\n-----------------------------------------------------\n";
-				}
-			}
+			cout << "\n Oversikt for Kunde " << kundeNr << " skrevet til \"" << filnavn << "\".\n";
 		}
-		else
-			cout << setw(35) << "Kunden fantes, men han har ingen registrert soner\n" << endl;
+		else cout << setw(35) << "\n Kunden har ingen registrerte interessesoner.\n";
 	}
-	else
-		cout << setw(35) << "Det finnes ingen kunder\n" << endl;
+	else cout << setw(35) << "\n Det finnes ingen kunder i systemet\n";
 }
 
+/**
+*  Tar brukerinput som string, sjekker at det er et tall og innen et visst intervall, og returner som int.
+*
+*  Brukes i stedet for lesInt(..) for kommandovalg i main så brukeren skal kunne skrive inn hele kommandoen
+*  (e.g. K 1 [kundenummer]) uten å få opp "Kundenummer (min-max): " etterpå.
+*
+*  @param min   -	minste aksepterte tall
+*  @param max	-	høyeste aksepterte tall
+*  @return val	-	stringen skrevet inn gjort om til en int    
+**/
 int lesIntX(int min, int max)
 {
 	string buffer;
@@ -104,8 +95,9 @@ int lesIntX(int min, int max)
 **/
 void menyKunde() {
 	char kommando2;
-	cin >> kommando2;
+	int nr;
 
+	cin >> kommando2;
 	switch (toupper(kommando2)) {
 	case 'N':
 		gKunder.nyKunde();
@@ -141,7 +133,9 @@ void menyKunde() {
 		break;
 
 	case 'O':			//K -kunde, O - Skriv ut all data om kundens interesseSone, <knr> -valgt kunde
-		kundeOversiktTilFil();
+		nr = lesIntX(1, MAX_PERSONER);
+		if(nr != 0)
+			kundeOversiktTilFil(nr);
 		break;
 
 	case 'D':
@@ -247,7 +241,7 @@ void lesEpostAdr(std::string& epost) {
 
 	do {
 		valider = true;
-		cout << "\nMailaddresse: ";
+		cout << "Mailaddresse: ";
 		cin.ignore();
 		cin >> epost;
 		
@@ -289,7 +283,7 @@ void lesGateAdr(std::string & gta){
     do
 	{
         valider = true; //settes til false for a kontrollere lokken
-        cout <<"\nGateaddresse: ";
+        cout <<"Gateaddresse: ";
         getline(cin,gta);
 
         //Sjekker at forste tegn inneholder en bokstav
@@ -329,7 +323,7 @@ void lesPostAdr(std::string & pad){
 
     do{
         valider = true;
-        cout <<"\nPostadresse: ";
+        cout <<"Postadresse: ";
         getline(cin,pad);
 
         //Kontrolerer at de 3 forste er tall

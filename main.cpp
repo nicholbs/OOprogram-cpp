@@ -59,5 +59,6 @@ int main()
 	}
 	gSoner.skrivTilFil();
 	gKunder.kunderSkrivAlleTilFil();
+
 	return 0;
 }

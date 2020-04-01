@@ -18,13 +18,14 @@ class Sone
 	std::vector<Bolig*> boligerTilSalgs;
 
 public:
-	Sone(int id);
+	Sone(int id, std::string b);
 	void nyttOppdrag(int onr);
 	void nyttOppdrag(std::ifstream& inn);
 	Bolig* finnOppdrag(int onr);
 	void slettOppdrag(int onr);
 	bool finnesOppdrag(int onr);
-	void skrivAlleOppdrag(); //TESTFUNKSJON
+	void skrivAlleOppdrag(); 
+	void skrivAlleOppdragTilFil(std::ostream& ut);
 	void skrivTilFil(std::ofstream& ut);
 	void skrivHovedDataSone();				//brukes av Soner::skrivHovedDataAlleSoner()
 	std::vector<Bolig*> getAlleBoliger();
