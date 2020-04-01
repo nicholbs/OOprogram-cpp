@@ -232,7 +232,8 @@ void lesEpostAdr(std::string& epost) {
 
 		if (!valider)
 		{
-			cout << "\nUgyldig mailadresse!\n";
+			cout << "\nUgyldig mailadresse!\n"
+				 << "Mail maa inneholde en \'@\' og et \'.\'; samt ikke inneholde noen spesielle tegn utenom \'-\'.\n";
 		}
 	} while (valider == false);
 }
@@ -266,7 +267,10 @@ void lesGateAdr(std::string & gta){
         } 
 
 		if (!valider)
-			cout << "\nUgyldig gateadresse!\n";
+		{
+			cout << "\nUgyldig gateadresse!\n"
+				<< "Gateadresse kan bare inneholde alfabetiske tegn, \'-\', mellomrom, og tall.\n";
+		}	
     }
 	while(valider == false);
 }
@@ -294,24 +298,18 @@ void lesPostAdr(std::string & pad){
                 valider = false;
         }
 
+		//Sjekker at tegn 4 er enten et mellomrom eller ett tall etterfulgt av et mellomrom
 		if (!(pad[3] == ' ' || (isdigit(pad[3]) && pad[4] == ' ')))
 			valider = false;
 		
-		//Sjekker deretter at 4 tegn er tall eller mellomrom
-        /*if(!(isdigit(pad[3]) || pad[3]==' '))
-            valider = false;
-
-        //Hvis det ikke er et mellomrom fra 4 tall og tekst sa skal det forkastes
-        if(valider == true && (isdigit(pad[3]) && pad[4] !=' '))
-            valider = false;
-		*/
         //Sjekker resten av tekstem kan inneholde bokstaver mellomrom - .
         for(i=5; i <pad.size(); i++) {
-            if(!(isalpha(pad[i])|| pad[i]==' ' || pad[i]== '.' || pad[i]=='-')) 
+            if(!(isalpha(pad[i])|| pad[i]==' ' || pad[i]=='-')) 
                 valider = false;
         }
-        if(!valider)
-			cout << "\nUgyldig postadresse!\n";
+		if (!valider)
+			cout << "\nUgyldig postadresse!\n"
+				 << "Postadressen maa ha enten 3 eller 4 sifre, etterfulgt av alfabetiske tegn, mellomrom, og \'-\'.\n";
     }while(valider == false);
 }
 
