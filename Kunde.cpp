@@ -34,6 +34,7 @@ Kunde::Kunde(int nr) {
     lesGateAdr(gateAddresse); //Registrerer gateaddresse
     lesPostAdr(postAdresse);//Leser postaddresse
     lesEpostAdr(mail); //Leser mail fra bruker
+    cin.ignore();
     //Sikrer innlesning av tlfnr
     telefon = lesInt("\nTelefonnummer:",11111111,99999999);
     //Registrerer interresenn for leilighet eller bolig
