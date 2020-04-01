@@ -210,35 +210,27 @@ void lesEpostAdr(std::string& epost) {
 
 	do {
 		valider = true;
-		cout << "\nE-post addresse: ";
-		cin >> epost;
+		cout << "\nMailaddresse: ";
 		cin.ignore();
-
+		cin >> epost;
+		
 		//Sjekker om epostaddessen inneholder @
-		if (epost.find("@") != string::npos) {
-			valider = true;
-		}
-		else valider = false;
+		if (!epost.find("@") != string::npos) 
+			valider = false;
+
 		//Sjekker at epost addresse inneholder minst et punktum
-		if (epost.find(".") != string::npos) {
-			valider = true;
-		}
-		else valider = false;
+		if (!epost.find(".") != string::npos)
+			valider = false;
+
 		//Sjekker teksten og sa lenge den kun inneholder bokstaver, tall - @ .
-		for (i = 0; i < epost.size(); i++) {
-			if (valider == true && (isalpha(epost[i]) || isdigit(epost[i])
-				|| epost[i] == '-' || epost[i] == '@' || epost[i] == '.')) {
-				valider = true;
-			}
-			else {
+		for (i = 0; i < epost.size(); i++) 
+		{
+			if (!(isalpha(epost[i]) || isdigit(epost[i]) || epost[i] == '-' || epost[i] == '@' || epost[i] == '.')) 
 				valider = false;
-			}
 		}
-		if (!valider) {
-			cout << "\nIkke gyldig e-post addresse, Ma inneholde "
-				<< "@ samt . og kan kun inneholde: "
-				<< "Bokstaver, tall, @ - . ";
-		}
+
+		if (!valider) 
+			cout << "\nUgyldig mailadresse!\n";
 	} while (valider == false);
 }
 
