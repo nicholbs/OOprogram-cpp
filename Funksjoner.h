@@ -18,4 +18,6 @@ void skrivNavn(std::string & nvn);
 
 void kundeOversiktTilFil();
 
+int lesIntX(int min, int max);
+
 #endif

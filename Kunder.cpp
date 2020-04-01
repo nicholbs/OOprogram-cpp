@@ -1,4 +1,5 @@
 #include "Const.h"
+#include "Funksjoner.h"
 #include "Kunder.h"
 #include "Kunde.h"
 #include "LesData3.h"
@@ -28,16 +29,20 @@ void Kunder::kundeEndreData(){
     int nr; //Hvilken kunde skal fa data endrett
     //Kjores kun hvis det finnes kunder
     if(sisteNr !=0){
-        nr = lesInt("\nKundenr: ",1,sisteNr); //hvilken kunde ?
-        //Leter etter kunden
-        auto it = find_if(kundeListe.begin(),kundeListe.end(),
-                      [nr](auto val){return(val -> kundeIdRetur() ==nr);});
+        //nr = lesInt("\nKundenr: ",1,sisteNr); //hvilken kunde ?
+        nr = lesIntX(1, sisteNr);
+        if (nr != 0)
+        {
+            //Leter etter kunden
+            auto it = find_if(kundeListe.begin(), kundeListe.end(),
+                [nr](auto val) {return(val->kundeIdRetur() == nr); });
 
-        //Sa lenge treff, endre kunden.
-        if (it != kundeListe.end()){
-        (*it)-> endreData();
+            //Sa lenge treff, endre kunden.
+            if (it != kundeListe.end()) {
+                (*it)->endreData();
+            }
+            else cout << "\n" << ("Finner ikke kunde med id ") << nr;
         }
-        else cout << "\n" <<("Finner ikke kunde med id ") <<nr;
     }
     else cout <<"\nIngen kunder registrert";
 }
@@ -137,16 +142,20 @@ void Kunder::kundeSkrivData(){
      int nr; //Hvilken kunde skal fa data skrevet ut
     //Sjekker at det finnes kunder registert og i sa fall fortetter
     if(!kundeListe.empty()){
-        nr = lesInt("\nKundenr: ",1,sisteNr); //hvilken kunde ?
-        //Leter etter kunden
-        auto it = find_if(kundeListe.begin(),kundeListe.end(),
-                      [nr](auto val){return(val -> kundeIdRetur() ==nr);});
+        //nr = lesInt("\nKundenr: ",1,sisteNr); //hvilken kunde ?
+        nr = lesIntX(1, sisteNr);
+        if (nr != 0)
+        {
+            //Leter etter kunden
+            auto it = find_if(kundeListe.begin(), kundeListe.end(),
+                [nr](auto val) {return(val->kundeIdRetur() == nr); });
 
-        //Sa lenge treff pa kunden sa skriver jeg ut data
-        if (it != kundeListe.end()){
-            (*it)-> skrivData(); //Skriver ut kundens data
+            //Sa lenge treff pa kunden sa skriver jeg ut data
+            if (it != kundeListe.end()) {
+                (*it)->skrivData(); //Skriver ut kundens data
+            }
+            else cout << '\n' << ("Finner ikke kunde med id") << nr;
         }
-        else cout << '\n' <<("Finner ikke kunde med id") <<nr;
     }else cout <<"\nIngen kunder er registrert i systemet!";
 }
 
@@ -183,19 +192,21 @@ void Kunder::slettKunde() {
      int nr; //Brukes til innlesning
      if(!kundeListe.empty()){
         cout <<"\nHvilken kunde vil du slette? ";
-        cin >> nr;
-        //leter etter kunden
-        auto it = find_if(kundeListe.begin(),kundeListe.end(),
-                      [nr](auto val){return(val -> kundeIdRetur() ==nr);});
+        nr = lesIntX(1, sisteNr);
+        if (nr != 0)
+        {
+            //leter etter kunden
+            auto it = find_if(kundeListe.begin(), kundeListe.end(),
+                [nr](auto val) {return(val->kundeIdRetur() == nr); });
 
-    //Sa lenge den finnes
-        if(it !=kundeListe.end()){
-            delete (*it); //Sletter brukerobjektet
-            kundeListe.remove((*it)); //Fjerner peker fra listen
-            cout <<"\nBruker med id: " <<nr <<" er slettet";
+            //Sa lenge den finnes
+            if (it != kundeListe.end()) {
+                delete (*it); //Sletter brukerobjektet
+                kundeListe.remove((*it)); //Fjerner peker fra listen
+                cout << "\nBruker med id: " << nr << " er slettet";
+            }
+            else cout << "\nFATAL finner ikke bruker, slett ikke mulig";
         }
-        else cout <<"\nFATAL finner ikke bruker, slett ikke mulig";
      }else cout <<"\nIngen kunder registrert i systemet";
-
 }
 

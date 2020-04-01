@@ -27,7 +27,7 @@ void kundeOversiktTilFil()
 
 	cout << '\n';
 	cin.ignore();
-	kundeNr = lesInt("Kundenummer:", 1, MAX_PERSONER);
+	kundeNr = lesIntX(1, MAX_PERSONER);
 
 	if (!gKunder.kundeListeTomSjekk())
 	{
@@ -62,6 +62,33 @@ void kundeOversiktTilFil()
 	}
 	else
 		cout << setw(35) << "Det finnes ingen kunder\n" << endl;
+}
+
+int lesIntX(int min, int max)
+{
+	string buffer;
+	int val;
+	cin.ignore();
+	getline(cin, buffer);
+
+	for (int i = 0; i < buffer.size(); i++)
+	{
+		if (!isdigit(buffer[i]))
+		{
+			cout << "\nInput matte vare en int\n";
+			return 0;
+		}
+	}
+	
+	val = stoi(buffer);
+
+	if (val < min || val > max)
+	{
+		cout << "\nTallet ma vare i intervallet [" << min << "-" << max << "]\n";
+		return 0;
+	}
+	
+	return val;
 }
 
 /**
@@ -148,13 +175,17 @@ void menySone() {
 	cin >> kommando2;
 	switch (toupper(kommando2)) {
 	case 'N':
-		cin >> snr;
-		gSoner.nySone(snr);
-		gSoner.skrivTilFil();
+		snr = lesIntX(1, MAX_SONER);
+		if (snr != 0)
+		{
+			gSoner.nySone(snr);
+			gSoner.skrivTilFil();
+		}
 		break;
 	case '1':
-		cin >> snr;
-		gSoner.skrivAlleOppdragISone(snr);
+		snr = lesIntX(1, MAX_SONER);
+		if (snr != 0)
+			gSoner.skrivAlleOppdragISone(snr);
 		break;
 	case 'A':
 		gSoner.skrivHovedDataAlleSoner();
@@ -180,19 +211,25 @@ void menyOppdrag() {
 	cin >> kommando2;
 	switch (toupper(kommando2)) {
 	case 'N':
-		cin.ignore();
-		nr = lesInt("Sonenummer", 1, MAX_SONER);
-		gSoner.nyttOppdrag(nr);
-		gSoner.skrivTilFil();
+		nr = lesIntX(1, MAX_SONER);
+		if (nr == 0)
+		{
+			gSoner.nyttOppdrag(nr);
+			gSoner.skrivTilFil();
+		}
 		break;
 	case '1':
-		nr = lesInt("Oppdragsnummer", 1, MAX_OPPDRAG);
-		gSoner.skrivOppdrag(nr);
+		nr = lesIntX(1, MAX_OPPDRAG);
+		if(nr != 0)
+			gSoner.skrivOppdrag(nr);
 		break;
 	case 'S':
-		cin >> nr;
-		gSoner.slettOppdrag(nr);
-		gSoner.skrivTilFil();
+		nr = lesIntX(1, MAX_OPPDRAG);
+		if (nr != 0)
+		{
+			gSoner.slettOppdrag(nr);
+			gSoner.skrivTilFil();
+		}
 		break;
 	default:
 		cout << "Oppdrag Default" << endl;
