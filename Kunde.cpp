@@ -30,15 +30,13 @@ Kunde::Kunde(int nr) {
      cout <<"\nKundeid: " <<nr;
     //Leser inn data fra bruker
     cin.ignore();
-    skrivNavn(navn); 
-    lesGateAdr(gateAddresse);
-    lesPostAdr(postAdresse);
-    lesEpostAdr(mail); 
+    skrivNavn(navn); //Registrerer navn
+    lesGateAdr(gateAddresse); //Registrerer gateaddresse
+    lesPostAdr(postAdresse);//Leser postaddresse
+    lesEpostAdr(mail); //Leser mail fra bruker
     cin.ignore();
-    telefon = lesInt("Telefonnummer:",11111111,99999999);
-
-    //Registrerer interresenn for leilighet eller bolig
-    kommando = lesChar("Leilighet/Enebolig [L/E]");
+    telefon = lesInt("\nTelefonnummer:",11111111,99999999); //Sikrer innlesning av tlfnr
+    kommando = lesChar("Leilighet/Enebolig [L/E]");         //Registrerer interresenn for leilighet eller bolig
     do
     {    
         if(kommando == 'L')
