@@ -215,22 +215,25 @@ void lesEpostAdr(std::string& epost) {
 		cin >> epost;
 		
 		//Sjekker om epostaddessen inneholder @
-		if (!epost.find("@") != string::npos) 
+		if (epost.find("@") == string::npos)
 			valider = false;
-
+			
 		//Sjekker at epost addresse inneholder minst et punktum
-		if (!epost.find(".") != string::npos)
+		if (epost.find(".") == string::npos)
 			valider = false;
+			
 
 		//Sjekker teksten og sa lenge den kun inneholder bokstaver, tall - @ .
 		for (i = 0; i < epost.size(); i++) 
 		{
-			if (!(isalpha(epost[i]) || isdigit(epost[i]) || epost[i] == '-' || epost[i] == '@' || epost[i] == '.')) 
-				valider = false;
+			if (!(isalpha(epost[i]) || isdigit(epost[i]) || epost[i] == '-' || epost[i] == '@' || epost[i] == '.'))
+				valider = false;		
 		}
 
-		if (!valider) 
+		if (!valider)
+		{
 			cout << "\nUgyldig mailadresse!\n";
+		}
 	} while (valider == false);
 }
 
@@ -277,7 +280,7 @@ void lesGateAdr(std::string & gta){
 **/
 void lesPostAdr(std::string & pad){
     int i; //Lokketeller
-    bool valider = true; //Brukes til sjekk av tekst
+    bool valider; //Brukes til sjekk av tekst
 
     do{
         valider = true;
@@ -285,28 +288,27 @@ void lesPostAdr(std::string & pad){
         getline(cin,pad);
 
         //Kontrolerer at de 3 forste er tall
-        for (i=0; i<=2; i++){
-            if(isdigit(pad[i]))
-                valider = true;
-            else 
-				valider=false;
+        for (i=0; i<=2; i++)
+		{
+            if(!isdigit(pad[i]))
+                valider = false;
         }
-        //Sjekker deretter at 4 tegn er tall eller mellomrom
-        if(valider == true && (isdigit(pad[3]) || pad[3]==' '))
-            valider = true;
-        else 
+
+		if (!(pad[3] == ' ' || (isdigit(pad[3]) && pad[4] == ' ')))
 			valider = false;
+		
+		//Sjekker deretter at 4 tegn er tall eller mellomrom
+        /*if(!(isdigit(pad[3]) || pad[3]==' '))
+            valider = false;
 
         //Hvis det ikke er et mellomrom fra 4 tall og tekst sa skal det forkastes
         if(valider == true && (isdigit(pad[3]) && pad[4] !=' '))
             valider = false;
-		
+		*/
         //Sjekker resten av tekstem kan inneholde bokstaver mellomrom - .
         for(i=5; i <pad.size(); i++) {
-            if(valider == true && (isalpha(pad[i])|| pad[i]==' ' || pad[i]== '.' || pad[i]=='-')) 
-                valider = true;
-			else 
-				valider = false;
+            if(!(isalpha(pad[i])|| pad[i]==' ' || pad[i]== '.' || pad[i]=='-')) 
+                valider = false;
         }
         if(!valider)
 			cout << "\nUgyldig postadresse!\n";
