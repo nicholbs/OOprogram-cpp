@@ -1,11 +1,18 @@
-#pragma once
+#ifndef __Bolig_H
+#define __Bolig_H
+
 #include <string>
 #include <fstream>
 #include "Enum.h"
 #include <fstream>
 #include <vector>
 
-
+/**
+ * Klasse Bolig er baseklasse for alle Oppdrag lagret i Sone.
+ * 
+ * Bolig har en rekke privat data som beskriver oppdraget.
+ * Det er nevneverdig at Enebolig som er barnet til Bolig arver datamedlemmer som er protected.
+ */
 class Bolig
 {
 protected:
@@ -27,3 +34,4 @@ public:
 	bool erEnebolig();
 };
 
+#endif

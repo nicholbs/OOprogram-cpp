@@ -13,6 +13,7 @@
 using namespace std;
 
 extern Soner gSoner; //Legger til Gsonr for å kunne utføre sjekk og mappinger
+
 /**
  * Dette er parameterfylt konstruktor, far medsendt id og ber bruker lese inn data
  *
@@ -23,7 +24,6 @@ extern Soner gSoner; //Legger til Gsonr for å kunne utføre sjekk og mappinger
  * @see lesPostAdr()
  * @see skrivNavn()
  * */
-
 Kunde::Kunde(int nr) {
     ID = nr; //Setter medsent nr til ID
     char kommando = ' ';
@@ -53,11 +53,11 @@ Kunde::Kunde(int nr) {
 
 }
 /**
-*Denne konstructoren registrerer ny kunde fra fil
-*
-*@param ifstream    -   filobjekt
-*@param kId         -   medsendt kundeid
-**/
+ *Denne konstructoren registrerer ny kunde fra fil
+ *
+ *@param ifstream    -   filobjekt
+ *@param kId         -   medsendt kundeid
+ **/
 Kunde::Kunde(ifstream & inn, int kId) {
     int tempSoneInnlest; //brukes for a lese inn sone etter sone
     int tempBoligType; //Brukes til innlesning og omcasting boligtype
@@ -88,11 +88,11 @@ Kunde::Kunde(ifstream & inn, int kId) {
     sort(kundeSoner.begin(),kundeSoner.end());
 }
 /**
-*Denne funksjonen endrer pa en kundes onsket sone data
-*
-* @see Kunde::kundeSkrivData(..)
-* @see Kunde::registrerSoner()
-**/
+ *Denne funksjonen endrer pa en kundes onsket sone data
+ *
+ * @see Kunde::kundeSkrivData(..)
+ * @see Kunde::registrerSoner()
+ **/
 void Kunde::endreData(){
     char kommando; //Menyvalg
     int soneInnlest; //Sone valgt
@@ -139,11 +139,11 @@ void Kunde::endreData(){
     }
 }
 /**
-* Denne klassefuksjonen registrerer soner hos en kunde
-*
-*@see Soner::finnesSone()
-*@see Soner::isEmpty()
-**/
+ * Denne klassefuksjonen registrerer soner hos en kunde
+ *
+ *@see Soner::finnesSone()
+ *@see Soner::isEmpty()
+ **/
 void Kunde::registrerSoner(){
     int soneInnlest; //Bruker for a lese inn en sone.
     char kommando; //Registrerr brukerens menyvalg
@@ -179,10 +179,10 @@ void Kunde::registrerSoner(){
 
 
 /**
-*Denne klassefunksjonen returnerer den unike ID til en kunde
-*
-*@return ID -   returnerer ID til en person
-**/
+ *Denne klassefunksjonen returnerer den unike ID til en kunde
+ *
+ *@return ID -   returnerer ID til en person
+ **/
 int Kunde::kundeIdRetur(){
     return ID;
 }
@@ -224,10 +224,10 @@ void Kunde::skrivData() {
 }
 
 /**
-*Denne funksjonen skriver en kunde til fil
-*
-*@param ut  -   et ofstrem objekt
-**/
+ *Denne funksjonen skriver en kunde til fil
+ *
+ *@param ut  -   et ofstrem objekt
+ **/
 void Kunde::skrivTilFil(ofstream & ut) {
     int antIntSoner; //Antall interessesoner for en kunde.
     int enumKonertering; //Brukes til a konvertere fra enum til int
@@ -251,18 +251,18 @@ void Kunde::skrivTilFil(ofstream & ut) {
 }
 
 /**
-* Funksjonen returnerer sonene med boliger kunden er interessert i.
-*
-* @return kundeSoner -   returnerer kunde objektet sin vector av typen int med navn kundeSoner
-**/
+ * Funksjonen returnerer sonene med boliger kunden er interessert i.
+ *
+ * @return kundeSoner -   returnerer kunde objektet sin vector av typen int med navn kundeSoner
+ **/
 vector <int> Kunde::kundeSonerRetur() {
 
     return kundeSoner;
 }
 
 /**
-*Test destructor
-**/
+ *Test destructor
+ **/
 Kunde::~Kunde() {
 //cout <<"\nKunde med navn: "<<navn <<" og id "<<ID <<"Slettes";
 }

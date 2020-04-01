@@ -1,5 +1,5 @@
-#ifndef Funksjoner_H
-#define Funksjoner_H
+#ifndef __Funksjoner_H
+#define __Funksjoner_H
 #include <string>
 
 void hovedMeny();		//utskrift av kommandoer for Kunder, Soner og Oppdrag/bolig

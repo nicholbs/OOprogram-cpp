@@ -1,5 +1,5 @@
-#ifndef Kunde_h
-#define Kunde_h
+#ifndef __Kunde_h
+#define __Kunde_h
 //#pragma once
 
 #include <vector>

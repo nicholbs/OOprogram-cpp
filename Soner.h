@@ -1,10 +1,14 @@
-#pragma once
+#ifndef __Soner_H
+#define __Soner_H
 #include <map>
 #include <vector>
 #include "Sone.h"
 #include "Enebolig.h"
 using namespace std;
 
+/**
+ * Klasse Soner er baseklasse, inneholder alle Sone i map.
+ */
 class Soner
 {
 private:
@@ -26,3 +30,5 @@ public:
 	bool isEmpty();
 	std::vector<Bolig*> finnBoligerISone(int snr);
 };
+
+#endif
