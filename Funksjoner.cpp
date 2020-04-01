@@ -251,20 +251,24 @@ void lesGateAdr(std::string & gta){
 
     do
 	{
-        valider = false; //settes til false for a kontrollere lokken
+        valider = true; //settes til false for a kontrollere lokken
         cout <<"\nGateaddresse: ";
         getline(cin,gta);
 
         //Sjekker at forste tegn inneholder en bokstav
-        if (isalpha(gta[0]))
+		if (!isalpha(gta[0]))
+			valider = false;
+
+		//Sa lenge string inneholder bokstaver, mellomrom, tall og -
+		for (i = 1; i < gta.size(); i++)
 		{
-            for (i = 1; i < gta.size(); i++)
-			{
-                //Sa lenge string inneholder bokstaver, mellomrom, tall og -
-				if ((isalpha(gta[i]) || gta[i] == ' ' || isdigit(gta[i]) || gta[i] == '-'))
-					valider = true;
-            }
-        } 
+			if (!(isalpha(gta[i]) || gta[i] == ' ' || isdigit(gta[i]) || gta[i] == '-'))
+				valider = false;
+		}
+
+		//Siste tegn må være et tall
+		if (!isdigit(gta[gta.size() - 1]))
+			valider = false;
 
 		if (!valider)
 		{
@@ -292,7 +296,7 @@ void lesPostAdr(std::string & pad){
         getline(cin,pad);
 
         //Kontrolerer at de 3 forste er tall
-        for (i=0; i<=2; i++)
+        for (i=0; i < 3; i++)
 		{
             if(!isdigit(pad[i]))
                 valider = false;
@@ -302,11 +306,13 @@ void lesPostAdr(std::string & pad){
 		if (!(pad[3] == ' ' || (isdigit(pad[3]) && pad[4] == ' ')))
 			valider = false;
 		
-        //Sjekker resten av tekstem kan inneholde bokstaver mellomrom - .
-        for(i=5; i <pad.size(); i++) {
+        //Sjekker resten av teksten kan inneholde bokstaver, mellomrom, bindestrek 
+        for(i=5; i < pad.size(); i++) 
+		{
             if(!(isalpha(pad[i])|| pad[i]==' ' || pad[i]=='-')) 
                 valider = false;
         }
+
 		if (!valider)
 			cout << "\nUgyldig postadresse!\n"
 				 << "Postadressen maa ha enten 3 eller 4 sifre, etterfulgt av alfabetiske tegn, mellomrom, og \'-\'.\n";
