@@ -10,9 +10,9 @@
 using namespace std;
 
 /**
-*  Konstruktor som kjøres etter når en Bolig opprettes manuelt. 
+*  Konstruktor som kjøres når en Bolig opprettes manuelt. 
 *
-*  @param id -   Oppdragets ID
+*  @param id  -  Boligens ID
 *  @see lesGateAdr(..)
 *  @see lesPostAdr(..)
 **/
@@ -37,7 +37,7 @@ Bolig::Bolig(int id) {
 }
 
 /**
-*  Konstruktor som kjøres etter når en Bolig opprettes manuelt. 
+*  Konstruktor som kjøres når en Bolig opprettes manuelt. 
 *
 * @param inn    -   Fil som skal skrives til (SONER.DTA)
 * */
@@ -61,7 +61,7 @@ Bolig::Bolig(ifstream& inn)
 /**
 *Denne klassefunksjonen returnerer Bolig sin ID
 *
-*@return ID -   Boligens ID
+*@return ID  -  Boligens ID
 **/
 int Bolig::getID() {
 	return ID;
@@ -70,7 +70,7 @@ int Bolig::getID() {
 /**
 *  Skriver all data til en Bolig til terminal eller leselig fil.
 *
-*  @param ut  -  Ostream som skal skrives til i.e. cout eller fil
+*  @param ut  -  ostream som skal skrives til; i.e. cout eller fil
 **/
 void Bolig::skrivData(ostream& ut) {
 	ut << " ~Oppdrag " << ID << ", ";

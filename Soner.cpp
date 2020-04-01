@@ -110,7 +110,6 @@ bool Soner::finnesSone(int snr)
 	return (soneMap.find(snr) != soneMap.end());
 }
 
-
 /**
  * finnOppdrag tar parameter, leter etter oppdraget, returnerer peker dersom funnet.
  *

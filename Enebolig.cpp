@@ -6,7 +6,7 @@
 using namespace std;
 
 /**
-*  Konstruktor som kjøres etter når en Enebolig opprettes manuelt.
+*  Konstruktor som kjøres når en Enebolig opprettes manuelt.
 *
 *  @param inn  -  Oppdragets ID
 *  @see Bolig::Bolig(int id)
@@ -24,7 +24,7 @@ Enebolig::Enebolig(int id) : Enebolig::Bolig(id)
 }
 
 /**
-*  Konstruktor som kjøres etter når en Enebolig opprettes fra fil.
+*  Konstruktor som kjøres når en Enebolig opprettes fra fil.
 *
 *  @param inn  -  Oppdragets ID
 *  @see Bolig::Bolig(ifstream& inn)
@@ -41,9 +41,9 @@ Enebolig::Enebolig(ifstream& inn) : Enebolig::Bolig(inn)
 }
 
 /**
-*  Skriver data spesifikke til underklassen Enebolig terminal eller leselig fil.
+*  Skriver data spesifikke til underklassen Enebolig til terminal eller leselig fil.
 *
-*  @param ut  -  Ostream som skal skrives til i.e. cout eller fil
+*  @param ut  -  ostream som skal skrives til; i.e. cout eller fil
 *  @see Bolig::skrivData(..)
 **/
 void Enebolig::skrivData(ostream& ut)
