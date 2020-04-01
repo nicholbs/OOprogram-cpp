@@ -17,8 +17,8 @@ using namespace std;
 
 void menyKunde();
 
-Soner gSoner;
-Kunder gKunder;
+Soner gSoner;		///Globalt objekt for å holde alle Sone og derunder Oppdrag
+Kunder gKunder;		///Globalt objekt for å holde alle Kunde
 
 
 /**
