@@ -1,10 +1,16 @@
-#pragma once
+#ifndef __Sone_H
+#define __Sone_H
 #include <string>
 #include <vector>
 #include <fstream>
 #include "Bolig.h"
 
-
+/**
+ * Klasse Sone er underklasse av Soner, Sone blir lagret i Soner.
+ *
+ * Hver Sone representerer et geografisk område.
+ * Sone holder orden på alle Oppdrag i området ved å lagre i vector.
+ */
 class Sone
 {
 	int ID;
@@ -25,3 +31,4 @@ public:
 
 };
 
+#endif

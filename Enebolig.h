@@ -1,5 +1,12 @@
-#pragma once
+#ifndef __Enebolig_H
+#define __Enebolig_H
 #include "Bolig.h"
+
+/**
+ * Klasse Enebolig er underklasse av Bolig, Enebolig blir også lagret i Sone.
+ *
+ * Enebolig har et par private datamedlemmer som beskriver oppdraget.
+ */
 class Enebolig : public Bolig
 {
 	int areal;
@@ -13,3 +20,5 @@ public:
 	void skrivTilFil(std::ofstream& ut);
 };
 
+
+#endif

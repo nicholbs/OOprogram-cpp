@@ -1,7 +1,5 @@
-#ifndef Kunder_H
-#define Kunder_H
-
-#pragma once
+#ifndef __Kunder_H
+#define __Kunder_H
 
 #include <list>
 #include <vector>

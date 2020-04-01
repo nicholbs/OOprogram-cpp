@@ -10,18 +10,19 @@
 #include <fstream> //For innlesning og utlesing til fil
 
 using namespace std;
+
 /**
-*Konstruktor som nullstiller dataene
-**/
+ *Konstruktor som nullstiller dataene
+ **/
 Kunder::Kunder() {
     sisteNr = 0;
 }
 
 /**
-*Denne funksjonen finner en kunde samt endrer
-*
-*@see Kunde::endreData(..)
-**/
+ *Denne funksjonen finner en kunde samt endrer
+ *
+ *@see Kunde::endreData(..)
+ **/
 void Kunder::kundeEndreData(){
     cin.ignore();
     int nr; //Hvilken kunde skal fa data endrett
@@ -42,10 +43,10 @@ void Kunder::kundeEndreData(){
 }
 
 /**
-*Denne Funksjonen oppretter lager en ny kundepeker i liste
-*
-*@param Kunde::Kunde(..)
-**/
+ *Denne Funksjonen oppretter lager en ny kundepeker i liste
+ *
+ *@param Kunde::Kunde(..)
+ **/
 void Kunder::nyKunde() {
     if(kundeListe.size() < MAX_PERSONER) {
         sisteNr ++; //teller opp sistenr med en
@@ -56,10 +57,10 @@ void Kunder::nyKunde() {
 }
 
 /**
-*Denne funksjonen leser kunder inn fra fil
-*
-* @see Kunde::Kunde(...)
-**/
+ *Denne funksjonen leser kunder inn fra fil
+ *
+ * @see Kunde::Kunde(...)
+ **/
 void Kunder::kunderLesAlleFraFil(){
     int kundeId; //Brukes for a lese inn kundeid temporert
     ifstream innfil("KUNDER.DTA"); //lager et innfil objekt
@@ -86,10 +87,10 @@ void Kunder::kunderLesAlleFraFil(){
 }
 
 /**
-*Denne funksjonen finner og skriver ut data for alle kunder
-*
-*@see Kunde::skrivData(..)
-**/
+ *Denne funksjonen finner og skriver ut data for alle kunder
+ *
+ *@see Kunde::skrivData(..)
+ **/
 void Kunder::kundeSAlleSkrivData(){
     int teller = 0; //hjelpeint for a stoppe pr 10 utskrift av kunde
     //Sjekker at det er kunder registrert
@@ -107,10 +108,10 @@ void Kunder::kundeSAlleSkrivData(){
     } else cout <<"\nIngen kunder er registrert! ";
 }
 /**
-*Denne klassefunkjsonen skriver alle kunder til fil
-*
-*@see kunde::skrivTilFil()
-**/
+ *Denne klassefunkjsonen skriver alle kunder til fil
+ *
+ *@see kunde::skrivTilFil()
+ **/
 void Kunder::kunderSkrivAlleTilFil(){
     ofstream utfil("KUNDER.DTA");
     //Sa lenge det finnes registrerte kunder:
@@ -127,11 +128,11 @@ void Kunder::kunderSkrivAlleTilFil(){
 }
 
 /**
-*Denne Funksjonen finner og skriver ut data til en spesifikk kunde
-*
-*@see Kunde::kundeIdRetur()
-*@see Kunde::skrivData(..)
-**/
+ *Denne Funksjonen finner og skriver ut data til en spesifikk kunde
+ *
+ *@see Kunde::kundeIdRetur()
+ *@see Kunde::skrivData(..)
+ **/
 void Kunder::kundeSkrivData(){
      int nr; //Hvilken kunde skal fa data skrevet ut
     //Sjekker at det finnes kunder registert og i sa fall fortetter
@@ -150,10 +151,10 @@ void Kunder::kundeSkrivData(){
 }
 
 /**
-*Funksjon for å finne kunde basert på kundenummer parameter
-*
-* @param int knrParam - variabel for å holde <knr> fra kommando K O <knr>
-**/
+ *Funksjon for å finne kunde basert på kundenummer parameter
+ *
+ * @param int knrParam - variabel for å holde <knr> fra kommando K O <knr>
+ **/
 vector <int>  Kunder::finnKundeSone(int knrParam) {
     vector <int> interesseSone;                 //lager vector for å holde interesse soner til kunden
     for (auto it = kundeListe.begin(); it != kundeListe.end(); it++) //Fra list start til List slutt
@@ -175,9 +176,9 @@ bool Kunder::kundeListeTomSjekk() {
 }
 
 /**Denne klassefunksjonen finner og sletter en spesifikk kunde
-*
-*@see Kunde::kundeIdReturn()
-**/
+ *
+ *@see Kunde::kundeIdReturn()
+ **/
 void Kunder::slettKunde() {
      int nr; //Brukes til innlesning
      if(!kundeListe.empty()){

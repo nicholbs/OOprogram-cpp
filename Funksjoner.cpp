@@ -387,6 +387,9 @@ void soneMeny() {
 
 }
 
+/**
+* Utskrift av meny for Oppdrag funksjoner, kommer etter input "O" fra hovedMeny
+**/
 void oppdragMeny() {
 	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
 	cout << setw(5) << "(N)" << setw(30) << "Lage ny Oppdrag" << endl;
