@@ -206,7 +206,7 @@ void menyOppdrag() {
 	switch (toupper(kommando2)) {
 	case 'N':
 		nr = lesIntX(1, MAX_SONER);
-		if (nr == 0)
+		if (nr != 0)
 		{
 			gSoner.nyttOppdrag(nr);
 			gSoner.skrivTilFil();
