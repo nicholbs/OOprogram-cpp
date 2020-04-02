@@ -36,16 +36,16 @@ Kunde::Kunde(int nr) {
     lesEpostAdr(mail); //Leser mail fra bruker
     cin.ignore();
     telefon = lesInt("Telefonnummer:",11111111,99999999); //Sikrer innlesning av tlfnr
-    kommando = lesChar("Leilighet/Enebolig [L/E]");         //Registrerer interresenn for leilighet eller bolig
     do
-    {    
-        if(kommando == 'L')
-            boligType = boligtype::Leilighet;
-        else if (kommando =='E')
-            boligType=boligtype::Enebolig;
-        else 
-            cout <<"\nVennligst velg enten [L]eilighet eller [E]nebolig.\n";
+    {   
+        kommando = lesChar("Leilighet/Enebolig [L/E]");         //Registrerer interresenn for leilighet eller bolig
+        
     } while (kommando != 'L' && kommando != 'E');
+
+    if (kommando == 'L')
+        boligType = boligtype::Leilighet;
+    else
+        boligType = boligtype::Enebolig;
 
     Kunde::registrerSoner(); //Registrerer soner til kunde.
 
@@ -148,9 +148,8 @@ void Kunde::registrerSoner(){
 
     //Sjekker at det er soner og fortsetter hvis det er
     if(!gSoner.isEmpty()){
-        cout << "\n[R] - Registrer sone"
-             << "\n[Q] - Avbryt\n";
-        kommando = lesChar("~Menyvalg");
+        cout << "\n[R] Registrer sone | [Q] - Avbryt\n\n"; 
+        kommando = lesChar("Kommando");
 
         while(kommando !='Q') 
         {
@@ -172,9 +171,8 @@ void Kunde::registrerSoner(){
             }
             else cout <<"\nFant ikke sone " << soneInnlest << ".\n";
 
-            cout << "\n[R] - Registrer sone"
-                 << "\n[Q] - Avbryt\n";
-            kommando = lesChar("~Menyvalg");
+            cout << "\n[R] Registrer sone | [Q] - Avbryt\n\n";
+            kommando = lesChar("Kommando");
         }
 
     //Sorterer intreserte soner i stigende rekkefolge

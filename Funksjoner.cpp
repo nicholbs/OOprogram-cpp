@@ -26,7 +26,6 @@ void kundeOversiktTilFil(int kundeNr)
 	if (!gKunder.kundeListeTomSjekk())
 	{
 		vector <int> kundeSoneInteresse;	//Holder alle kundens interessesoner
-		vector<Bolig*> boligVector;			//Holder alle boligene i en interessesone
 
 		kundeSoneInteresse = gKunder.finnKundeSone(kundeNr);
 		if (!kundeSoneInteresse.empty())
@@ -36,11 +35,11 @@ void kundeOversiktTilFil(int kundeNr)
 
 			//Skriver all boligdata for alle boliger i sonen på leselig format
 			for (int i = 0; i < kundeSoneInteresse.size(); i++)
-				gSoner.skrivAlleOppdragISoneTilFil(kundeSoneInteresse[i], ut);	//BURDE BYTTES UT?
+				gSoner.skrivAlleOppdragISoneTilFil(kundeSoneInteresse[i], ut);	
 
 			cout << "\n Oversikt for Kunde " << kundeNr << " skrevet til \"" << filnavn << "\".\n";
 		}
-		else cout << setw(35) << "\n Kunden har ingen registrerte interessesoner.\n";
+		else cout << setw(35) << "\n Kunden finnes ikke eller har ingen registrerte interessesoner.\n";
 	}
 	else cout << setw(35) << "\n Det finnes ingen kunder i systemet\n";
 }
@@ -59,14 +58,23 @@ int lesIntX(int min, int max)
 {
 	string buffer;
 	int val;
+	bool negativ = false;
+
 	cin.ignore();
 	getline(cin, buffer);
 
-	for (int i = 0; i < buffer.size(); i++)
+	if (buffer[0] == '-')
+		negativ = true;
+
+	int i = 0;
+	if (negativ)
+		i++;
+
+	for (i; i < buffer.size(); i++)
 	{
 		if (!isdigit(buffer[i]))
 		{
-			cout << "\nInput matte vare en int\n";
+			cout << "\nVennligst skriv inn et tall.\n";
 			return 0;
 		}
 	}

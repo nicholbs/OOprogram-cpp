@@ -101,11 +101,13 @@ void Kunder::kundeSAlleSkrivData(){
     if(!kundeListe.empty()){
         //Skriver ut alle kunder ifra listen
         for(const auto & liste :kundeListe) {
-            teller ++;
             //Pauser for hvert 10 kunde
-            if(teller%10==0){
-                cin.ignore(); //Far bruker a taste enter
+            if(teller % 10 == 0 && teller != 0){
+                cout << '\n';
+                system("pause"); //Far bruker a taste enter
             }
+            teller++;
+
             liste -> skrivData(); //Kaller pa kunde lesdata
             cout <<"\n";
         }
@@ -189,9 +191,11 @@ bool Kunder::kundeListeTomSjekk() {
  **/
 void Kunder::slettKunde() {
      int nr; //Brukes til innlesning
-     if(!kundeListe.empty()){
-        cout <<"\nHvilken kunde vil du slette? ";
-        nr = lesIntX(1, sisteNr);
+     char konfirmasjon;
+
+    if(!kundeListe.empty()){
+    //cout <<"\nHvilken kunde vil du slette? ";
+    nr = lesIntX(1, sisteNr);
         if (nr != 0)
         {
             //leter etter kunden
@@ -200,12 +204,20 @@ void Kunder::slettKunde() {
 
             //Sa lenge den finnes
             if (it != kundeListe.end()) {
-                delete (*it); //Sletter brukerobjektet
-                kundeListe.remove((*it)); //Fjerner peker fra listen
-                cout << "\nBruker med id: " << nr << " er slettet";
+                konfirmasjon = lesChar("\nNB! Hvis du sletter en Kunde er den borte for alltid. Slett? [j/n]");
+                if (konfirmasjon == 'J')
+                {
+                    delete (*it); //Sletter brukerobjektet
+                    kundeListe.remove((*it)); //Fjerner peker fra listen
+                    cout << "\nBruker med id: " << nr << " er slettet";
+                }
+                else
+                {
+                    cout << "Kunden ble ikke slettet.\n";
+                }
             }
-            else cout << "\nFATAL finner ikke bruker, slett ikke mulig";
+            else cout << "\nFant ikke Kunde " << nr << ".\n";
         }
-     }else cout <<"\nIngen kunder registrert i systemet";
+    }else cout <<"\nIngen kunder registrert i systemet";
 }
 

@@ -154,8 +154,13 @@ void Sone::skrivAlleOppdrag()
                 boligerTilSalgs[i]->skrivData(cout);
             cout << "\n-----------------------------------------------------\n";
 
-            if (i % 5 == 0 && i != 0)
+            if ((i + 1) % 5 == 0 && i != 0)
+            {
+                cout << '\n';
                 system("pause");
+                cout << "\n-----------------------------------------------------\n";
+            }
+                
         }
     }
 }

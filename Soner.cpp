@@ -104,12 +104,9 @@ void Soner::slettOppdrag(int onr)
                 cout << "Oppdraget ble ikke slettet.\n";
             }
             return;     //Stopper å loope i map dersom oppdraget ble funnet
-        }
-        else 
-        {
-            cout << "Finnes ikke noe Oppdrag " << onr << ".\n";
-        }       
-    }   
+        }        
+    } 
+    cout << "\nFinnes ikke noe Oppdrag " << onr << ".\n";
 }
 
 /**
