@@ -32,12 +32,13 @@ Kunder gKunder;		///Globalt objekt for å holde alle Kunde
 * */
 int main()
 {
+	char kommando1;
+
 	gSoner.lesFraFil();
 	gKunder.kunderLesAlleFraFil();
+	
 	hovedMeny();
-
-	char kommando1;
-	cout << "Kommando: ";
+	cout << "\nKommando: ";
 	cin >> kommando1;
 
 	while (kommando1 != 'Q' && kommando1 != 'q') {

@@ -38,7 +38,7 @@ void Soner::nySone(int snr)
 
 		Sone* sp = new Sone(snr, beskrivelse);
 		soneMap.insert(make_pair(snr, sp));
-		cout << "Opprettet ny Sone " << snr << "!\n\n";
+		cout << "Opprettet ny Sone " << snr << "!\n";
 	}
 }
 
