@@ -25,26 +25,25 @@ Kunder::Kunder() {
  *@see Kunde::endreData(..)
  **/
 void Kunder::kundeEndreData(){
-    cin.ignore();
     int nr; //Hvilken kunde skal fa data endrett
-    //Kjores kun hvis det finnes kunder
-    if(sisteNr !=0){
-        //nr = lesInt("\nKundenr: ",1,sisteNr); //hvilken kunde ?
-        nr = lesIntX(1, sisteNr);
-        if (nr != 0)
+    nr = lesIntX(1, MAX_PERSONER);
+    if (nr != 0)
+    {
+        //Kjores kun hvis det finnes kunder
+        if (!kundeListe.empty())
         {
             //Leter etter kunden
             auto it = find_if(kundeListe.begin(), kundeListe.end(),
                 [nr](auto val) {return(val->kundeIdRetur() == nr); });
 
             //Sa lenge treff, endre kunden.
-            if (it != kundeListe.end()) {
+            if (it != kundeListe.end())
                 (*it)->endreData();
-            }
-            else cout << "\n" << ("Finner ikke kunde med id ") << nr;
+            else
+                cout << "\n" << ("Finner ikke kunde med ID ") << nr;
         }
+        else cout << "\nIngen kunder registrert";
     }
-    else cout <<"\nIngen kunder registrert";
 }
 
 /**
@@ -58,7 +57,7 @@ void Kunder::nyKunde() {
         //Oppretter ny kunde og flytter den bakerst i listen (holder seg da sortert
         // da sistnr oker med og alle nye legges altid bakerst
         kundeListe.push_back(new Kunde(sisteNr));
-    }else cout <<"\nIkke mulig a registrere flere brukere i systemet ";
+    }else cout <<"\nIkke mulig a registrere flere brukere i systemet\n";
 }
 
 /**

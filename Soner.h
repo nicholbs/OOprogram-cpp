@@ -2,6 +2,7 @@
 #define __Soner_H
 #include <map>
 #include <vector>
+#include <ostream>
 #include "Sone.h"
 #include "Enebolig.h"
 using namespace std;
@@ -12,7 +13,8 @@ using namespace std;
 class Soner
 {
 private:
-	int sisteNr = 0;
+	int sisteNr;			//Sist brukte bolig ID
+	int antallBoliger;		//Antall boliger some finnes i systemet akkurat nå
 	std::map <int, Sone*> soneMap;
 
 public:
@@ -22,7 +24,8 @@ public:
 	bool finnesSone(int snr);
 	Bolig* finnOppdrag(int onr);
 	void skrivOppdrag(int onr);
-	void skrivAlleOppdragISone(int snr);	
+	void skrivAlleOppdragISone(int snr);
+	void skrivAlleOppdragISoneTilFil(int snr, std::ostream& ut);
 	void skrivHovedDataAlleSoner();		//brukt i case S A for å skrive hovedData om alle Soner
 	void slettOppdrag(int onr);
 	void skrivTilFil();

@@ -6,6 +6,7 @@
 #include "Soner.h"
 #include "Sone.h"
 #include "LesData3.h"
+#include "Const.h"
 
 /**
  * Dette er parameterlos konstruktor for Soner, initialiserer siteNr til å bli 0
@@ -13,6 +14,7 @@
 Soner::Soner()
 {
 	sisteNr = 0;
+    antallBoliger = 0;
 }
 
 /**
@@ -30,7 +32,11 @@ void Soner::nySone(int snr)
 		cout << "Sone " << snr << " finnes allerede!\n";
 	else
 	{
-		Sone* sp = new Sone(snr);
+        string beskrivelse;
+        cout << "\nBeskrivelse: ";
+        getline(cin, beskrivelse);
+
+		Sone* sp = new Sone(snr, beskrivelse);
 		soneMap.insert(make_pair(snr, sp));
 		cout << "Opprettet ny Sone " << snr << "!\n\n";
 	}
@@ -49,15 +55,21 @@ void Soner::nySone(int snr)
  **/
 void Soner::nyttOppdrag(int snr) 
 {
-	const auto& so = soneMap.find(snr);
-	if (so != soneMap.end()) 
-	{
-		so->second->nyttOppdrag(sisteNr + 1);
-		sisteNr++;
-		cout << "Opprettet ny Bolig " << sisteNr << "!\n";
-	}
-	else 
-		cout << "Fant ingen Sone " << snr << ".\n";
+    if (antallBoliger < MAX_OPPDRAG)
+    {
+        const auto& so = soneMap.find(snr);
+        if (so != soneMap.end())
+        {
+            so->second->nyttOppdrag(sisteNr + 1);
+            sisteNr++;
+            antallBoliger++;
+            cout << "Opprettet ny Bolig " << sisteNr << "!\n";
+        }
+        else
+            cout << "Fant ingen Sone " << snr << ".\n";
+    }
+    else
+        cout << "\nSystemet kan ikke ha mer enn " << MAX_OPPDRAG << " oppdrag.\n";
 }
 
 /**
@@ -84,7 +96,7 @@ void Soner::slettOppdrag(int onr)
             if (konfirmasjon == 'J')
             {
                 sonePar.second->slettOppdrag(onr);
-                sisteNr--;
+                antallBoliger--;
                 cout << "Oppdrag " << onr << " har blitt slettet.\n";		
             }
             else
@@ -162,16 +174,23 @@ void Soner::skrivOppdrag(int onr)
 }
 
 /**
- * skrivAlleOppdrag går gjennom alle Sone i Soner, skriver ut alle oppdrag i Sonene.
+ *  Skriver alle oppdrag i én sone til terminalen.
  *
- * Range basert gjennom hele Soner sin Map.
- * Bruker tilpekt Sone sin skrivAlleOppdrag funksjon for utskrift av alle Oppdrag i Sone.
- *
- * @See Sone::skrivAlleOppdrag()
+ * @See Sone::skrivAlleOppdrag(..)
  **/
 void Soner::skrivAlleOppdragISone(int snr)
 {
     soneMap.at(snr)->skrivAlleOppdrag();
+}
+
+/**
+ *  Skriver alle oppdrag i én sone til leselig fil.
+ *
+ * @See Sone::skrivAlleOppdragTilFil(..)
+ **/
+void Soner::skrivAlleOppdragISoneTilFil(int snr, std::ostream& ut)
+{
+    soneMap.at(snr)->skrivAlleOppdragTilFil(ut);
 }
 
 /**
@@ -209,6 +228,7 @@ void Soner::lesFraFil()
 	inn.open("SONER.DTA");
 
 	int soneNr, antallOppdrag, antallSoner;
+    string soneBeskrivelse;
 
 	if (!inn)
 		cout << setw(35) << "Kunne ikke lese fil \"SONER.DTA\"\n\n";
@@ -219,8 +239,9 @@ void Soner::lesFraFil()
 		{
 			inn >> soneNr >> antallOppdrag;
 			inn.ignore();
+            getline(inn, soneBeskrivelse);
 
-			Sone* sp = new Sone(soneNr);
+			Sone* sp = new Sone(soneNr, soneBeskrivelse);
 			for (int i = 0; i < antallOppdrag; i++)
 				sp->nyttOppdrag(inn);
 			soneMap.insert(make_pair(soneNr, sp));
@@ -256,9 +277,15 @@ vector<Bolig*> Soner::finnBoligerISone(int snr)
  *   @see     Sone::skrivHovedDataSone()
  */
 void Soner::skrivHovedDataAlleSoner() {
-	cout << setw(35) << "Skriver ut alle hoved data om soner:" << endl;
-	for (const auto& sonePar : soneMap)
-		{
-		sonePar.second->skrivHovedDataSone();
-		}
+    if (!soneMap.empty())
+    {
+        cout << "\n-----------------------------------------------------\n";
+        for (const auto& sonePar : soneMap)
+        {
+            sonePar.second->skrivHovedDataSone();
+            cout << "-----------------------------------------------------\n";
+        }
+    }
+    else
+        cout << "\nDet finnes ingen soner i systemet.\n";
 }

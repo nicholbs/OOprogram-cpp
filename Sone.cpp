@@ -12,8 +12,9 @@ using namespace std;
  *
  * @Param int id - ID til Sone
  */
-Sone::Sone(int id) {
+Sone::Sone(int id, string b) {
 	ID = id;
+    beskrivelse = b;
 }
 
 /**
@@ -139,7 +140,8 @@ void Sone::skrivAlleOppdrag()
     }
     else
     {
-        cout << "\n-----------------------------------------------------\n";
+        cout << "\n SONE " << ID << "\n\"" << beskrivelse << "\""
+           << "\n-----------------------------------------------------\n";
         for (int i = 0; i < boligerTilSalgs.size(); i++)
         {
             if (boligerTilSalgs[i]->erEnebolig())
@@ -147,6 +149,26 @@ void Sone::skrivAlleOppdrag()
             else
                 boligerTilSalgs[i]->skrivData(cout);
             cout << "\n-----------------------------------------------------\n";
+
+            if (i % 5 == 0 && i != 0)
+                system("pause");
+        }
+    }
+}
+
+void Sone::skrivAlleOppdragTilFil(ostream& ut)
+{
+    if (!boligerTilSalgs.empty())
+    {
+        ut << "\n SONE " << ID << "\n\"" << beskrivelse << "\""
+            << "\n-----------------------------------------------------\n";
+        for (int i = 0; i < boligerTilSalgs.size(); i++)
+        {
+            if (boligerTilSalgs[i]->erEnebolig())
+                static_cast<Enebolig*>(boligerTilSalgs[i])->skrivData(ut);
+            else
+                boligerTilSalgs[i]->skrivData(ut);
+            ut << "\n-----------------------------------------------------\n";
         }
     }
 }
@@ -164,7 +186,8 @@ void Sone::skrivAlleOppdrag()
  * @See Bolig::skrivTilFil()
  */
 void Sone::skrivTilFil(ofstream& ut) {
-	ut << ID << " " << boligerTilSalgs.size() << '\n';
+    ut  << ID << " " << boligerTilSalgs.size() << '\n'
+        << beskrivelse << '\n';
 	for (int i = 0; i < boligerTilSalgs.size(); i++)
 	{
 		if (boligerTilSalgs[i]->erEnebolig())
@@ -181,10 +204,9 @@ void Sone::skrivTilFil(ofstream& ut) {
  *   HovedData for hver sone er dens ID, beskrivelse og antall boliger i sonen.
  */
 void Sone::skrivHovedDataSone() {
-	cout << setw(35) << "Skriver hoveddata om sone" << ' ' << ID << endl;
-	
-	cout << setw(35) << "Beskrivelse av sonen:" << ' ' << beskrivelse << endl;
-	cout << setw(35) << "Antall boliger til salgs i sonen" << ' ' << boligerTilSalgs.size() << endl << endl;
+    cout << " SONE " << ID
+        << "\nBoliger: " << boligerTilSalgs.size()
+        << "\n\"" << beskrivelse << "\"\n";
 }
 
 /**
