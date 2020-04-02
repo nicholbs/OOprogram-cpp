@@ -138,17 +138,6 @@ void menyKunde() {
 			kundeOversiktTilFil(nr);
 		break;
 
-	case 'D':
-		cout << "\nTest skriv ut alle kunder til fil";
-		gKunder.kunderSkrivAlleTilFil();
-		cout << "\nAlle skrevet til fil";
-		break;
-	case 'L':
-		cout << "\nTest imprt alle kunder fra fil";
-		gKunder.kunderLesAlleFraFil();
-		cout << "\nFerdig";
-		break;
-
 	default:
 		cout << setw(35) << "Kunde Default" << endl;
 	}
