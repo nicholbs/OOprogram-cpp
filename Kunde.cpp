@@ -35,7 +35,7 @@ Kunde::Kunde(int nr) {
     lesPostAdr(postAdresse);//Leser postaddresse
     lesEpostAdr(mail); //Leser mail fra bruker
     cin.ignore();
-    telefon = lesInt("\nTelefonnummer:",11111111,99999999); //Sikrer innlesning av tlfnr
+    telefon = lesInt("Telefonnummer:",11111111,99999999); //Sikrer innlesning av tlfnr
     kommando = lesChar("Leilighet/Enebolig [L/E]");         //Registrerer interresenn for leilighet eller bolig
     do
     {    
