@@ -34,24 +34,12 @@ Kunde::Kunde(int nr) {
     lesGateAdr(gateAddresse); //Registrerer gateaddresse
     lesPostAdr(postAdresse);//Leser postaddresse
     lesEpostAdr(mail); //Leser mail fra bruker
-<<<<<<< HEAD
-    //Sikrer innlesning av tlfnr
-    cin.ignore();
-    telefon = lesInt("\nTelefonnummer:",11111111,99999999);
-    //Registrerer interresenn for leilighet eller bolig
-
-
-    while(kommando !='L' && kommando !='E'){
-        kommando = lesChar("Leilighet/enebolig[L/E]");
-        if(kommando =='L'){
-=======
     cin.ignore();
     telefon = lesInt("\nTelefonnummer:",11111111,99999999); //Sikrer innlesning av tlfnr
     kommando = lesChar("Leilighet/Enebolig [L/E]");         //Registrerer interresenn for leilighet eller bolig
     do
     {    
         if(kommando == 'L')
->>>>>>> 29666f749290914d7597e9941c5a327b998e8e50
             boligType = boligtype::Leilighet;
         else if (kommando =='E')
             boligType=boligtype::Enebolig;
