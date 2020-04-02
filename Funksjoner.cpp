@@ -138,19 +138,8 @@ void menyKunde() {
 			kundeOversiktTilFil(nr);
 		break;
 
-	case 'D':
-		cout << "\nTest skriv ut alle kunder til fil";
-		gKunder.kunderSkrivAlleTilFil();
-		cout << "\nAlle skrevet til fil";
-		break;
-	case 'L':
-		cout << "\nTest imprt alle kunder fra fil";
-		gKunder.kunderLesAlleFraFil();
-		cout << "\nFerdig";
-		break;
-
 	default:
-		cout << setw(35) << "Kunde Default" << endl;
+		hovedMeny();
 	}
 }
 
@@ -185,7 +174,7 @@ void menySone() {
 		gSoner.skrivHovedDataAlleSoner();
 		break;
 	default:
-		cout << "Sone Default" << endl;
+		hovedMeny();
 	}
 }
 
@@ -226,7 +215,7 @@ void menyOppdrag() {
 		}
 		break;
 	default:
-		cout << "Oppdrag Default" << endl;
+		hovedMeny();
 	}
 }
 
@@ -383,49 +372,14 @@ void skrivNavn(string & nvn){
 * Utskrift av meny for hoved meny, med andre ord switch i main funksjonen
 **/
 void hovedMeny() {
+	/* << '\n';
 	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
 	cout << setw(5) << "(K)" << setw(30) << "for Kunde funksjoner" << endl;
 	cout << setw(5) << "(S)" << setw(30) << "for Sone funksjoner" << endl;
-	cout << setw(5) << "(O)" << setw(30) << "for Oppdrag/Bolig funksjoner" << endl;
-	cout << endl;
+	cout << setw(5) << "(O)" << setw(30) << "for Oppdrag/Bolig funksjoner" << endl;*/
 
-}
-
-/**
-* Utskrift av meny for kunde funksjoner, kommer etter input "K" fra hovedMeny
-**/
-void kundeMeny() {
-	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
-	cout << setw(5) << "(N)" << setw(30) << "Lage ny Kunde" << endl;
-	cout << setw(5) << "(1)" << setw(30) << "Skriv info om en kunde" << endl;
-	cout << setw(5) << "(A)" << setw(30) << "Skriv info om alle kunder" << endl;
-	cout << setw(5) << "(E)" << setw(30) << "Endre info om kunde" << endl;
-	cout << setw(5) << "(S)" << setw(30) << "Slett kunde" << endl;
-	cout << setw(5) << "(O)" << setw(30) << "Skriver all bolig data" << endl;
-	cout << endl;
-
-}
-
-/**
-* Utskrift av meny for Sone funksjoner, kommer etter input "S" fra hovedMeny
-**/
-void soneMeny() {
-	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
-	cout << setw(5) << "(N)" << setw(30) << "Lage ny Sone" << endl;
-	cout << setw(5) << "(1)" << setw(30) << "Skriv ut alt om alle oppdrag" << endl;
-	cout << setw(5) << "(A)" << setw(30) << "Hoveddata om alle soner" << endl;
-	cout << endl;
-
-}
-
-/**
-* Utskrift av meny for Oppdrag funksjoner, kommer etter input "O" fra hovedMeny
-**/
-void oppdragMeny() {
-	cout << setw(35) << "Kommandoer tilgjengelig:" << endl;
-	cout << setw(5) << "(N)" << setw(30) << "Lage ny Oppdrag" << endl;
-	cout << setw(5) << "(1)" << setw(30) << "Skriv ut alt om alle oppdrag?? eller bare om et oppdrag" << endl;			///////////////Skal det skrives ut om en eller alle oppdrag??????????
-	cout << setw(5) << "(S)" << setw(30) << "Slett oppdrag" << endl;
-	cout << endl;
-
+	cout << '\n';
+	cout << left << setw(13) << "[K] Kunde" << "- [N] Ny | [1] Skriv ut | [A] Skriv alle | [E] Endre | [S] Slett\n"
+		<< setw(13) << "[S] Sone" << "- [N] Ny | [1] Skriv ut | [A] Skriv alle\n"
+		<< setw(13) << "[O] Oppdrag" << "- [N] Ny | [1] Skriv ut | [S] Slett\n";
 }

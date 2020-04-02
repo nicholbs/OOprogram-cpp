@@ -19,7 +19,6 @@ using namespace std;
 Bolig::Bolig(int id) {
 	ID = id;
 	boligType = boligtype::Leilighet;
-	cin.ignore();
 	dato = lesInt("Dato [YYYYMMDD]: ", 0, 99999999);
 	byggeaar = lesInt("Byggeaar: ", 0, 2020);
 	bruttoareal = lesInt("Bruttoareal: ", 0, 10000);

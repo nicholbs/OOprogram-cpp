@@ -38,7 +38,7 @@ void Soner::nySone(int snr)
 
 		Sone* sp = new Sone(snr, beskrivelse);
 		soneMap.insert(make_pair(snr, sp));
-		cout << "Opprettet ny Sone " << snr << "!\n\n";
+		cout << "Opprettet ny Sone " << snr << "!\n";
 	}
 }
 
@@ -97,7 +97,7 @@ void Soner::slettOppdrag(int onr)
             {
                 sonePar.second->slettOppdrag(onr);
                 antallBoliger--;
-                cout << "Oppdrag " << onr << " har blitt slettet.\n";		
+                cout << "Oppdrag " << onr << " har blitt slettet.\n";
             }
             else
             {
@@ -105,6 +105,10 @@ void Soner::slettOppdrag(int onr)
             }
             return;     //Stopper å loope i map dersom oppdraget ble funnet
         }
+        else 
+        {
+            cout << "Finnes ikke noe Oppdrag " << onr << ".\n";
+        }       
     }   
 }
 
@@ -206,7 +210,7 @@ void Soner::skrivTilFil()
 	ofstream ut;
 	ut.open("SONER.DTA");
 
-	ut << soneMap.size() << '\n';
+	ut << sisteNr << ' ' << soneMap.size() << '\n';
 	for (const auto& sonePar : soneMap)
 		sonePar.second->skrivTilFil(ut);
 
@@ -224,11 +228,14 @@ void Soner::skrivTilFil()
  **/
 void Soner::lesFraFil()
 {
+    int soneNr, antallOppdrag, antallSoner;
+    string soneBeskrivelse;
+
 	ifstream inn;
 	inn.open("SONER.DTA");
 
-	int soneNr, antallOppdrag, antallSoner;
-    string soneBeskrivelse;
+    inn >> sisteNr;
+    inn.ignore();
 
 	if (!inn)
 		cout << setw(35) << "Kunne ikke lese fil \"SONER.DTA\"\n\n";

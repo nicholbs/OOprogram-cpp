@@ -15,8 +15,12 @@ Enebolig::Enebolig(int id) : Enebolig::Bolig(id)
 {
 	boligType = boligtype::Enebolig;
 	areal = lesInt("Areal", 1, 1000);
-	cout << "Festetomt [J/N]: ";
-	char valg; cin >> valg;
+
+	char valg;
+	do {
+		valg = lesChar("Festetomt [J/N]");
+	} while (valg != 'J' && valg != 'N');
+	
 	if (toupper(valg) == 'J')
 		festetomt = true;
 	else

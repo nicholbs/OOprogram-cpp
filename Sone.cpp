@@ -4,6 +4,7 @@
 #include <iostream>
 #include <ctype.h>			//nicholas lagt til for skrivTilFil
 #include <iomanip>
+#include "LesData3.h"
 
 using namespace std;
 
@@ -24,8 +25,11 @@ Sone::Sone(int id, string b) {
  */
 void Sone::nyttOppdrag(int onr)
 {
-	cout << "Leilighet/enebolig [L/E]: ";
-	char valg; cin >> valg;
+    char valg;
+    do {
+        valg = lesChar("Leilighet/enebolig [L/E]");
+    } while (valg != 'E' && valg != 'L');
+	
 
 	Bolig* bp = nullptr;
 	if (toupper(valg) == 'L')
